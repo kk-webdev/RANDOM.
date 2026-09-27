@@ -1,1 +1,937 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Bilmediğin Şeyler</title>
+    <meta name="description" content="İlginç bilgiler, oyunlar, testler ve beynini yakacak garip şeyler.">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ARKA PLAN -->
+    <div class="background">
+        <div class="glow glow-1"></div>
+        <div class="glow glow-2"></div>
+        <div class="noise"></div>
+    </div>
+
+    <!-- ÜST MENÜ -->
+    <header class="navbar">
+        <div class="logo">
+            BİLMEDİĞİN<span>ŞEYLER</span>
+        </div>
+
+        <div class="nav-right">
+            <span id="discoveryCounter">0 / 12 keşfedildi</span>
+        </div>
+    </header>
+
+
+    <!-- AÇILIŞ EKRANI -->
+    <section id="intro" class="intro">
+
+        <div class="intro-content">
+
+            <p class="intro-small">
+                İnternette yeterince uzun kaldın.
+            </p>
+
+            <h1>
+                BİLMEMEN GEREKEN<br>
+                <span>ŞEYLER VAR.</span>
+            </h1>
+
+            <p class="intro-description">
+                Garip bilgiler, küçük deneyler, oyunlar,
+                testler ve muhtemelen hiçbir işine yaramayacak şeyler.
+            </p>
+
+            <button id="enterButton" class="main-button">
+                BENİ ŞAŞIRT
+            </button>
+
+            <p class="warning">
+                Buraya girdikten sonra öğrendiklerinden biz sorumlu değiliz.
+            </p>
+
+        </div>
+
+        <div class="scroll-indicator">
+            ↓
+        </div>
+
+    </section>
+
+
+    <!-- ANA İÇERİK -->
+    <main id="mainContent" class="main-content">
+
+        <div class="section-heading">
+            <p>NE YAPMAK İSTİYORSUN?</p>
+            <h2>Bir şey seç.</h2>
+            <span>Ya da hiçbir şey seçme. Site senin yerine karar versin.</span>
+        </div>
+
+
+        <!-- RASTGELE BUTONU -->
+        <button id="randomButton" class="random-button">
+            <span class="random-icon">🎲</span>
+
+            <div>
+                <strong>BANA RASTGELE BİR ŞEY GÖSTER</strong>
+                <small>Ne çıkacağını biz de bilmiyoruz.</small>
+            </div>
+
+            <span class="arrow">→</span>
+        </button>
+
+
+        <!-- KATEGORİLER -->
+        <div class="category-grid">
+
+            <button class="category-card" data-category="facts">
+                <span class="number">01</span>
+                <span class="emoji">🧠</span>
+                <h3>Bunu biliyor muydun?</h3>
+                <p>Gerçek ama kulağa tamamen uydurma gelen bilgiler.</p>
+                <span class="open">KEŞFET →</span>
+            </button>
+
+
+            <button class="category-card" data-category="random">
+                <span class="number">02</span>
+                <span class="emoji">🎲</span>
+                <h3>Rastgele bir şey</h3>
+                <p>Ne göreceğin hakkında hiçbir fikrin yok.</p>
+                <span class="open">RİSKİ AL →</span>
+            </button>
+
+
+            <button class="category-card" data-category="brain">
+                <span class="number">03</span>
+                <span class="emoji">🤯</span>
+                <h3>Beynini yak</h3>
+                <p>Mantık soruları, paradokslar ve küçük beyin işkenceleri.</p>
+                <span class="open">BAŞLA →</span>
+            </button>
+
+
+            <button class="category-card" data-category="illusion">
+                <span class="number">04</span>
+                <span class="emoji">👀</span>
+                <h3>Gözlerine güveniyor musun?</h3>
+                <p>Gördüğün her şey gerçekten gördüğün şey olmayabilir.</p>
+                <span class="open">GÖSTER →</span>
+            </button>
+
+
+            <button class="category-card" data-category="predict">
+                <span class="number">05</span>
+                <span class="emoji">🎯</span>
+                <h3>Seni tahmin edeceğim</h3>
+                <p>Aklından bir şey tut. Gerisini bize bırak.</p>
+                <span class="open">DENE →</span>
+            </button>
+
+
+            <button class="category-card" data-category="real">
+                <span class="number">06</span>
+                <span class="emoji">🕵️</span>
+                <h3>Hangisi gerçek?</h3>
+                <p>Üç garip bilgi. Biri yalan. Bulabilecek misin?</p>
+                <span class="open">OYNA →</span>
+            </button>
+
+
+            <button class="category-card" data-category="world">
+                <span class="number">07</span>
+                <span class="emoji">🌍</span>
+                <h3>Dünyada şu an...</h3>
+                <p>Sen bu yazıyı okurken dünyada bir sürü şey oluyor.</p>
+                <span class="open">CANLI BAK →</span>
+            </button>
+
+
+            <button class="category-card danger-card" data-category="disturbing">
+                <span class="number">08</span>
+                <span class="emoji">💀</span>
+                <h3>Rahatsız edici bilgiler</h3>
+                <p>Muhtemelen bilmeden önce daha mutluydun.</p>
+                <span class="open">EMİNİM →</span>
+            </button>
+
+
+            <button class="category-card" data-category="tests">
+                <span class="number">09</span>
+                <span class="emoji">😂</span>
+                <h3>Saçma testler</h3>
+                <p>Bilimsel değeri tam olarak sıfır olan çok önemli testler.</p>
+                <span class="open">TESTE GİR →</span>
+            </button>
+
+
+            <button class="category-card" data-category="fortune">
+                <span class="number">10</span>
+                <span class="emoji">🔮</span>
+                <h3>Bugünkü kaderin</h3>
+                <p>Bugün başına ne geleceğini internet belirlesin.</p>
+                <span class="open">KADERİMİ GÖSTER →</span>
+            </button>
+
+
+            <button class="category-card" data-category="games">
+                <span class="number">11</span>
+                <span class="emoji">🎮</span>
+                <h3>Mini oyunlar</h3>
+                <p>Reflekslerini ve sabrını gereksiz yere test et.</p>
+                <span class="open">OYNA →</span>
+            </button>
+
+
+            <button class="category-card" data-category="experiments">
+                <span class="number">12</span>
+                <span class="emoji">🧪</span>
+                <h3>İnsan beyni çok garip</h3>
+                <p>Kendi beyninin sana nasıl oyun oynadığını gör.</p>
+                <span class="open">DENEYİ BAŞLAT →</span>
+            </button>
+
+        </div>
+
+    </main>
+
+
+    <!-- BÖLÜMLERİN AÇILACAĞI PENCERE -->
+    <div id="experienceOverlay" class="experience-overlay">
+
+        <button id="closeExperience" class="close-button">
+            ×
+        </button>
+
+        <div id="experienceContent" class="experience-content">
+        </div>
+
+    </div>
+
+
+    <!-- GİZLİ MESAJ -->
+    <div id="secretMessage" class="secret-message">
+        Burada bir şey buldun.
+    </div>
+
+
+    <footer>
+        <p>
+            İnternette gördüğün her şeye inanma.
+            <span>Buradakilere bile.</span>
+        </p>
+    </footer>
+
+
+<!-- =====================================================
+     GLOBAL AYARLAR BUTONU
+===================================================== -->
+
+<button
+    id="settingsButton"
+    class="settings-button"
+    aria-label="Ayarları aç"
+>
+    <span class="settings-button-icon">⚙</span>
+
+    <span class="settings-button-text">
+        AYARLAR
+    </span>
+
+    <span
+        id="radioPlayingIndicator"
+        class="radio-playing-indicator"
+    >
+        <i></i>
+        RADYO
+    </span>
+</button>
+
+
+<!-- =====================================================
+     AYARLAR ARKA PLANI
+===================================================== -->
+
+<div
+    id="settingsBackdrop"
+    class="settings-backdrop"
+></div>
+
+
+<!-- =====================================================
+     AYARLAR PANELİ
+===================================================== -->
+
+<aside
+    id="settingsPanel"
+    class="settings-panel"
+>
+
+    <!-- ÜST KISIM -->
+
+    <div class="settings-header">
+
+        <div>
+
+            <span class="settings-eyebrow">
+                BİLMEDİĞİN ŞEYLER
+            </span>
+
+            <h2>
+                Ayarlar
+            </h2>
+
+            <p>
+                Deneyimini kendine göre ayarla.
+            </p>
+
+        </div>
+
+        <button
+            id="closeSettings"
+            class="settings-close"
+            aria-label="Ayarları kapat"
+        >
+            ×
+        </button>
+
+    </div>
+
+
+    <div class="settings-content">
+
+
+        <!-- =================================================
+             GÖRÜNÜM
+        ================================================== -->
+
+        <section class="settings-section">
+
+            <div class="settings-section-title">
+
+                <span class="settings-section-icon">
+                    Aa
+                </span>
+
+                <div>
+                    <span>GÖRÜNÜM</span>
+                    <p>Yazıları ve arayüzü değiştir.</p>
+                </div>
+
+            </div>
+
+
+            <!-- YAZI BOYUTU -->
+
+            <div class="setting-block">
+
+                <div class="setting-label">
+
+                    <div>
+                        <strong>Yazı Boyutu</strong>
+
+                        <span>
+                            Site genelindeki metinleri büyüt veya küçült.
+                        </span>
+                    </div>
+
+                    <span
+                        id="fontSizeStatus"
+                        class="setting-current-value"
+                    >
+                        NORMAL
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="segmented-control"
+                    id="fontSizeControl"
+                >
+
+                    <button
+                        data-font-size="small"
+                    >
+                        Küçük
+                    </button>
+
+                    <button
+                        data-font-size="normal"
+                        class="active"
+                    >
+                        Normal
+                    </button>
+
+                    <button
+                        data-font-size="large"
+                    >
+                        Büyük
+                    </button>
+
+                    <button
+                        data-font-size="xlarge"
+                    >
+                        Çok Büyük
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- ARAYÜZ YOĞUNLUĞU -->
+
+            <div class="setting-block">
+
+                <div class="setting-label">
+
+                    <div>
+                        <strong>Arayüz Yoğunluğu</strong>
+
+                        <span>
+                            Kartların arasındaki boşluğu ayarla.
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="segmented-control three"
+                    id="densityControl"
+                >
+
+                    <button
+                        data-density="compact"
+                    >
+                        Kompakt
+                    </button>
+
+                    <button
+                        data-density="normal"
+                        class="active"
+                    >
+                        Normal
+                    </button>
+
+                    <button
+                        data-density="comfortable"
+                    >
+                        Rahat
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- ANİMASYON -->
+
+            <div class="setting-block horizontal-setting">
+
+                <div class="setting-label">
+
+                    <div>
+                        <strong>Animasyonlar</strong>
+
+                        <span>
+                            Geçişler ve hareketli efektler.
+                        </span>
+                    </div>
+
+                </div>
+
+                <label class="settings-switch">
+
+                    <input
+                        id="animationToggle"
+                        type="checkbox"
+                        checked
+                    >
+
+                    <span></span>
+
+                </label>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             TEMA
+        ================================================== -->
+
+        <section class="settings-section">
+
+            <div class="settings-section-title">
+
+                <span class="settings-section-icon">
+                    ◐
+                </span>
+
+                <div>
+                    <span>TEMA</span>
+                    <p>Sitenin havasını değiştir.</p>
+                </div>
+
+            </div>
+
+
+            <div
+                id="themeSelector"
+                class="theme-selector"
+            >
+
+                <button
+                    class="theme-option active"
+                    data-theme="purple"
+                >
+
+                    <span
+                        class="theme-color purple"
+                    ></span>
+
+                    <strong>Mor</strong>
+
+                    <small>
+                        Varsayılan
+                    </small>
+
+                </button>
+
+
+                <button
+                    class="theme-option"
+                    data-theme="blue"
+                >
+
+                    <span
+                        class="theme-color blue"
+                    ></span>
+
+                    <strong>
+                        Gece Mavisi
+                    </strong>
+
+                    <small>
+                        Soğuk
+                    </small>
+
+                </button>
+
+
+                <button
+                    class="theme-option"
+                    data-theme="red"
+                >
+
+                    <span
+                        class="theme-color red"
+                    ></span>
+
+                    <strong>
+                        Kızıl
+                    </strong>
+
+                    <small>
+                        Yoğun
+                    </small>
+
+                </button>
+
+
+                <button
+                    class="theme-option"
+                    data-theme="matrix"
+                >
+
+                    <span
+                        class="theme-color matrix"
+                    ></span>
+
+                    <strong>
+                        Matrix
+                    </strong>
+
+                    <small>
+                        Terminal
+                    </small>
+
+                </button>
+
+
+                <button
+                    class="theme-option"
+                    data-theme="black"
+                >
+
+                    <span
+                        class="theme-color black"
+                    ></span>
+
+                    <strong>
+                        Saf Siyah
+                    </strong>
+
+                    <small>
+                        Minimal
+                    </small>
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             CANLI RADYO
+        ================================================== -->
+
+        <section class="settings-section radio-settings-section">
+
+            <div class="settings-section-title">
+
+                <span class="settings-section-icon">
+                    ◉
+                </span>
+
+                <div>
+                    <span>CANLI RADYO</span>
+
+                    <p>
+                        Gezinirken müzik dinlemeye devam et.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- PLAYER -->
+
+            <div class="radio-player">
+
+                <div class="radio-now-playing">
+
+                    <div
+                        id="radioVisualizer"
+                        class="radio-visualizer"
+                    >
+
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                        <i></i>
+
+                    </div>
+
+
+                    <div class="radio-info">
+
+                        <span>
+                            ŞU AN SEÇİLİ
+                        </span>
+
+                        <strong id="currentRadioName">
+                            Radyo Fenomen
+                        </strong>
+
+                        <small id="radioStatus">
+                            Dinlemeye hazır
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <!-- İSTASYONLAR -->
+
+                <div
+                    id="radioStations"
+                    class="radio-stations"
+                >
+
+                    <button
+                        class="radio-station active"
+                        data-station="fenomen"
+                    >
+                        <span class="station-live-dot"></span>
+
+                        <div>
+                            <strong>
+                                Radyo Fenomen
+                            </strong>
+
+                            <small>
+                                Hit • Pop • Dance
+                            </small>
+                        </div>
+                    </button>
+
+
+                    <button
+                        class="radio-station"
+                        data-station="fenomenturk"
+                    >
+                        <span class="station-live-dot"></span>
+
+                        <div>
+                            <strong>
+                                Fenomen Türk
+                            </strong>
+
+                            <small>
+                                Türkçe Pop
+                            </small>
+                        </div>
+                    </button>
+
+
+                    <button
+                        class="radio-station"
+                        data-station="kralpop"
+                    >
+                        <span class="station-live-dot"></span>
+
+                        <div>
+                            <strong>
+                                Kral Pop
+                            </strong>
+
+                            <small>
+                                Türkçe Pop
+                            </small>
+                        </div>
+                    </button>
+
+
+                    <button
+                        class="radio-station"
+                        data-station="kralfm"
+                    >
+                        <span class="station-live-dot"></span>
+
+                        <div>
+                            <strong>
+                                Kral FM
+                            </strong>
+
+                            <small>
+                                Türkçe Müzik
+                            </small>
+                        </div>
+                    </button>
+
+                </div>
+
+
+                <!-- KONTROLLER -->
+
+                <div class="radio-controls">
+
+                    <button
+                        id="radioPrevious"
+                        class="radio-control-small"
+                        aria-label="Önceki radyo"
+                    >
+                        ‹
+                    </button>
+
+
+                    <button
+                        id="radioPlayButton"
+                        class="radio-play-button"
+                        aria-label="Radyoyu oynat"
+                    >
+                        ▶
+                    </button>
+
+
+                    <button
+                        id="radioNext"
+                        class="radio-control-small"
+                        aria-label="Sonraki radyo"
+                    >
+                        ›
+                    </button>
+
+                </div>
+
+
+                <!-- SES -->
+
+                <div class="radio-volume">
+
+                    <span>
+                        🔊
+                    </span>
+
+                    <input
+                        id="radioVolume"
+                        type="range"
+                        min="0"
+                        max="100"
+                        value="55"
+                    >
+
+                    <span
+                        id="radioVolumeValue"
+                    >
+                        55%
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- GERÇEK AUDIO ELEMENTİ -->
+
+            <audio
+                id="siteRadioPlayer"
+                preload="none"
+            ></audio>
+
+        </section>
+
+
+
+        <!-- =================================================
+             SES EFEKTLERİ
+        ================================================== -->
+
+        <section class="settings-section">
+
+            <div class="settings-section-title">
+
+                <span class="settings-section-icon">
+                    ♪
+                </span>
+
+                <div>
+                    <span>SES EFEKTLERİ</span>
+
+                    <p>
+                        Site içindeki küçük sesleri kontrol et.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="setting-block horizontal-setting">
+
+                <div class="setting-label">
+
+                    <div>
+                        <strong>
+                            Buton Sesleri
+                        </strong>
+
+                        <span>
+                            Tıklamalarda hafif geri bildirim.
+                        </span>
+                    </div>
+
+                </div>
+
+                <label class="settings-switch">
+
+                    <input
+                        id="buttonSoundToggle"
+                        type="checkbox"
+                    >
+
+                    <span></span>
+
+                </label>
+
+            </div>
+
+
+            <div class="setting-block horizontal-setting">
+
+                <div class="setting-label">
+
+                    <div>
+                        <strong>
+                            Deney Sonuç Sesleri
+                        </strong>
+
+                        <span>
+                            Sonuç açıldığında kısa efekt.
+                        </span>
+                    </div>
+
+                </div>
+
+                <label class="settings-switch">
+
+                    <input
+                        id="resultSoundToggle"
+                        type="checkbox"
+                    >
+
+                    <span></span>
+
+                </label>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             SIFIRLA
+        ================================================== -->
+
+        <button
+            id="resetSiteSettings"
+            class="reset-settings-button"
+        >
+
+            <span>
+                ↻
+            </span>
+
+            <div>
+                <strong>
+                    Ayarları Sıfırla
+                </strong>
+
+                <small>
+                    Tüm seçenekleri varsayılana döndür.
+                </small>
+            </div>
+
+        </button>
+
+
+    </div>
+
+</aside>
+
+
+
+    <script src="script.js"></script>
+
+
+
+
+</body>
+</html>
