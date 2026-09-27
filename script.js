@@ -10026,29 +10026,36 @@ const siteRadioStations = [
     {
         id: "fenomen",
         name: "Radyo Fenomen",
-        genre: "Hit • Pop • Dance",
-        stream: "https://listen.radyofenomen.com/fenomen/128/icecast.audio"
+        genre: "Yabancı Hit • Pop • Dance",
+        stream: "https://live.radyofenomen.com/fenomen/128/icecast.audio"
     },
 
     {
-        id: "fenomenturk",
-        name: "Fenomen Türk",
+        id: "joyturk",
+        name: "JoyTürk",
+        genre: "Türkçe Pop • Slow",
+        stream: "https://17733.live.streamtheworld.com/JOY_TURK_SC"
+    },
+
+    {
+        id: "powerturk",
+        name: "PowerTürk",
         genre: "Türkçe Pop",
-        stream: "https://listen.radyofenomen.com/fenomenturk/128/icecast.audio"
+        stream: "https://listen.powerapp.com.tr/powerturk/mpeg/icecast.audio"
     },
 
     {
-        id: "kralpop",
-        name: "Kral Pop",
+        id: "alemfm",
+        name: "Alem FM",
         genre: "Türkçe Pop",
-        stream: ""
+        stream: "https://turkmedya.radyotvonline.net/alemfmaac"
     },
 
     {
-        id: "kralfm",
-        name: "Kral FM",
-        genre: "Türkçe Müzik",
-        stream: ""
+        id: "slowturk",
+        name: "SlowTürk",
+        genre: "Türkçe Slow",
+        stream: "https://radyo.duhnet.tv/slowturk"
     }
 
 ];
