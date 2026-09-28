@@ -1739,11 +1739,10 @@ function openExperience(category) {
         experienceContent.innerHTML =
             createBirthChartExperience();
 
-    } else if (category === "luckytrap") {
+   } else if (category === "luckytrap") {
 
-        experienceContent.innerHTML =
-            createComingSoon("luckytrap");
-
+    experienceContent.innerHTML =
+        createLuckyTrapExperience();
     } else if (category === "decisions") {
 
         experienceContent.innerHTML =
@@ -20160,23 +20159,68 @@ function createLuckyTrapExperience() {
 
             <div class="luckytrap-machine">
 
-                <div class="luckytrap-reels">
+    <div class="luckytrap-game-title">
+        <span>⚡</span>
 
-                    <div class="luckytrap-reel" id="luckyReel1">
-                        🍒
-                    </div>
+        <div>
+            <strong>REALM OF FORTUNE</strong>
+            <small>1000</small>
+        </div>
 
-                    <div class="luckytrap-reel" id="luckyReel2">
-                        💎
-                    </div>
+        <span>⚡</span>
+    </div>
 
-                    <div class="luckytrap-reel" id="luckyReel3">
-                        7
-                    </div>
 
-                </div>
+    <div class="luckytrap-grid" id="luckyTrapGrid">
 
-            </div>
+        <div class="luckytrap-symbol">💎</div>
+        <div class="luckytrap-symbol">👑</div>
+        <div class="luckytrap-symbol">💚</div>
+        <div class="luckytrap-symbol">🏆</div>
+        <div class="luckytrap-symbol">💍</div>
+        <div class="luckytrap-symbol">💜</div>
+
+        <div class="luckytrap-symbol">🏆</div>
+        <div class="luckytrap-symbol">💙</div>
+        <div class="luckytrap-symbol">👑</div>
+        <div class="luckytrap-symbol">💎</div>
+        <div class="luckytrap-symbol">⏳</div>
+        <div class="luckytrap-symbol">💚</div>
+
+        <div class="luckytrap-symbol">💍</div>
+        <div class="luckytrap-symbol">💜</div>
+        <div class="luckytrap-symbol">🏆</div>
+        <div class="luckytrap-symbol">💙</div>
+        <div class="luckytrap-symbol">👑</div>
+        <div class="luckytrap-symbol">💎</div>
+
+        <div class="luckytrap-symbol">💚</div>
+        <div class="luckytrap-symbol">⏳</div>
+        <div class="luckytrap-symbol">💍</div>
+        <div class="luckytrap-symbol">🏆</div>
+        <div class="luckytrap-symbol">💜</div>
+        <div class="luckytrap-symbol">👑</div>
+
+        <div class="luckytrap-symbol">💙</div>
+        <div class="luckytrap-symbol">💎</div>
+        <div class="luckytrap-symbol">⏳</div>
+        <div class="luckytrap-symbol">💚</div>
+        <div class="luckytrap-symbol">🏆</div>
+        <div class="luckytrap-symbol">💍</div>
+
+    </div>
+
+
+    <div class="luckytrap-multiplier-preview">
+
+        <span>⚡ x2</span>
+        <span>⚡ x5</span>
+        <span>⚡ x25</span>
+        <span>⚡ x100</span>
+
+    </div>
+
+</div>
 
 
             <div class="luckytrap-bet-area">
@@ -20245,5 +20289,130 @@ function changeLuckyTrapBet() {
 
     luckyTrapBet =
         Number(select.value);
+
+}
+
+function spinLuckyTrap() {
+
+    if (luckyTrapLocked) return;
+
+    const grid = document.getElementById("luckyTrapGrid");
+    const message = document.getElementById("luckyTrapMessage");
+    const balanceElement = document.getElementById("luckyTrapBalance");
+
+    if (!grid || !message || !balanceElement) return;
+
+    if (luckyTrapBalance < luckyTrapBet) {
+        message.textContent = "Yetersiz sanal bakiye.";
+        return;
+    }
+
+    luckyTrapLocked = true;
+
+    luckyTrapBalance -= luckyTrapBet;
+
+    balanceElement.textContent =
+        luckyTrapBalance.toLocaleString("tr-TR") + " ₺";
+
+    message.textContent = "Çevriliyor...";
+
+    const symbols = [
+        "💎",
+        "👑",
+        "💚",
+        "🏆",
+        "💍",
+        "💜",
+        "💙",
+        "⏳"
+    ];
+
+    const cells = [...grid.querySelectorAll(".luckytrap-symbol")];
+
+    /*
+        HTML sıralamamız satır satır olduğu için
+        her sütunun hücrelerini ayrı topluyoruz.
+    */
+
+    for (let column = 0; column < 6; column++) {
+
+        const columnCells = cells.filter(
+            (_, index) => index % 6 === column
+        );
+
+        setTimeout(() => {
+
+            columnCells.forEach((cell, row) => {
+
+                cell.classList.add("spinning");
+
+                /*
+                    Sembol değişimi hücre hücre
+                    küçük gecikmeyle gerçekleşiyor.
+                */
+
+                setTimeout(() => {
+
+                    const randomSymbol =
+                        symbols[
+                            Math.floor(
+                                Math.random() * symbols.length
+                            )
+                        ];
+
+                    cell.textContent = randomSymbol;
+
+                }, row * 45);
+
+            });
+
+        }, column * 70);
+
+
+        /*
+            Her sütun farklı zamanda duruyor.
+        */
+
+        setTimeout(() => {
+
+            columnCells.forEach(cell => {
+
+                const randomSymbol =
+                    symbols[
+                        Math.floor(
+                            Math.random() * symbols.length
+                        )
+                    ];
+
+                cell.textContent = randomSymbol;
+
+                cell.classList.remove("spinning");
+                cell.classList.add("landed");
+
+                setTimeout(() => {
+                    cell.classList.remove("landed");
+                }, 220);
+
+            });
+
+        }, 650 + (column * 110));
+
+    }
+
+
+    /*
+        Son sütun durduktan sonra
+        spin tamamlanıyor.
+    */
+
+    setTimeout(() => {
+
+        message.textContent =
+            luckyTrapBet.toLocaleString("tr-TR") +
+            " ₺ sanal bahis oynandı.";
+
+        luckyTrapLocked = false;
+
+    }, 1400);
 
 }
