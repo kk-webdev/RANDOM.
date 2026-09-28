@@ -1743,17 +1743,15 @@ function openExperience(category) {
 
     experienceContent.innerHTML =
         createLuckyTrapExperience();
-    } else if (category === "decisions") {
+         startLuckyTrapTimer();
+  } else if (category === "decisions") {
 
-        experienceContent.innerHTML =
-            createComingSoon("decisions");
+    experienceContent.innerHTML =
+        createDecisionExperience();
 
-    } else {
+}
 
-        experienceContent.innerHTML =
-            createComingSoon(category);
-    }
-
+// PENCEREYİ AÇ
 
     // PENCEREYİ AÇ
     overlay.classList.add("active");
@@ -1771,6 +1769,19 @@ function openExperience(category) {
 ========================================= */
 
 function closeExperience() {
+
+    // Lucky Trap zamanlayıcısı çalışıyorsa durdur
+    if (luckyTrapRevealTimer) {
+        clearTimeout(luckyTrapRevealTimer);
+        luckyTrapRevealTimer = null;
+    }
+
+    // Lucky Trap durumunu sıfırla
+    luckyTrapStartTime = null;
+    luckyTrapExtraMinutes = 0;
+    luckyTrapRevealTarget = 0;
+    luckyTrapRevealShown = false;
+    luckyTrapLocked = false;
 
     overlay.classList.remove("active");
 
@@ -10711,79 +10722,249 @@ function getSiteAudioContext() {
 
 function playInterfaceSound(type) {
 
-    const context =
-        getSiteAudioContext();
-
+    const context = getSiteAudioContext();
 
     if (!context) {
         return;
     }
 
-
-    if (
-        context.state === "suspended"
-    ) {
-
+    if (context.state === "suspended") {
         context.resume();
     }
 
-
-    const oscillator =
-        context.createOscillator();
-
-    const gain =
-        context.createGain();
+    const now = context.currentTime;
 
 
-    oscillator.connect(gain);
+    /* =========================================
+       TEK NOTA OYNATICI
+    ========================================= */
 
-    gain.connect(
-        context.destination
-    );
+    function tone(
+        frequency,
+        start,
+        duration,
+        volume = 0.025,
+        wave = "sine"
+    ) {
 
+        const oscillator =
+            context.createOscillator();
+
+        const gain =
+            context.createGain();
+
+        oscillator.type = wave;
+
+        oscillator.frequency.setValueAtTime(
+            frequency,
+            now + start
+        );
+
+        gain.gain.setValueAtTime(
+            0.0001,
+            now + start
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            volume,
+            now + start + 0.01
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.0001,
+            now + start + duration
+        );
+
+        oscillator.connect(gain);
+        gain.connect(context.destination);
+
+        oscillator.start(
+            now + start
+        );
+
+        oscillator.stop(
+            now + start + duration + 0.02
+        );
+    }
+
+
+    /* =========================================
+       BUTON TIKLAMASI
+    ========================================= */
+
+    if (type === "click") {
+
+        tone(
+            520,
+            0,
+            0.045,
+            0.012,
+            "sine"
+        );
+
+        tone(
+            720,
+            0.018,
+            0.035,
+            0.006,
+            "sine"
+        );
+
+        return;
+    }
+
+
+    /* =========================================
+       NORMAL SONUÇ
+    ========================================= */
 
     if (type === "result") {
 
-        oscillator.frequency.value =
-            660;
-
-        gain.gain.setValueAtTime(
-            0.035,
-            context.currentTime
+        tone(
+            520,
+            0,
+            0.12,
+            0.018
         );
 
-        gain.gain.exponentialRampToValueAtTime(
-            0.001,
-            context.currentTime + 0.18
+        tone(
+            660,
+            0.08,
+            0.15,
+            0.022
         );
 
-        oscillator.start();
-
-        oscillator.stop(
-            context.currentTime + 0.18
+        tone(
+            880,
+            0.17,
+            0.20,
+            0.018
         );
 
-    } else {
-
-        oscillator.frequency.value =
-            420;
-
-        gain.gain.setValueAtTime(
-            0.018,
-            context.currentTime
-        );
-
-        gain.gain.exponentialRampToValueAtTime(
-            0.001,
-            context.currentTime + 0.055
-        );
-
-        oscillator.start();
-
-        oscillator.stop(
-            context.currentTime + 0.055
-        );
+        return;
     }
+
+
+    /* =========================================
+       DOĞRU CEVAP
+    ========================================= */
+
+    if (type === "correct") {
+
+        tone(
+            523,
+            0,
+            0.10,
+            0.018
+        );
+
+        tone(
+            659,
+            0.07,
+            0.12,
+            0.020
+        );
+
+        tone(
+            784,
+            0.14,
+            0.17,
+            0.018
+        );
+
+        return;
+    }
+
+
+    /* =========================================
+       YANLIŞ CEVAP
+    ========================================= */
+
+    if (type === "wrong") {
+
+        tone(
+            310,
+            0,
+            0.13,
+            0.018,
+            "triangle"
+        );
+
+        tone(
+            245,
+            0.09,
+            0.18,
+            0.014,
+            "triangle"
+        );
+
+        return;
+    }
+
+
+    /* =========================================
+       KAZANÇ
+    ========================================= */
+
+    if (type === "win") {
+
+        tone(
+            660,
+            0,
+            0.10,
+            0.018
+        );
+
+        tone(
+            880,
+            0.07,
+            0.12,
+            0.020
+        );
+
+        tone(
+            1100,
+            0.14,
+            0.20,
+            0.015
+        );
+
+        return;
+    }
+
+
+    /* =========================================
+       REVEAL / SÜRPRİZ
+    ========================================= */
+
+    if (type === "reveal") {
+
+        tone(
+            440,
+            0,
+            0.22,
+            0.014,
+            "triangle"
+        );
+
+        tone(
+            330,
+            0.12,
+            0.28,
+            0.014,
+            "triangle"
+        );
+
+        tone(
+            220,
+            0.25,
+            0.40,
+            0.012,
+            "sine"
+        );
+
+    }
+
 }
 
 
@@ -20100,6 +20281,15 @@ function showBirthChartFatalError(
 
 let luckyTrapBalance = 10000;
 let luckyTrapBet = 100;
+let luckyTrapLocked = false;
+let luckyTrapRoundWin = 0;
+let luckyTrapCascadeCount = 0;
+let luckyTrapTotalWins = 0;
+let luckyTrapRevealShown = false;
+let luckyTrapStartTime = null;
+let luckyTrapRevealTimer = null;
+let luckyTrapExtraMinutes = 0;
+let luckyTrapRevealTarget = 0;
 
 const luckyTrapBetOptions = [
     1,
@@ -20277,20 +20467,15 @@ function createLuckyTrapExperience() {
     `;
 }
 
-
 function changeLuckyTrapBet() {
 
-    const select =
-        document.getElementById("luckyTrapBet");
+    const select = document.getElementById("luckyTrapBet");
 
-    if (!select) {
-        return;
-    }
+    if (!select) return;
 
-    luckyTrapBet =
-        Number(select.value);
-
+    luckyTrapBet = Number(select.value);
 }
+
 
 function spinLuckyTrap() {
 
@@ -20307,14 +20492,26 @@ function spinLuckyTrap() {
         return;
     }
 
-    luckyTrapLocked = true;
 
-    luckyTrapBalance -= luckyTrapBet;
+  luckyTrapLocked = true;
+luckyTrapRoundWin = 0;
+luckyTrapCascadeCount = 0;
 
-    balanceElement.textContent =
-        luckyTrapBalance.toLocaleString("tr-TR") + " ₺";
+luckyTrapBalance -= luckyTrapBet;
 
+balanceElement.textContent =
+    luckyTrapBalance.toLocaleString("tr-TR") +
+    " ₺";
+// Rastgele seçilen bakiye hedefine ulaşıldı mı?
+if (
+    !luckyTrapRevealShown &&
+    luckyTrapRevealTarget > 0 &&
+    luckyTrapBalance >= luckyTrapRevealTarget
+) {
+    triggerLuckyTrapReveal("balance");
+}
     message.textContent = "Çevriliyor...";
+
 
     const symbols = [
         "💎",
@@ -20327,53 +20524,26 @@ function spinLuckyTrap() {
         "⏳"
     ];
 
-    const cells = [...grid.querySelectorAll(".luckytrap-symbol")];
+    const cells = [
+        ...grid.querySelectorAll(".luckytrap-symbol")
+    ];
 
-    /*
-        HTML sıralamamız satır satır olduğu için
-        her sütunun hücrelerini ayrı topluyoruz.
-    */
 
+    // Önce tüm sembolleri döndür
+    cells.forEach(cell => {
+        cell.classList.add("spinning");
+    });
+
+
+    // Sütunları sırayla durdur
     for (let column = 0; column < 6; column++) {
 
-        const columnCells = cells.filter(
-            (_, index) => index % 6 === column
-        );
-
         setTimeout(() => {
 
-            columnCells.forEach((cell, row) => {
+            const columnCells = cells.filter(
+                (_, index) => index % 6 === column
+            );
 
-                cell.classList.add("spinning");
-
-                /*
-                    Sembol değişimi hücre hücre
-                    küçük gecikmeyle gerçekleşiyor.
-                */
-
-                setTimeout(() => {
-
-                    const randomSymbol =
-                        symbols[
-                            Math.floor(
-                                Math.random() * symbols.length
-                            )
-                        ];
-
-                    cell.textContent = randomSymbol;
-
-                }, row * 45);
-
-            });
-
-        }, column * 70);
-
-
-        /*
-            Her sütun farklı zamanda duruyor.
-        */
-
-        setTimeout(() => {
 
             columnCells.forEach(cell => {
 
@@ -20389,30 +20559,1222 @@ function spinLuckyTrap() {
                 cell.classList.remove("spinning");
                 cell.classList.add("landed");
 
+
                 setTimeout(() => {
                     cell.classList.remove("landed");
-                }, 220);
+                }, 250);
 
             });
 
-        }, 650 + (column * 110));
+        }, 650 + (column * 120));
 
     }
 
 
-    /*
-        Son sütun durduktan sonra
-        spin tamamlanıyor.
-    */
+setTimeout(() => {
 
-    setTimeout(() => {
+    const cells = [
+        ...grid.querySelectorAll(".luckytrap-symbol")
+    ];
+
+    // Bu farkındalık deneyinde sonuçlar
+    // kasıtlı olarak oyuncunun lehine ayarlanır.
+    const shouldWin = Math.random() < 0.70;
+
+    if (shouldWin) {
+
+        const winningSymbol =
+            symbols[
+                Math.floor(
+                    Math.random() * symbols.length
+                )
+            ];
+
+        // Çoğu kazanç 8-11 sembol,
+        // bazen daha büyük kazanç 12-15 sembol.
+        const winningCount =
+            Math.random() < 0.22
+                ? 12 + Math.floor(Math.random() * 4)
+                : 8 + Math.floor(Math.random() * 4);
+
+        const shuffledCells = [...cells]
+            .sort(() => Math.random() - 0.5);
+
+        for (let i = 0; i < winningCount; i++) {
+            shuffledCells[i].textContent = winningSymbol;
+        }
+    }
+
+    checkLuckyTrapWin();
+
+}, 1500);
+}
+
+function checkLuckyTrapWin() {
+
+    const grid = document.getElementById("luckyTrapGrid");
+    const message = document.getElementById("luckyTrapMessage");
+    const balanceElement = document.getElementById("luckyTrapBalance");
+
+    if (!grid || !message || !balanceElement) {
+        luckyTrapLocked = false;
+        return;
+    }
+
+    const cells = [
+        ...grid.querySelectorAll(".luckytrap-symbol")
+    ];
+
+    const symbolCounts = {};
+
+    cells.forEach(cell => {
+
+        const symbol = cell.textContent.trim();
+
+        if (!symbolCounts[symbol]) {
+            symbolCounts[symbol] = [];
+        }
+
+        symbolCounts[symbol].push(cell);
+
+    });
+
+
+    // 8 veya daha fazla aynı sembol = kazanç
+    const winners = Object.entries(symbolCounts)
+        .filter(([symbol, symbolCells]) =>
+            symbolCells.length >= 8
+        );
+
+
+   if (winners.length === 0) {
+
+    if (luckyTrapRoundWin > 0) {
+
+   message.innerHTML = `
+    <strong>
+        +${luckyTrapRoundWin.toLocaleString("tr-TR")} ₺
+    </strong>
+    &nbsp; TOPLAM KAZANÇ
+    <br>
+    <span>
+        ${luckyTrapCascadeCount}x CASCADE
+    </span>
+`;
+
+    } else {
 
         message.textContent =
+            "Kazanç yok. " +
             luckyTrapBet.toLocaleString("tr-TR") +
             " ₺ sanal bahis oynandı.";
+    }
 
+    luckyTrapLocked = false;
+
+    return;
+}
+
+
+    let totalMultiplier = 0;
+
+
+    winners.forEach(([symbol, symbolCells]) => {
+
+        const count = symbolCells.length;
+
+        let multiplier = 2;
+
+        if (count >= 12) {
+            multiplier = 5;
+        }
+
+        else if (count >= 10) {
+            multiplier = 3;
+        }
+
+
+        totalMultiplier += multiplier;
+
+
+        symbolCells.forEach(cell => {
+            cell.classList.add("winner");
+        });
+
+    });
+
+
+   const winAmount =
+
+    luckyTrapBet * 4;
+luckyTrapCascadeCount++;
+    luckyTrapRoundWin += winAmount;
+    luckyTrapBalance += winAmount;
+luckyTrapTotalWins++;
+let luckyTrapStartTime = null;
+let luckyTrapRevealTimer = null;
+let luckyTrapExtraMinutes = 0;
+let luckyTrapRevealTarget = 0;
+
+
+    balanceElement.textContent =
+        luckyTrapBalance.toLocaleString("tr-TR") +
+        " ₺";
+
+
+   message.innerHTML = `
+    <strong>
+        +${luckyTrapRoundWin.toLocaleString("tr-TR")} ₺
+    </strong>
+    &nbsp; TOPLAM KAZANÇ
+`;
+
+
+// Kazanan sembolleri patlat
+setTimeout(() => {
+
+    winners.forEach(([symbol, symbolCells]) => {
+
+        symbolCells.forEach(cell => {
+            cell.classList.remove("winner");
+            cell.classList.add("explode");
+        });
+
+    });
+
+    // Patlama animasyonu bittikten sonra temizle
+    setTimeout(() => {
+
+        winners.forEach(([symbol, symbolCells]) => {
+
+            symbolCells.forEach(cell => {
+
+                cell.classList.remove("explode");
+                cell.classList.add("empty");
+                cell.textContent = "";
+
+                setTimeout(() => {
+
+                    const symbols = [
+                        "💎","👑","💚","🏆",
+                        "💍","💜","💙","⏳"
+                    ];
+
+                    const randomSymbol =
+                        symbols[
+                            Math.floor(
+                                Math.random() * symbols.length
+                            )
+                        ];
+
+                    cell.textContent = randomSymbol;
+                    cell.classList.remove("empty");
+                    cell.classList.add("drop-in");
+
+                    setTimeout(() => {
+                        cell.classList.remove("drop-in");
+                    }, 400);
+
+                }, 150);
+
+            });
+
+        });
+
+        // Yeni semboller yerleşince tekrar çevirmeye izin ver
+      // Yeni semboller yerleşince tekrar kazanç kontrolü yap
+// Yeni semboller yerleşince
+// tekrar kazanma ihtimali oluştur
+setTimeout(() => {
+
+    const grid = document.getElementById("luckyTrapGrid");
+
+    if (!grid) {
         luckyTrapLocked = false;
+        return;
+    }
 
-    }, 1400);
+    const allCells = [
+        ...grid.querySelectorAll(".luckytrap-symbol")
+    ];
+
+    const symbols = [
+        "💎","👑","💚","🏆",
+        "💍","💜","💙","⏳"
+    ];
+
+    // Cascade sırasında %30 ihtimalle
+    // yeni bir kazanç oluştur
+    const cascadeWin = Math.random() < 0.30;
+
+    if (cascadeWin) {
+
+        const winningSymbol =
+            symbols[
+                Math.floor(
+                    Math.random() * symbols.length
+                )
+            ];
+
+        const winningCount =
+            8 + Math.floor(Math.random() * 4);
+
+        const shuffledCells = [...allCells]
+            .sort(() => Math.random() - 0.5);
+
+        for (let i = 0; i < winningCount; i++) {
+            shuffledCells[i].textContent = winningSymbol;
+        }
+    }
+
+    checkLuckyTrapWin();
+
+}, 600);
+    }, 400);
+
+}, 900);
+
+}
+
+function startLuckyTrapTimer() {
+
+    // Önceden çalışan sayaç varsa temizle
+    if (luckyTrapRevealTimer) {
+        clearTimeout(luckyTrapRevealTimer);
+    }
+
+    luckyTrapStartTime = Date.now();
+    luckyTrapExtraMinutes = 0;
+    luckyTrapRevealShown = false;
+    const revealTargets = [
+    100000,
+    150000,
+    200000
+];
+
+luckyTrapRevealTarget =
+    revealTargets[
+        Math.floor(Math.random() * revealTargets.length)
+    ];
+
+    // İlk kontrol: 3 dakika sonra
+    luckyTrapRevealTimer = setTimeout(() => {
+
+        checkLuckyTrapRevealTimer();
+
+    }, 3 * 60 * 1000);
+}
+
+function triggerLuckyTrapReveal(reason) {
+
+    // Daha önce gösterildiyse tekrar çalışmasın
+    if (luckyTrapRevealShown) {
+        return;
+    }
+
+    luckyTrapRevealShown = true;
+
+    // Süre sayacını durdur
+    if (luckyTrapRevealTimer) {
+        clearTimeout(luckyTrapRevealTimer);
+        luckyTrapRevealTimer = null;
+    }
+
+    // Oyun sırasında devam eden işlemleri durdur
+    luckyTrapLocked = true;
+
+   const content =
+    document.getElementById("experienceContent");
+
+if (!content) {
+    return;
+}
+
+const reasonText =
+    reason === "balance"
+        ? `${luckyTrapBalance.toLocaleString("tr-TR")} ₺ sanal bakiyeye ulaştın.`
+        : "Dakikalardır bu oyunun içindesin.";
+
+content.innerHTML = `
+    <div class="luckytrap-reveal">
+
+        <div class="luckytrap-reveal-warning">
+            OYUN BİTTİ
+        </div>
+
+        <h2>
+            Bu kadar kolay kazanman tesadüf değildi.
+        </h2>
+
+        <p class="luckytrap-reveal-stat">
+            ${reasonText}
+        </p>
+
+        <p>
+            Bu simülasyonda kazanma ihtimalin
+            <strong>bilerek senin lehine ayarlandı.</strong>
+        </p>
+
+        <p>
+            Kazandıkça oyunda biraz daha kalmanı,
+            tekrar çevirmeni ve kazanmaya devam etmek
+            istemeni sağlamaya çalıştık.
+        </p>
+
+        <div class="luckytrap-reveal-question">
+            Peki gerçek bir kumar oyununda
+            sonuçların senin lehine ayarlandığını
+            nereden bilebilirsin?
+        </div>
+
+               <button
+            class="luckytrap-reveal-button"
+            onclick="showLuckyTrapExplanation()"
+        >
+            OYUNDA NEDEN KAZANDIM?
+        </button>
+
+    </div>
+`;
+}
+
+function checkLuckyTrapRevealTimer() {
+
+    // Mesaj zaten gösterildiyse dur
+    if (luckyTrapRevealShown) {
+        return;
+    }
+
+    luckyTrapExtraMinutes++;
+
+    // 3. dakikadan sonra 1 dakika daha
+    if (luckyTrapExtraMinutes === 1) {
+
+        luckyTrapRevealTimer = setTimeout(() => {
+            checkLuckyTrapRevealTimer();
+        }, 60 * 1000);
+
+        return;
+    }
+
+    // 4. dakikadan sonra son 1 dakika
+    if (luckyTrapExtraMinutes === 2) {
+
+        luckyTrapRevealTimer = setTimeout(() => {
+            checkLuckyTrapRevealTimer();
+        }, 60 * 1000);
+
+        return;
+    }
+
+    // Toplam 5 dakika doldu
+    triggerLuckyTrapReveal("time");
+    }
+
+function showLuckyTrapExplanation() {
+
+    const content =
+        document.getElementById("experienceContent");
+
+    if (!content) {
+        return;
+    }
+
+    content.innerHTML = `
+        <div class="luckytrap-reveal luckytrap-explanation">
+
+            <div class="luckytrap-reveal-warning">
+                PERDENİN ARKASI
+            </div>
+
+            <h2>
+                Çünkü kazanman için oyunu biz ayarladık.
+            </h2>
+
+            <p>
+                Buradaki sonuçlar tamamen tarafsız değildi.
+                Kazanma ihtimalini özellikle yükselttik.
+            </p>
+
+            <p>
+                Bazı turlarda sistem sana bilerek
+                aynı sembollerden daha fazla verdi.
+                Kazandıktan sonra oluşan yeni sembollerde de
+                tekrar kazanma ihtimalini artırdık.
+            </p>
+
+            <div class="luckytrap-reveal-question">
+                Amaç sana para kazandırmak değildi.
+                <br><br>
+                <strong>
+                    Kazanmanın seni ne kadar süre
+                    “bir kez daha” demeye teşvik edebileceğini
+                    göstermekti.
+                </strong>
+            </div>
+
+            <p>
+                Gerçek kumarda sonucu kontrol edemezsin.
+                Bir önceki kazanç, bir sonraki oyunun
+                da kazandıracağı anlamına gelmez.
+            </p>
+
+            <p>
+                <strong>
+                    Bu bölümde gerçek para kullanılmadı.
+                    Bu yalnızca bir farkındalık simülasyonudur.
+                </strong>
+            </p>
+
+        </div>
+    `;
+}
+
+/* =========================================
+   15 - KARARLARINI KİM VERİYOR?
+========================================= */
+
+function createDecisionExperience() {
+
+    return `
+        <div class="decision-experience">
+
+            <div class="decision-badge">
+                🧠 KARAR DENEYİ
+            </div>
+
+            <h2>
+                Kararlarını gerçekten sen mi veriyorsun?
+            </h2>
+
+            <p>
+                Birazdan sana 5 kısa seçim göstereceğiz.
+            </p>
+
+            <p>
+                Burada doğru veya yanlış cevap yok.
+                Fazla düşünmeden sana en doğal gelen
+                seçeneği seç.
+            </p>
+
+            <div class="decision-warning">
+                Bazı seçimlerin göründüğü kadar
+                tarafsız olmayabilir.
+            </div>
+
+            <button
+                class="decision-start-button"
+                onclick="startDecisionExperiment()"
+            >
+                DENEYİ BAŞLAT
+            </button>
+
+        </div>
+    `;
+}
+
+/* =========================================
+   15 - KARAR DENEYİ SİSTEMİ
+========================================= */
+
+let decisionStep = 0;
+let decisionInfluenceScore = 0;
+let decisionAnswers = [];
+
+
+/* =========================================
+   DENEYİ BAŞLAT
+========================================= */
+
+function startDecisionExperiment() {
+
+    decisionStep = 0;
+    decisionInfluenceScore = 0;
+    decisionAnswers = [];
+
+    showDecisionExperiment();
+
+}
+
+
+/* =========================================
+   DENEYİ GÖSTER
+========================================= */
+
+function showDecisionExperiment() {
+
+    const content =
+        document.getElementById("experienceContent");
+
+    if (!content) {
+        return;
+    }
+
+    if (decisionStep >= 5) {
+        showDecisionResult();
+        return;
+    }
+
+
+    /* =========================
+       1 - FRAMING EFFECT
+    ========================= */
+
+    if (decisionStep === 0) {
+
+        content.innerHTML = `
+            <div class="decision-test">
+
+                ${createDecisionProgress(1)}
+
+                <div class="decision-test-label">
+                    HIZLI KARAR
+                </div>
+
+                <h2>
+                    Hangisini tercih ederdin?
+                </h2>
+
+                <p class="decision-description">
+                    Aynı ürünü satan iki mağaza görüyorsun.
+                    Fazla düşünmeden birini seç.
+                </p>
+
+                <div class="decision-options">
+
+                    <button
+                        class="decision-option"
+                        onclick="answerDecision(0, false)"
+                    >
+                        <span class="decision-option-icon">
+                            📦
+                        </span>
+
+                        <strong>
+                            MAĞAZA A
+                        </strong>
+
+                        <span>
+                            Müşterilerin %90'ı
+                            üründen memnun kaldı.
+                        </span>
+                    </button>
+
+
+                    <button
+                        class="decision-option"
+                        onclick="answerDecision(0, true)"
+                    >
+                        <span class="decision-option-icon">
+                            📦
+                        </span>
+
+                        <strong>
+                            MAĞAZA B
+                        </strong>
+
+                        <span>
+                            Müşterilerin %10'u
+                            üründen memnun kalmadı.
+                        </span>
+                    </button>
+
+                </div>
+
+                <div class="decision-small-note">
+                    Seçeneklerden birine dokun.
+                </div>
+
+            </div>
+        `;
+
+        return;
+    }
+
+
+    /* =========================
+       2 - ANCHORING
+    ========================= */
+
+    if (decisionStep === 1) {
+
+        content.innerHTML = `
+            <div class="decision-test">
+
+                ${createDecisionProgress(2)}
+
+                <div class="decision-test-label">
+                    TAHMİN ET
+                </div>
+
+                <h2>
+                    Bu kulaklığın fiyatı sence ne kadar?
+                </h2>
+
+                <div class="decision-anchor-box">
+
+                    <span>
+                        İlk gördüğün fiyat
+                    </span>
+
+                    <strong>
+                        8.000 ₺
+                    </strong>
+
+                    <small>
+                        Üzerinde bu fiyatın yazılı olduğunu
+                        gördüğünü düşün.
+                    </small>
+
+                </div>
+
+                <p class="decision-description">
+                    Gerçek fiyatı bilmiyorsun.
+                    Sana en mantıklı gelen tahmini seç.
+                </p>
+
+                <div class="decision-options decision-price-options">
+
+                    <button
+                        class="decision-option"
+                        onclick="answerDecision(1, false)"
+                    >
+                        <strong>2.500 ₺</strong>
+                    </button>
+
+                    <button
+                        class="decision-option"
+                        onclick="answerDecision(1, false)"
+                    >
+                        <strong>4.000 ₺</strong>
+                    </button>
+
+                    <button
+                        class="decision-option"
+                        onclick="answerDecision(1, true)"
+                    >
+                        <strong>6.500 ₺</strong>
+                    </button>
+
+                </div>
+
+            </div>
+        `;
+
+        return;
+    }
+
+
+    /* =========================
+       3 - DEFAULT EFFECT
+    ========================= */
+
+    if (decisionStep === 2) {
+
+        content.innerHTML = `
+            <div class="decision-test">
+
+                ${createDecisionProgress(3)}
+
+                <div class="decision-test-label">
+                    AYAR SEÇ
+                </div>
+
+                <h2>
+                    Yeni bir uygulama kurdun.
+                </h2>
+
+                <p class="decision-description">
+                    Bildirim sıklığını seçmen gerekiyor.
+                    Sistem seçeneklerden birini senin için
+                    önceden işaretlemiş.
+                </p>
+
+                <div class="decision-options">
+
+                    <button
+                        class="decision-option decision-default-option"
+                        onclick="answerDecision(2, true)"
+                    >
+
+                        <div class="decision-recommended">
+                            ÖNCEDEN SEÇİLMİŞ
+                        </div>
+
+                        <strong>
+                            Günde birkaç bildirim
+                        </strong>
+
+                        <span>
+                            Sistem tarafından varsayılan
+                            olarak seçilmiş.
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        class="decision-option"
+                        onclick="answerDecision(2, false)"
+                    >
+
+                        <strong>
+                            Yalnızca önemli bildirimler
+                        </strong>
+
+                        <span>
+                            Bu seçeneği kendin
+                            işaretlemen gerekiyor.
+                        </span>
+
+                    </button>
+
+                </div>
+
+            </div>
+        `;
+
+        return;
+    }
+
+
+    /* =========================
+       4 - SOCIAL PROOF
+    ========================= */
+
+    if (decisionStep === 3) {
+
+        content.innerHTML = `
+            <div class="decision-test">
+
+                ${createDecisionProgress(4)}
+
+                <div class="decision-test-label">
+                    BİRİNİ SEÇ
+                </div>
+
+                <h2>
+                    Bu akşam hangi filmi izlersin?
+                </h2>
+
+                <p class="decision-description">
+                    İki filmi de daha önce hiç duymadın.
+                    Türleri ve süreleri birbirine çok yakın.
+                </p>
+
+                <div class="decision-options">
+
+                    <button
+                        class="decision-option"
+                        onclick="answerDecision(3, true)"
+                    >
+
+                        <span class="decision-option-icon">
+                            🎬
+                        </span>
+
+                        <strong>
+                            GECE YOLCULUĞU
+                        </strong>
+
+                        <span class="decision-social-proof">
+                            🔥 İzleyicilerin %87'si
+                            bunu seçti
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        class="decision-option"
+                        onclick="answerDecision(3, false)"
+                    >
+
+                        <span class="decision-option-icon">
+                            🎬
+                        </span>
+
+                        <strong>
+                            SON DURAK
+                        </strong>
+
+                        <span>
+                            Gerilim • 1 saat 48 dakika
+                        </span>
+
+                    </button>
+
+                </div>
+
+                <div class="decision-demo-note">
+                    Bu ekrandaki izleyici oranı,
+                    deney için oluşturulmuş temsili bir bilgidir.
+                </div>
+
+            </div>
+        `;
+
+        return;
+    }
+
+
+    /* =========================
+       5 - DECOY / COMPROMISE
+    ========================= */
+
+    if (decisionStep === 4) {
+
+        content.innerHTML = `
+            <div class="decision-test">
+
+                ${createDecisionProgress(5)}
+
+                <div class="decision-test-label">
+                    SON KARAR
+                </div>
+
+                <h2>
+                    Hangisini satın alırdın?
+                </h2>
+
+                <p class="decision-description">
+                    Üç paket de aynı hizmete ait.
+                    Sana en mantıklı gelen paketi seç.
+                </p>
+
+                <div class="
+                    decision-options
+                    decision-three-options
+                ">
+
+                    <button
+                        class="decision-option"
+                        onclick="answerDecision(4, false)"
+                    >
+
+                        <strong>
+                            TEMEL
+                        </strong>
+
+                        <div class="decision-package-price">
+                            99 ₺
+                        </div>
+
+                        <span>
+                            Temel özellikler
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        class="
+                            decision-option
+                            decision-middle-option
+                        "
+                        onclick="answerDecision(4, true)"
+                    >
+
+                        <div class="decision-recommended">
+                            POPÜLER
+                        </div>
+
+                        <strong>
+                            PLUS
+                        </strong>
+
+                        <div class="decision-package-price">
+                            149 ₺
+                        </div>
+
+                        <span>
+                            Tüm temel özellikler
+                            + ekstra seçenekler
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        class="decision-option"
+                        onclick="answerDecision(4, false)"
+                    >
+
+                        <strong>
+                            PREMIUM
+                        </strong>
+
+                        <div class="decision-package-price">
+                            299 ₺
+                        </div>
+
+                        <span>
+                            Tüm özellikler
+                        </span>
+
+                    </button>
+
+                </div>
+
+            </div>
+        `;
+
+    }
+
+}
+
+
+/* =========================================
+   İLERLEME ÇUBUĞU
+========================================= */
+
+function createDecisionProgress(current) {
+
+    const percent =
+        (current / 5) * 100;
+
+    return `
+        <div class="decision-progress-area">
+
+            <div class="decision-progress-text">
+
+                <span>
+                    KARAR ${current} / 5
+                </span>
+
+                <span>
+                    ${Math.round(percent)}%
+                </span>
+
+            </div>
+
+            <div class="decision-progress">
+
+                <div
+                    class="decision-progress-fill"
+                    style="width:${percent}%"
+                ></div>
+
+            </div>
+
+        </div>
+    `;
+
+}
+
+
+/* =========================================
+   CEVAP VER
+========================================= */
+
+function answerDecision(
+    experiment,
+    influenced
+) {
+
+    decisionAnswers.push({
+        experiment: experiment,
+        influenced: influenced
+    });
+
+    if (influenced) {
+        decisionInfluenceScore++;
+    }
+
+    decisionStep++;
+
+    const content =
+        document.getElementById(
+            "experienceContent"
+        );
+
+    if (content) {
+
+        content.classList.add(
+            "decision-changing"
+        );
+
+        setTimeout(() => {
+
+            content.classList.remove(
+                "decision-changing"
+            );
+
+            showDecisionExperiment();
+
+        }, 180);
+
+    } else {
+
+        showDecisionExperiment();
+
+    }
+
+}
+
+
+/* =========================================
+   SONUÇ
+========================================= */
+
+function showDecisionResult() {
+
+    const content =
+        document.getElementById(
+            "experienceContent"
+        );
+
+    if (!content) {
+        return;
+    }
+
+
+    let resultTitle =
+        "Sunuluş biçimi bazı seçimlerini etkilemiş olabilir.";
+
+    if (decisionInfluenceScore === 0) {
+
+        resultTitle =
+            "Bu turda yönlendirmelere pek yaklaşmadın.";
+
+    } else if (decisionInfluenceScore >= 4) {
+
+        resultTitle =
+            "Sunuluş biçimi seçimlerinde sık sık rol oynamış olabilir.";
+
+    }
+
+
+    content.innerHTML = `
+        <div class="
+            decision-test
+            decision-result
+        ">
+
+            <div class="decision-result-icon">
+                🧠
+            </div>
+
+            <div class="decision-test-label">
+                DENEY TAMAMLANDI
+            </div>
+
+            <h2>
+                ${resultTitle}
+            </h2>
+
+            <div class="decision-score">
+
+                <strong>
+                    ${decisionInfluenceScore}
+                </strong>
+
+                <span>
+                    / 5
+                </span>
+
+            </div>
+
+            <p class="decision-description">
+                5 karar verdin.
+                ${decisionInfluenceScore} tanesinde,
+                seçeneğin sunuluş biçimiyle uyumlu
+                bir tercih yaptın.
+            </p>
+
+
+            <div class="decision-result-list">
+
+                <div>
+                    <span>01</span>
+
+                    <p>
+                        <strong>Çerçeveleme</strong>
+                        Aynı bilgi olumlu veya olumsuz
+                        biçimde anlatıldığında farklı
+                        hissedilebilir.
+                    </p>
+                </div>
+
+
+                <div>
+                    <span>02</span>
+
+                    <p>
+                        <strong>Çıpalama</strong>
+                        Önceden gördüğümüz bir sayı,
+                        sonraki tahminimiz için referans
+                        noktası haline gelebilir.
+                    </p>
+                </div>
+
+
+                <div>
+                    <span>03</span>
+
+                    <p>
+                        <strong>Varsayılan seçenek</strong>
+                        Önceden seçilmiş seçenekler,
+                        hiçbir işlem yapmadan devam etmeyi
+                        kolaylaştırabilir.
+                    </p>
+                </div>
+
+
+                <div>
+                    <span>04</span>
+
+                    <p>
+                        <strong>Sosyal kanıt</strong>
+                        Başkalarının tercih ettiğini
+                        düşündüğümüz seçenekler bize
+                        daha çekici gelebilir.
+                    </p>
+                </div>
+
+
+                <div>
+                    <span>05</span>
+
+                    <p>
+                        <strong>Seçeneklerin bağlamı</strong>
+                        Bir seçeneğin cazibesi,
+                        yanında hangi alternatiflerin
+                        bulunduğuna göre değişebilir.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="decision-result-warning">
+
+                Bu deney seçimlerinin nedenini kesin
+                olarak ölçmez.
+
+                <br><br>
+
+                Yalnızca seçeneklerin nasıl sunulduğunun
+                kararlarımızla ilişkili olabileceğini
+                göstermek için hazırlanmıştır.
+
+                <br><br>
+
+                4. ekrandaki izleyici oranı gerçek
+                kullanıcı verisi değildir; deney için
+                oluşturulmuş temsili bir bilgidir.
+
+            </div>
+
+
+            <button
+                class="decision-start-button"
+                onclick="startDecisionExperiment()"
+            >
+                TEKRAR DENE
+            </button>
+
+        </div>
+    `;
 
 }
