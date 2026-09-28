@@ -20094,3 +20094,156 @@ function showBirthChartFatalError(
         </div>
     `;
 }
+
+/* =========================================
+   14 - ŞANSINI DENE
+========================================= */
+
+let luckyTrapBalance = 10000;
+let luckyTrapBet = 100;
+
+const luckyTrapBetOptions = [
+    1,
+    2,
+    4,
+    5,
+    10,
+    20,
+    30,
+    40,
+    50,
+    100,
+    1000,
+    2000,
+    5000
+];
+
+
+function createLuckyTrapExperience() {
+
+    luckyTrapBalance = 10000;
+    luckyTrapBet = 100;
+
+    return `
+
+        <div class="luckytrap">
+
+            <div class="luckytrap-header">
+
+                <span class="luckytrap-kicker">
+                    ŞANS DENEYİ
+                </span>
+
+                <h2>
+                    Şansını dene.
+                </h2>
+
+                <p>
+                    Bakalım bugün ne kadar şanslısın.
+                </p>
+
+            </div>
+
+
+            <div class="luckytrap-balance">
+
+                <span>
+                    SANAL BAKİYE
+                </span>
+
+                <strong id="luckyTrapBalance">
+                    10.000 ₺
+                </strong>
+
+            </div>
+
+
+            <div class="luckytrap-machine">
+
+                <div class="luckytrap-reels">
+
+                    <div class="luckytrap-reel" id="luckyReel1">
+                        🍒
+                    </div>
+
+                    <div class="luckytrap-reel" id="luckyReel2">
+                        💎
+                    </div>
+
+                    <div class="luckytrap-reel" id="luckyReel3">
+                        7
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="luckytrap-bet-area">
+
+                <span class="luckytrap-label">
+                    BAHİS MİKTARI
+                </span>
+
+                <select
+                    id="luckyTrapBet"
+                    onchange="changeLuckyTrapBet()"
+                >
+
+                    ${luckyTrapBetOptions
+                        .map(amount => `
+
+                            <option
+                                value="${amount}"
+                                ${amount === 100 ? "selected" : ""}
+                            >
+                                ${amount.toLocaleString("tr-TR")} ₺
+                            </option>
+
+                        `)
+                        .join("")}
+
+                </select>
+
+            </div>
+
+
+            <button
+                class="luckytrap-spin"
+                onclick="spinLuckyTrap()"
+            >
+                ÇEVİR
+            </button>
+
+
+            <div
+                class="luckytrap-message"
+                id="luckyTrapMessage"
+            >
+                Bahsini seç ve çevirmeye başla.
+            </div>
+
+
+            <div class="luckytrap-demo-note">
+                Gerçek para kullanılmaz. Bu bölüm yalnızca bir simülasyondur.
+            </div>
+
+        </div>
+
+    `;
+}
+
+
+function changeLuckyTrapBet() {
+
+    const select =
+        document.getElementById("luckyTrapBet");
+
+    if (!select) {
+        return;
+    }
+
+    luckyTrapBet =
+        Number(select.value);
+
+}
