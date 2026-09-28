@@ -101,11 +101,32 @@ const categories = {
     },
 
     experiments: {
-        emoji: "🧪",
-        number: "12",
-        title: "İnsan beyni çok garip",
-        subtitle: "Denek sensin."
-    }
+    emoji: "🧪",
+    number: "12",
+    title: "İnsan beyni çok garip",
+    subtitle: "Denek sensin."
+},
+
+birthchart: {
+    emoji: "♈",
+    number: "13",
+    title: "Doğum haritan",
+    subtitle: "Doğduğun anda gökyüzü nasıldı?"
+},
+
+luckytrap: {
+    emoji: "🎰",
+    number: "14",
+    title: "Şansını dene",
+    subtitle: "Bu oyunda şans senden yana. Ama neden?"
+},
+
+decisions: {
+    emoji: "🧠",
+    number: "15",
+    title: "Kararlarını kim veriyor?",
+    subtitle: "Seçimlerinin ne kadarı gerçekten sana ait?"
+}
 
 };
 
@@ -1525,10 +1546,9 @@ let discovered = JSON.parse(
 function updateDiscoveryCounter() {
 
     discoveryCounter.textContent =
-        `${discovered.length} / 12 keşfedildi`;
+        `${discovered.length} / 15 keşfedildi`;
 
 }
-
 
 function discoverCategory(category) {
 
@@ -1645,10 +1665,6 @@ function createComingSoon(category) {
 }
 
 
-/* =========================================
-   BÖLÜM AÇ
-========================================= */
-
 function openExperience(category) {
 
     if (!categories[category]) {
@@ -1657,37 +1673,88 @@ function openExperience(category) {
 
     discoverCategory(category);
 
-   if (category === "facts") {
 
-    experienceContent.innerHTML =
-        createFactExperience();
+    if (category === "facts") {
 
-} else if (category === "random") {
+        experienceContent.innerHTML =
+            createFactExperience();
 
-    experienceContent.innerHTML =
-        createRandomExperience();
+    } else if (category === "random") {
 
-} else if (category === "brain") {
-    
-    experienceContent.innerHTML =
-        createBrainExperience();
+        experienceContent.innerHTML =
+            createRandomExperience();
 
-} else if (category === "illusion") {
+    } else if (category === "brain") {
 
-    experienceContent.innerHTML =
-        createIllusionExperience();
+        experienceContent.innerHTML =
+            createBrainExperience();
 
-} else if (category === "predict") {
+    } else if (category === "illusion") {
 
-    experienceContent.innerHTML =
-        createPredictExperience();
+        experienceContent.innerHTML =
+            createIllusionExperience();
 
-} else {
+    } else if (category === "predict") {
 
-    experienceContent.innerHTML =
-        createComingSoon(category);
+        experienceContent.innerHTML =
+            createPredictExperience();
 
-}
+    } else if (category === "real") {
+
+        experienceContent.innerHTML =
+            createRealExperience();
+
+    } else if (category === "world") {
+
+        experienceContent.innerHTML =
+            createWorldExperience();
+
+    } else if (category === "disturbing") {
+
+        experienceContent.innerHTML =
+            createDisturbingExperience();
+
+    } else if (category === "tests") {
+
+        experienceContent.innerHTML =
+            createTestsExperience();
+
+    } else if (category === "fortune") {
+
+        experienceContent.innerHTML =
+            createFortuneExperience();
+
+    } else if (category === "games") {
+
+        experienceContent.innerHTML =
+            createGamesExperience();
+
+    } else if (category === "experiments") {
+
+        experienceContent.innerHTML =
+            createBrainLabExperience();
+
+    } else if (category === "birthchart") {
+
+        experienceContent.innerHTML =
+            createBirthChartExperience();
+
+    } else if (category === "luckytrap") {
+
+        experienceContent.innerHTML =
+            createComingSoon("luckytrap");
+
+    } else if (category === "decisions") {
+
+        experienceContent.innerHTML =
+            createComingSoon("decisions");
+
+    } else {
+
+        experienceContent.innerHTML =
+            createComingSoon(category);
+    }
+
 
     // PENCEREYİ AÇ
     overlay.classList.add("active");
@@ -1695,6 +1762,9 @@ function openExperience(category) {
     // ARKA PLANIN KAYMASINI ENGELLE
     document.body.style.overflow = "hidden";
 }
+
+
+
 
 
 /* =========================================
@@ -10059,6 +10129,41 @@ const siteRadioStations = [
     }
 
 ];
+function renderRadioStations() {
+
+    const container =
+        document.getElementById("radioStations");
+
+    if (!container) {
+        return;
+    }
+
+    container.innerHTML =
+        siteRadioStations.map(
+            (station, index) => {
+
+                return `
+                    <button
+                        class="radio-station"
+                        data-station="${station.id}"
+                    >
+                        <span class="station-live-dot"></span>
+
+                        <div>
+                            <strong>
+                                ${station.name}
+                            </strong>
+
+                            <small>
+                                ${station.genre}
+                            </small>
+                        </div>
+                    </button>
+                `;
+
+            }
+        ).join("");
+}
 
 let currentRadioIndex = 0;
 let radioIsPlaying = false;
@@ -10776,11 +10881,12 @@ function playSiteResultSound() {
 
 function setupRadioSettings() {
 
+    renderRadioStations();
+
     const audio =
         document.getElementById(
             "siteRadioPlayer"
         );
-
     const playButton =
         document.getElementById(
             "radioPlayButton"
@@ -11034,9 +11140,13 @@ async function toggleSiteRadio() {
 
     try {
 
-        await audio.play();
+    audio.volume = 0;
 
-    } catch (error) {
+    await audio.play();
+
+    fadeInRadio();
+
+} catch (error) {
 
         radioIsPlaying = false;
 
@@ -11090,75 +11200,127 @@ function changeRadioStation(direction) {
 }
 
 
-function selectRadioStation(index) {
+async function selectRadioStation(index) {
 
     const audio =
         document.getElementById(
             "siteRadioPlayer"
         );
 
-
-    const wasPlaying =
-        radioIsPlaying;
-
-
     if (
         index < 0 ||
-        index >=
-        siteRadioStations.length
+        index >= siteRadioStations.length
     ) {
         return;
     }
 
-
-    if (audio) {
-
-        audio.pause();
-
-        audio.removeAttribute(
-            "src"
-        );
-
-        audio.load();
-    }
+    const wasPlaying =
+        audio && !audio.paused;
 
 
-    currentRadioIndex =
-        index;
+    /* Yeni istasyonu seç */
 
+    currentRadioIndex = index;
 
     const station =
         siteRadioStations[
             currentRadioIndex
         ];
 
-
     siteSettings.radioStation =
         station.id;
-
 
     saveSiteSettings();
 
     updateRadioInterface();
 
 
-    setRadioStatus(
-        "Dinlemeye hazır"
-    );
-
-
-    /*
-       Önceki istasyon çalıyorsa
-       yenisine otomatik geçmeyi dener.
-    */
+    /* Yayın adresi yoksa */
 
     if (
-        wasPlaying &&
-        station.stream
+        !station ||
+        !station.stream
     ) {
 
-        toggleSiteRadio();
+        if (audio) {
+            audio.pause();
+            audio.removeAttribute("src");
+            audio.load();
+        }
+
+        radioIsPlaying = false;
+
+        setRadioStatus(
+            "Yayın bağlantısı henüz eklenmedi"
+        );
+
+        updateRadioInterface();
+
+        return;
     }
+
+
+    /* Önceki radyo çalmıyorsa
+       sadece istasyonu seç */
+
+    if (!wasPlaying) {
+
+        setRadioStatus(
+            "Dinlemeye hazır"
+        );
+
+        return;
+    }
+
+
+    /* Önceki yayın çalıyorsa
+       yeni radyoya otomatik geç */
+
+    try {
+
+        clearInterval(radioFadeInterval);
+
+        audio.pause();
+
+        audio.src = station.stream;
+
+        audio.load();
+
+        audio.volume = 0;
+
+        setRadioStatus(
+            "Yeni istasyona bağlanılıyor..."
+        );
+
+        await audio.play();
+
+        radioIsPlaying = true;
+
+        fadeInRadio();
+
+        setRadioStatus(
+            "Canlı yayın oynatılıyor"
+        );
+
+        updateRadioInterface();
+
+    } catch (error) {
+
+        radioIsPlaying = false;
+
+        setRadioStatus(
+            "Bu yayın şu anda açılamıyor"
+        );
+
+        updateRadioInterface();
+
+        console.warn(
+            "Radyo değiştirilemedi:",
+            error
+        );
+
+    }
+
 }
 
 
@@ -11558,3 +11720,8377 @@ const savedFontSize =
     localStorage.getItem("siteFontSize") || "normal";
 
 setSiteFontSize(savedFontSize);
+
+/* =========================================
+   RADYO FADE + SEKMEDEN AYRILINCA KAPAT
+========================================= */
+
+let radioFadeInterval = null;
+
+
+/* -----------------------------------------
+   YUMUŞAK SES AÇMA
+----------------------------------------- */
+
+function fadeInRadio() {
+
+    const audio =
+        document.getElementById("siteRadioPlayer");
+
+    if (!audio) {
+        return;
+    }
+
+    clearInterval(radioFadeInterval);
+
+    const targetVolume =
+        Number(siteSettings.radioVolume) / 100;
+
+    audio.volume = 0;
+
+    radioFadeInterval = setInterval(() => {
+
+        audio.volume = Math.min(
+            audio.volume + 0.01,
+            targetVolume
+        );
+
+        if (audio.volume >= targetVolume) {
+
+            clearInterval(radioFadeInterval);
+
+            audio.volume = targetVolume;
+
+        }
+
+    }, 40);
+
+}
+
+
+/* -----------------------------------------
+   YUMUŞAK SES KAPATMA
+----------------------------------------- */
+
+function fadeOutRadio() {
+
+    const audio =
+        document.getElementById("siteRadioPlayer");
+
+    if (!audio || audio.paused) {
+        return;
+    }
+
+    clearInterval(radioFadeInterval);
+
+    radioFadeInterval = setInterval(() => {
+
+        audio.volume = Math.max(
+            audio.volume - 0.015,
+            0
+        );
+
+        if (audio.volume <= 0) {
+
+            clearInterval(radioFadeInterval);
+
+            audio.pause();
+
+            radioIsPlaying = false;
+
+            applyRadioVolume();
+
+            updateRadioInterface();
+
+            setRadioStatus(
+                "Yayın duraklatıldı"
+            );
+
+        }
+
+    }, 40);
+
+}
+
+
+/* -----------------------------------------
+   SEKMEDEN AYRILINCA
+----------------------------------------- */
+
+document.addEventListener(
+    "visibilitychange",
+    () => {
+
+        if (document.hidden) {
+
+            fadeOutRadio();
+
+        }
+
+    }
+);
+
+
+/* -----------------------------------------
+   SAYFADAN TAMAMEN ÇIKINCA
+----------------------------------------- */
+
+window.addEventListener(
+    "pagehide",
+    () => {
+
+        const audio =
+            document.getElementById(
+                "siteRadioPlayer"
+            );
+
+        if (!audio) {
+            return;
+        }
+
+        clearInterval(radioFadeInterval);
+
+        audio.pause();
+
+        radioIsPlaying = false;
+
+    }
+);
+/* =========================================
+   06 - HANGİSİ GERÇEK?
+========================================= */
+
+const realQuizRounds = [
+
+    {
+        category: "HAYVANLAR",
+        icon: "🐐",
+        question: "Hangisi gerçek?",
+        options: [
+            "Keçilerin göz bebekleri dikey ve ovaldir.",
+            "Keçilerin göz bebekleri dikdörtgendir.",
+            "Keçiler karanlıkta göz bebeklerini tamamen kapatabilir."
+        ],
+        correct: 1,
+        explanation:
+            "Keçilerin göz bebekleri yatay ve dikdörtgene yakın bir şekle sahiptir. Bu yapı geniş bir görüş alanı elde etmelerine yardımcı olur.",
+        sourceName: "Smithsonian's National Zoo",
+        source:
+            "https://nationalzoo.si.edu/animals/goat"
+    },
+
+    {
+        category: "BÖCEKLER",
+        icon: "🦋",
+        question: "Hangisi gerçek?",
+        options: [
+            "Kelebekler yalnızca antenleriyle tat alır.",
+            "Kelebekler tat alamaz, yalnızca koku algılar.",
+            "Kelebekler ayaklarıyla tat alabilir."
+        ],
+        correct: 2,
+        explanation:
+            "Kelebeklerin ayaklarında kimyasal maddeleri algılayan reseptörler bulunur. Bir bitkiye konduklarında onu adeta ayaklarıyla tadabilirler.",
+        sourceName: "Smithsonian",
+        source:
+            "https://www.si.edu/"
+    },
+
+    {
+        category: "KUŞLAR",
+        icon: "🐦",
+        question: "Hangisi gerçek?",
+        options: [
+            "Sinek kuşları geriye doğru uçabilir.",
+            "Sinek kuşları kanatlarını uçuş sırasında tamamen durdurabilir.",
+            "Sinek kuşları havada sabit duramaz."
+        ],
+        correct: 0,
+        explanation:
+            "Sinek kuşlarının özel kanat hareketleri havada sabit kalmalarına ve geriye doğru uçmalarına olanak verir.",
+        sourceName: "Smithsonian's National Zoo",
+        source:
+            "https://nationalzoo.si.edu/migratory-birds/hummingbirds"
+    },
+
+    {
+        category: "HAYVANLAR",
+        icon: "🐸",
+        question: "Hangisi gerçek?",
+        options: [
+            "Bazı kurbağalar kış boyunca vücut sıcaklıklarını 30°C'de tutabilir.",
+            "Bazı odun kurbağaları kısmen donmuş halde hayatta kalabilir.",
+            "Kurbağalar kışın vücutlarını korumak için tüy benzeri bir tabaka oluşturur."
+        ],
+        correct: 1,
+        explanation:
+            "Odun kurbağaları kış aylarında vücutlarının önemli bir kısmının donmasına dayanabilir. İlkbaharda sıcaklık yükseldiğinde yeniden normal faaliyetlerine dönerler.",
+        sourceName: "Smithsonian Environmental Research Center",
+        source:
+            "https://sercblog.si.edu/wintering-wood-frogs-freeze-solid/"
+    },
+
+    {
+        category: "GARİP HAYVANLAR",
+        icon: "🟫",
+        question: "Hangisi gerçek?",
+        options: [
+            "Wombatlar dışkılarını kusarak çıkarır.",
+            "Wombatların dışkısı tamamen küreseldir.",
+            "Wombatlar küp biçiminde dışkı üretebilir."
+        ],
+        correct: 2,
+        explanation:
+            "Evet, gerçekten küp şeklinde. Wombatların bağırsaklarındaki farklı esneklik bölgeleri dışkının karakteristik küp biçimini almasına yardımcı olur.",
+        sourceName: "Smithsonian",
+        source:
+            "https://www.si.edu/"
+    },
+
+    {
+        category: "KUŞLAR",
+        icon: "🦩",
+        question: "Hangisi gerçek?",
+        options: [
+            "Flamingo yavrularını yalnızca dişiler besleyebilir.",
+            "Hem erkek hem dişi flamingolar yavruları için kursak sütü üretebilir.",
+            "Flamingo yavruları yumurtadan çıktıktan sonra ebeveynlerinden besin almaz."
+        ],
+        correct: 1,
+        explanation:
+            "Hem erkek hem de dişi flamingolar yavrularını beslemek için protein ve yağ bakımından zengin, kursak sütü olarak adlandırılan bir salgı üretebilir.",
+        sourceName: "Smithsonian's National Zoo",
+        source:
+            "https://nationalzoo.si.edu/animals/news/practical-tips-anyone-currently-raising-nine-flamingo-chicks-same-time"
+    },
+
+    {
+        category: "TARİH ÖNCESİ",
+        icon: "🦈",
+        question: "Hangisi gerçek?",
+        options: [
+            "Köpekbalıkları ilk kez dinozorların yok oluşundan sonra ortaya çıktı.",
+            "Köpekbalıkları yaklaşık 80 milyon yıldır Dünya'dadır.",
+            "Köpekbalığı atalarının geçmişi 400 milyon yıldan daha eskiye uzanır."
+        ],
+        correct: 2,
+        explanation:
+            "Köpekbalıklarının çok eski ataları yüz milyonlarca yıl önce okyanuslarda bulunuyordu. Geçmişleri dinozorlardan bile daha eskiye uzanır.",
+        sourceName: "Smithsonian Ocean",
+        source:
+            "https://ocean.si.edu/ocean-life/sharks-rays/sharks"
+    },
+
+    {
+        category: "HAYVANLAR",
+        icon: "🦦",
+        question: "Hangisi gerçek?",
+        options: [
+            "Deniz samurları uyurken suyun dibine taş bağlar.",
+            "Deniz samurları uyurken birbirlerinden özellikle uzaklaşır.",
+            "Deniz samurları bazen sürüklenmemek için yosunlara sarılabilir."
+        ],
+        correct: 2,
+        explanation:
+            "Deniz samurları dinlenirken veya uyurken sürüklenmemek için kendilerini yosunlara sarabilir.",
+        sourceName: "Monterey Bay Aquarium",
+        source:
+            "https://www.montereybayaquarium.org/animals/animals-a-to-z/sea-otter"
+    },
+
+    {
+        category: "HAYVANLAR",
+        icon: "🐨",
+        question: "Hangisi gerçek?",
+        options: [
+            "Koalaların parmak izleri vardır.",
+            "Koalaların ön ayaklarında hiç parmak bulunmaz.",
+            "Koalaların parmak uçları tamamen düzdür."
+        ],
+        correct: 0,
+        explanation:
+            "Koalaların parmak uçlarında belirgin iz desenleri bulunur. Bu desenler insan parmak izlerine şaşırtıcı derecede benzeyebilir.",
+        sourceName: "Australian Museum",
+        source:
+            "https://australian.museum/learn/animals/mammals/koala/"
+    },
+
+    {
+        category: "HAYVANLAR",
+        icon: "🦒",
+        question: "Hangisi gerçek?",
+        options: [
+            "Zürafaların boynunda yaklaşık 30 omur bulunur.",
+            "Zürafaların boynunda insanlarla aynı sayıda boyun omuru bulunur.",
+            "Zürafaların boynunda yalnızca üç omur vardır."
+        ],
+        correct: 1,
+        explanation:
+            "Zürafaların inanılmaz uzun boynuna rağmen çoğu memelide olduğu gibi yedi boyun omuru vardır. Fark, bu omurların çok daha uzun olmasıdır.",
+        sourceName: "San Diego Zoo Wildlife Alliance",
+        source:
+            "https://animals.sandiegozoo.org/animals/giraffe"
+    },
+
+    {
+        category: "HAYVANLAR",
+        icon: "🦉",
+        question: "Hangisi gerçek?",
+        options: [
+            "Baykuşlar gözlerini yuvalarında insanlar gibi çevirebilir.",
+            "Baykuşların gözleri büyük ölçüde sabittir ve bunun yerine başlarını hareket ettirirler.",
+            "Baykuşların gözleri kafatasının dışında hareket eder."
+        ],
+        correct: 1,
+        explanation:
+            "Baykuşların büyük gözleri göz yuvalarında bizimkiler gibi hareket edemez. Bu nedenle çevrelerine bakmak için başlarını geniş açılarla çevirirler.",
+        sourceName: "Smithsonian's National Zoo",
+        source:
+            "https://nationalzoo.si.edu/migratory-birds/owls"
+    },
+
+    {
+        category: "DENİZ CANLILARI",
+        icon: "🐬",
+        question: "Hangisi gerçek?",
+        options: [
+            "Yunuslar nefes almak için tamamen bilinçsiz bir refleks kullanır.",
+            "Yunuslar su altında solungaçlarıyla nefes alır.",
+            "Yunuslar uyurken beyinlerinin bir yarısını daha aktif tutabilir."
+        ],
+        correct: 2,
+        explanation:
+            "Yunuslar nefes almak için yüzeye çıkmak zorunda olduklarından unihemisferik uyku olarak bilinen şekilde beyinlerinin bir yarısını dinlendirirken diğer yarısını daha aktif tutabilir.",
+        sourceName: "NOAA",
+        source:
+            "https://oceanservice.noaa.gov/"
+    },
+
+    {
+        category: "HAYVANLAR",
+        icon: "🐍",
+        question: "Hangisi gerçek?",
+        options: [
+            "Yılanlar kokuları yalnızca burunlarıyla algılar.",
+            "Yılanlar dilleriyle çevreden kimyasal parçacıklar toplayabilir.",
+            "Yılanların dili yalnızca vücut sıcaklığını ayarlamak için kullanılır."
+        ],
+        correct: 1,
+        explanation:
+            "Yılanlar çatallı dilleriyle havadan ve yüzeylerden kimyasal parçacıklar toplar ve bunları ağızlarının üst kısmındaki özel bir duyu organına taşır.",
+        sourceName: "Smithsonian's National Zoo",
+        source:
+            "https://nationalzoo.si.edu/animals"
+    },
+
+    {
+        category: "BÖCEKLER",
+        icon: "🐝",
+        question: "Hangisi gerçek?",
+        options: [
+            "Bal arıları yiyecek kaynağının yönü hakkında diğer arılara bilgi aktarabilir.",
+            "Bal arıları kovanda birbirleriyle hiçbir şekilde iletişim kuramaz.",
+            "Bal arıları yalnızca geceleri yön bulabilir."
+        ],
+        correct: 0,
+        explanation:
+            "Bal arıları ünlü sallanma dansını kullanarak diğer işçilere yiyecek kaynağının yönü ve uzaklığı hakkında bilgi aktarabilir.",
+        sourceName: "USDA",
+        source:
+            "https://www.usda.gov/"
+    },
+
+    {
+        category: "KUŞLAR",
+        icon: "🐧",
+        question: "Hangisi gerçek?",
+        options: [
+            "Tüm penguen türleri yalnızca Antarktika'da yaşar.",
+            "Vahşi penguenler Kuzey Kutbu'nda doğal olarak yaşar.",
+            "Bazı penguen türleri ekvatora oldukça yakın bölgelerde yaşayabilir."
+        ],
+        correct: 2,
+        explanation:
+            "Penguenler yalnızca buzlu Antarktika ortamlarında yaşamaz. Galápagos pengueni gibi bazı türler ekvator çevresindeki sıcak bölgelerde bulunur.",
+        sourceName: "Smithsonian's National Zoo",
+        source:
+            "https://nationalzoo.si.edu/animals"
+    },
+
+    {
+        category: "HAYVANLAR",
+        icon: "🦇",
+        question: "Hangisi gerçek?",
+        options: [
+            "Yarasalar tamamen kördür.",
+            "Bazı yarasalar hem görebilir hem de ekolokasyon kullanabilir.",
+            "Yarasaların gözleri yoktur."
+        ],
+        correct: 1,
+        explanation:
+            "Yarasaların kör olduğu yaygın bir efsanedir. Birçok yarasa görebilir ve bazı türler buna ek olarak ekolokasyon kullanır.",
+        sourceName: "U.S. National Park Service",
+        source:
+            "https://www.nps.gov/subjects/bats/"
+    },
+
+    {
+        category: "DENİZ CANLILARI",
+        icon: "🦀",
+        question: "Hangisi gerçek?",
+        options: [
+            "At nalı yengeçlerinin kanı mavidir.",
+            "At nalı yengeçlerinin hiç kanı yoktur.",
+            "At nalı yengeçlerinin kanı doğal olarak siyahtır."
+        ],
+        correct: 0,
+        explanation:
+            "At nalı yengeçlerinin oksijen taşıyan hemosiyanin molekülü bakır içerdiği için kanları oksijenlendiğinde mavi görünür.",
+        sourceName: "Smithsonian Ocean",
+        source:
+            "https://ocean.si.edu/ocean-life/invertebrates/horseshoe-crabs"
+    },
+
+    {
+        category: "KUŞLAR",
+        icon: "🦜",
+        question: "Hangisi gerçek?",
+        options: [
+            "Kargagiller insan yüzlerini birbirinden ayırt edemez.",
+            "Bazı kargalar belirli insan yüzlerini tanıyabilir.",
+            "Kargalar yalnızca hareket eden nesneleri görebilir."
+        ],
+        correct: 1,
+        explanation:
+            "Araştırmalar bazı kargaların belirli insan yüzlerini öğrenebildiğini ve uzun süre hatırlayabildiğini göstermiştir.",
+        sourceName: "University of Washington",
+        source:
+            "https://www.washington.edu/news/"
+    },
+
+    {
+        category: "HAYVANLAR",
+        icon: "🐘",
+        question: "Hangisi gerçek?",
+        options: [
+            "Filler çok düşük frekanslı seslerle uzak mesafelerden iletişim kurabilir.",
+            "Filler yalnızca insanların duyabildiği frekanslarda ses çıkarır.",
+            "Filler iletişim kurarken ses kullanmaz."
+        ],
+        correct: 0,
+        explanation:
+            "Filler insan kulağının duyamayacağı kadar düşük frekanslı sesler üretebilir. Bu sesler uzun mesafelerde iletişimde kullanılabilir.",
+        sourceName: "Smithsonian's National Zoo",
+        source:
+            "https://nationalzoo.si.edu/animals/asian-elephant"
+    },
+
+    {
+        category: "HAYVANLAR",
+        icon: "🦎",
+        question: "Hangisi gerçek?",
+        options: [
+            "Bukalemunlar yalnızca bulundukları zemine kamufle olmak için renk değiştirir.",
+            "Bukalemunların rengi yaşamları boyunca değişmez.",
+            "Bukalemunların renk değişimi iletişim ve vücut sıcaklığının düzenlenmesiyle de ilişkili olabilir."
+        ],
+        correct: 2,
+        explanation:
+            "Bukalemunların renk değiştirmesi yalnızca kamuflaj değildir. Sosyal iletişim, stres ve sıcaklık düzenleme gibi etkenler de renk değişiminde rol oynayabilir.",
+        sourceName: "Smithsonian's National Zoo",
+        source:
+            "https://nationalzoo.si.edu/animals"
+    },
+
+    {
+        category: "HAYVANLAR",
+        icon: "🦥",
+        question: "Hangisi gerçek?",
+        options: [
+            "Tembel hayvanlar hayatlarının tamamını yerde geçirir.",
+            "Tembel hayvanlar iyi yüzebilir.",
+            "Tembel hayvanlar suya girdiklerinde hemen batar."
+        ],
+        correct: 1,
+        explanation:
+            "Karadaki son derece yavaş hareketlerine rağmen tembel hayvanlar yüzebilir ve suda hareket etmek için uzun kollarını kullanabilir.",
+        sourceName: "Smithsonian's National Zoo",
+        source:
+            "https://nationalzoo.si.edu/animals"
+    },
+
+    {
+        category: "HAYVANLAR",
+        icon: "🦛",
+        question: "Hangisi gerçek?",
+        options: [
+            "Su aygırları suyun altında balıklar gibi solungaçlarıyla nefes alır.",
+            "Su aygırları uyurken nefes almak için yüzeye çıkamaz.",
+            "Su aygırları uyurken bile nefes almak için otomatik olarak yüzeye çıkabilir."
+        ],
+        correct: 2,
+        explanation:
+            "Su aygırları nefes almak için yüzeye çıkmak zorundadır ve bunu uyku sırasında bile büyük ölçüde otomatik biçimde gerçekleştirebilir.",
+        sourceName: "San Diego Zoo Wildlife Alliance",
+        source:
+            "https://animals.sandiegozoo.org/animals/hippo"
+    },
+
+    {
+        category: "BÖCEKLER",
+        icon: "🪳",
+        question: "Hangisi gerçek?",
+        options: [
+            "Bazı hamamböcekleri başları olmadan bir süre hayatta kalabilir.",
+            "Hamamböcekleri başları olmadan saniyeler içinde oksijensizlikten ölür.",
+            "Hamamböcekleri yalnızca ağızlarından nefes alır."
+        ],
+        correct: 0,
+        explanation:
+            "Böcekler bizim gibi ağız ve akciğer sistemiyle nefes almaz. Vücutlarındaki solunum açıklıkları nedeniyle bir hamamböceği başını kaybettikten sonra bir süre yaşayabilir.",
+        sourceName: "Smithsonian",
+        source:
+            "https://www.si.edu/"
+    },
+
+    {
+        category: "HAYVANLAR",
+        icon: "🦔",
+        question: "Hangisi gerçek?",
+        options: [
+            "Kirpilerin dikenleri zehirlidir.",
+            "Kirpiler tehlike anında dikenlerini ok gibi fırlatabilir.",
+            "Kirpilerin dikenleri değiştirilmiş kıllardır."
+        ],
+        correct: 2,
+        explanation:
+            "Kirpinin dikenleri keratinden oluşan özelleşmiş kıllardır. Tehlike karşısında dikenlerini dikleştirebilir ancak onları ok gibi fırlatmaz.",
+        sourceName: "Smithsonian's National Zoo",
+        source:
+            "https://nationalzoo.si.edu/animals"
+    },
+
+    {
+        category: "DENİZ CANLILARI",
+        icon: "🐋",
+        question: "Hangisi gerçek?",
+        options: [
+            "Mavi balinanın kalbi küçük bir köpek büyüklüğündedir.",
+            "Mavi balina Dünya'da yaşamış en büyük hayvanlardan biridir.",
+            "Mavi balina yetişkin olduğunda yalnızca birkaç yüz kilogramdır."
+        ],
+        correct: 1,
+        explanation:
+            "Mavi balina, bilinen hayvanlar arasında olağanüstü büyüklüğüyle öne çıkar ve Dünya tarihinde yaşamış en büyük hayvan olarak kabul edilir.",
+        sourceName: "NOAA Fisheries",
+        source:
+            "https://www.fisheries.noaa.gov/species/blue-whale"
+    },
+
+    {
+        category: "KUŞLAR",
+        icon: "🦅",
+        question: "Hangisi gerçek?",
+        options: [
+            "Bazı kuşlar Dünya'nın manyetik alanından yön bulmak için yararlanabilir.",
+            "Kuşlar göç sırasında yalnızca yolları takip eder.",
+            "Göçmen kuşlar yönlerini yalnızca diğer kuşların seslerinden öğrenir."
+        ],
+        correct: 0,
+        explanation:
+            "Birçok göçmen kuş yön bulurken Güneş, yıldızlar, çevresel işaretler ve Dünya'nın manyetik alanı gibi birden fazla ipucundan yararlanabilir.",
+        sourceName: "U.S. Geological Survey",
+        source:
+            "https://www.usgs.gov/"
+    },
+
+    {
+        category: "HAYVANLAR",
+        icon: "🐊",
+        question: "Hangisi gerçek?",
+        options: [
+            "Timsahlar dillerini ağızlarının dışına tamamen çıkarabilir.",
+            "Timsahların dili ağız tabanına bağlıdır ve dışarı doğru uzatılamaz.",
+            "Timsahların dili yoktur."
+        ],
+        correct: 1,
+        explanation:
+            "Timsahların dili vardır ancak bir zarla ağız tabanına bağlı olduğundan bizimki gibi dışarı uzatılamaz.",
+        sourceName: "Smithsonian's National Zoo",
+        source:
+            "https://nationalzoo.si.edu/animals"
+    },
+
+    {
+        category: "HAYVANLAR",
+        icon: "🦘",
+        question: "Hangisi gerçek?",
+        options: [
+            "Kangurular normal biçimde geriye doğru yürümekte zorlanır.",
+            "Kangurular yalnızca geriye doğru hareket edebilir.",
+            "Kanguruların kuyrukları hareket sırasında hiçbir işe yaramaz."
+        ],
+        correct: 0,
+        explanation:
+            "Kanguruların büyük arka ayakları ve güçlü kuyruklarının yapısı geriye doğru normal biçimde yürümelerini oldukça zorlaştırır.",
+        sourceName: "Australian Museum",
+        source:
+            "https://australian.museum/learn/animals/mammals/"
+    },
+
+    {
+        category: "HAYVANLAR",
+        icon: "🐱",
+        question: "Hangisi gerçek?",
+        options: [
+            "Evcil kediler tatlı tadını insanlar kadar güçlü algılar.",
+            "Kedilerde işlevsel tatlı tat reseptörlerinden biri eksiktir.",
+            "Kedilerin hiçbir tat alma duyusu yoktur."
+        ],
+        correct: 1,
+        explanation:
+            "Evcil kediler ve diğer kedigiller tatlı tadını algılamak için gereken reseptör sisteminin önemli bir parçasından yoksundur.",
+        sourceName: "National Library of Medicine",
+        source:
+            "https://pubmed.ncbi.nlm.nih.gov/"
+    },
+
+    {
+        category: "HAYVANLAR",
+        icon: "🐀",
+        question: "Hangisi gerçek?",
+        options: [
+            "Sıçanlar bazı koşullarda kahkahaya benzetilen ultrasonik sesler çıkarabilir.",
+            "Sıçanların hiçbir sosyal seslenmesi yoktur.",
+            "Sıçanların çıkardığı bütün sesler insan kulağı tarafından duyulabilir."
+        ],
+        correct: 0,
+        explanation:
+            "Sıçanlar oyun veya gıdıklanma gibi bazı olumlu durumlarda insan işitme aralığının üzerinde ultrasonik sesler çıkarabilir.",
+        sourceName: "National Library of Medicine",
+        source:
+            "https://pubmed.ncbi.nlm.nih.gov/"
+    }
+
+];
+
+
+/* =========================================
+   06 - OYUN DURUMU
+========================================= */
+
+let realQuizQueue = [];
+let realQuizCurrentRound = 0;
+let realQuizScore = 0;
+let realQuizStreak = 0;
+let realQuizBestStreak = 0;
+let realQuizAnswered = false;
+
+
+/* =========================================
+   06 - ANA EKRAN
+========================================= */
+
+function createRealExperience() {
+
+    return `
+        <div class="real-experience">
+
+            <div class="real-intro-icon">
+                🕵️
+            </div>
+
+            <span class="real-kicker">
+                06 — HANGİSİ GERÇEK?
+            </span>
+
+            <h2>
+                Yalanı gerçekten ayırabilir misin?
+            </h2>
+
+            <p>
+                Önüne üç iddia gelecek.
+                Yalnızca biri gerçek.
+            </p>
+
+            <div class="real-intro-rule">
+                <span>30</span>
+                farklı tur arasından rastgele
+                <strong>7 soru</strong>
+                seçilecek.
+            </div>
+
+            <button
+                class="real-start-button"
+                onclick="startRealQuiz()"
+            >
+                BAŞLA
+                <span>→</span>
+            </button>
+
+        </div>
+    `;
+}
+
+
+/* =========================================
+   06 - OYUNU BAŞLAT
+========================================= */
+
+function startRealQuiz() {
+
+    realQuizQueue = shuffleRealQuiz(
+        [...realQuizRounds]
+    ).slice(0, 7);
+
+    realQuizCurrentRound = 0;
+    realQuizScore = 0;
+    realQuizStreak = 0;
+    realQuizBestStreak = 0;
+    realQuizAnswered = false;
+
+    showRealQuizRound();
+
+}
+
+
+/* =========================================
+   06 - KARIŞTIR
+========================================= */
+
+function shuffleRealQuiz(array) {
+
+    for (
+        let i = array.length - 1;
+        i > 0;
+        i--
+    ) {
+
+        const j = Math.floor(
+            Math.random() * (i + 1)
+        );
+
+        [
+            array[i],
+            array[j]
+        ] = [
+            array[j],
+            array[i]
+        ];
+
+    }
+
+    return array;
+
+}
+
+
+/* =========================================
+   06 - TURU GÖSTER
+========================================= */
+
+function showRealQuizRound() {
+
+    const round =
+        realQuizQueue[realQuizCurrentRound];
+
+    realQuizAnswered = false;
+
+    const letters = [
+        "A",
+        "B",
+        "C"
+    ];
+
+    experienceContent.innerHTML = `
+
+        <div class="real-game">
+
+            <div class="real-game-top">
+
+                <button
+                    class="real-back-button"
+                    onclick="backToRealIntro()"
+                >
+                    ← ÇIKIŞ
+                </button>
+
+                <span class="real-round-counter">
+                    ${realQuizCurrentRound + 1}
+                    /
+                    ${realQuizQueue.length}
+                </span>
+
+            </div>
+
+
+            <div class="real-progress">
+
+                <div
+                    class="real-progress-fill"
+                    style="
+                        width:
+                        ${
+                            (
+                                realQuizCurrentRound /
+                                realQuizQueue.length
+                            ) * 100
+                        }%;
+                    "
+                ></div>
+
+            </div>
+
+
+            <div class="real-score-row">
+
+                <div>
+                    <small>DOĞRU</small>
+                    <strong>
+                        ${realQuizScore}
+                    </strong>
+                </div>
+
+                <div>
+                    <small>SERİ</small>
+                    <strong>
+                        ${realQuizStreak}
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <div class="real-question-head">
+
+                <div class="real-question-icon">
+                    ${round.icon}
+                </div>
+
+                <span>
+                    ${round.category}
+                </span>
+
+                <h2>
+                    ${round.question}
+                </h2>
+
+                <p>
+                    Üç iddiadan yalnızca biri gerçek.
+                </p>
+
+            </div>
+
+
+            <div class="real-options">
+
+                ${round.options.map(
+                    (option, index) => `
+
+                        <button
+                            class="real-option"
+                            data-real-option="${index}"
+                            onclick="
+                                answerRealQuiz(${index})
+                            "
+                        >
+
+                            <span
+                                class="real-option-letter"
+                            >
+                                ${letters[index]}
+                            </span>
+
+                            <span
+                                class="real-option-text"
+                            >
+                                ${option}
+                            </span>
+
+                        </button>
+
+                    `
+                ).join("")}
+
+            </div>
+
+
+            <div
+                id="realResult"
+                class="real-result"
+            ></div>
+
+        </div>
+    `;
+
+}
+
+
+/* =========================================
+   06 - CEVAP
+========================================= */
+
+function answerRealQuiz(selectedIndex) {
+
+    if (realQuizAnswered) {
+        return;
+    }
+
+    realQuizAnswered = true;
+
+    const round =
+        realQuizQueue[realQuizCurrentRound];
+
+    const optionButtons =
+        document.querySelectorAll(
+            "[data-real-option]"
+        );
+
+    const selectedButton =
+        document.querySelector(
+            `[data-real-option="${selectedIndex}"]`
+        );
+
+    const correctButton =
+        document.querySelector(
+            `[data-real-option="${round.correct}"]`
+        );
+
+    const result =
+        document.getElementById(
+            "realResult"
+        );
+
+
+    optionButtons.forEach(button => {
+
+        button.disabled = true;
+
+        button.classList.add(
+            "real-option-locked"
+        );
+
+    });
+
+
+    if (selectedIndex === round.correct) {
+
+        realQuizScore++;
+        realQuizStreak++;
+
+        if (
+            realQuizStreak >
+            realQuizBestStreak
+        ) {
+
+            realQuizBestStreak =
+                realQuizStreak;
+
+        }
+
+        selectedButton.classList.add(
+            "correct"
+        );
+
+        result.innerHTML = `
+
+            <div class="real-result-box correct">
+
+                <span class="real-result-label">
+                    BUNU YEMEDİN
+                </span>
+
+                <h3>
+                    DOĞRU.
+                </h3>
+
+                <p>
+                    ${round.explanation}
+                </p>
+
+                <a
+                    href="${round.source}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="real-source-button"
+                >
+                    KAYNAĞI GÖR ↗
+                </a>
+
+                ${createRealNextButton()}
+
+            </div>
+        `;
+
+    } else {
+
+        realQuizStreak = 0;
+
+        selectedButton.classList.add(
+            "wrong"
+        );
+
+        correctButton.classList.add(
+            "correct"
+        );
+
+        const correctLetter =
+            ["A", "B", "C"][round.correct];
+
+        result.innerHTML = `
+
+            <div class="real-result-box wrong">
+
+                <span class="real-result-label">
+                    YAKALANDIN
+                </span>
+
+                <h3>
+                    GERÇEK OLAN
+                    ${correctLetter}'YDI.
+                </h3>
+
+                <p>
+                    ${round.explanation}
+                </p>
+
+                <a
+                    href="${round.source}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="real-source-button"
+                >
+                    KAYNAĞI GÖR ↗
+                </a>
+
+                ${createRealNextButton()}
+
+            </div>
+        `;
+
+    }
+
+}
+
+
+/* =========================================
+   06 - SONRAKİ BUTONU
+========================================= */
+
+function createRealNextButton() {
+
+    const isLast =
+        realQuizCurrentRound ===
+        realQuizQueue.length - 1;
+
+    if (isLast) {
+
+        return `
+            <button
+                class="real-next-button"
+                onclick="finishRealQuiz()"
+            >
+                SONUCU GÖR
+                <span>→</span>
+            </button>
+        `;
+
+    }
+
+    return `
+        <button
+            class="real-next-button"
+            onclick="nextRealQuizRound()"
+        >
+            SONRAKİ TUR
+            <span>→</span>
+        </button>
+    `;
+
+}
+
+
+/* =========================================
+   06 - SONRAKİ TUR
+========================================= */
+
+function nextRealQuizRound() {
+
+    realQuizCurrentRound++;
+
+    showRealQuizRound();
+
+}
+
+
+/* =========================================
+   06 - SONUÇ
+========================================= */
+
+function finishRealQuiz() {
+
+    let title = "";
+    let message = "";
+    let icon = "";
+
+    if (realQuizScore === 7) {
+
+        icon = "👁️";
+        title = "SENİ KANDIRAMADIK.";
+
+        message =
+            "7 sorunun 7'sini de buldun. Ya gerçekten iyisin ya da hiçbir şeye güvenmiyorsun.";
+
+    } else if (realQuizScore >= 5) {
+
+        icon = "🕵️";
+        title = "KOLAY KANDIRILMIYORSUN.";
+
+        message =
+            "Yalanların çoğunu yakaladın. Şüphe seviyen gayet yerinde.";
+
+    } else if (realQuizScore >= 3) {
+
+        icon = "🤨";
+        title = "BİRAZ ŞÜPHE İYİDİR.";
+
+        message =
+            "Bazılarını yakaladın, bazılarını da güzelce yedin.";
+
+    } else {
+
+        icon = "🎭";
+        title = "HER ŞEYE İNANMA.";
+
+        message =
+            "Bu turda uydurmalar seni biraz fazla kolay kandırdı.";
+
+    }
+
+
+    experienceContent.innerHTML = `
+
+        <div class="real-finish">
+
+            <div class="real-finish-icon">
+                ${icon}
+            </div>
+
+            <span class="real-kicker">
+                TEST TAMAMLANDI
+            </span>
+
+            <h2>
+                ${title}
+            </h2>
+
+            <div class="real-final-score">
+
+                <strong>
+                    ${realQuizScore}
+                </strong>
+
+                <span>
+                    / 7
+                </span>
+
+            </div>
+
+            <p>
+                ${message}
+            </p>
+
+            <div class="real-final-stats">
+
+                <div>
+                    <small>DOĞRU</small>
+
+                    <strong>
+                        ${realQuizScore}
+                    </strong>
+                </div>
+
+                <div>
+                    <small>YANLIŞ</small>
+
+                    <strong>
+                        ${7 - realQuizScore}
+                    </strong>
+                </div>
+
+                <div>
+                    <small>EN İYİ SERİ</small>
+
+                    <strong>
+                        ${realQuizBestStreak}
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <button
+                class="real-start-button"
+                onclick="startRealQuiz()"
+            >
+                TEKRAR OYNA
+                <span>↻</span>
+            </button>
+
+
+            <button
+                class="real-finish-back"
+                onclick="backToRealIntro()"
+            >
+                BAŞLANGICA DÖN
+            </button>
+
+        </div>
+    `;
+
+}
+
+
+/* =========================================
+   06 - BAŞLANGICA DÖN
+========================================= */
+
+function backToRealIntro() {
+
+    experienceContent.innerHTML =
+        createRealExperience();
+
+}
+
+/* =========================================================
+   07 — DÜNYADA ŞU AN
+========================================================= */
+
+let worldLiveInterval = null;
+let worldLiveStartTime = null;
+
+
+/* =========================================================
+   GİRİŞ
+========================================================= */
+
+function createWorldExperience() {
+
+    return `
+        <div class="world-experience">
+
+            <div class="world-live-badge">
+                <span></span>
+                CANLI DÜNYA
+            </div>
+
+            <div class="world-main-visual">
+
+                <div class="world-orbit orbit-one"></div>
+                <div class="world-orbit orbit-two"></div>
+
+                <div class="world-globe">
+                    🌍
+                </div>
+
+            </div>
+
+            <span class="world-kicker">
+                07 — DÜNYADA ŞU AN
+            </span>
+
+            <h2>
+                Sen burada dururken<br>
+                dünya durmuyor.
+            </h2>
+
+            <p class="world-intro-text">
+                Bu ekranı açtığın andan itibaren
+                Dünya'da ve uzayda gerçekleşen bazı
+                olayları tahmini oranlarla izle.
+            </p>
+
+            <button
+                class="world-start-button"
+                onclick="startWorldLive()"
+            >
+                DÜNYAYI İZLE
+                <span>→</span>
+            </button>
+
+            <p class="world-estimate-note">
+                Bazı sayaçlar küresel yıllık verilerden
+                saniyelik ortalamaya dönüştürülmüş tahminlerdir.
+            </p>
+
+        </div>
+    `;
+}
+
+
+/* =========================================================
+   CANLI EKRANI BAŞLAT
+========================================================= */
+
+function startWorldLive() {
+
+    if (worldLiveInterval) {
+        clearInterval(worldLiveInterval);
+        worldLiveInterval = null;
+    }
+
+    worldLiveStartTime = Date.now();
+
+    experienceContent.innerHTML = `
+
+        <div class="world-live">
+
+            <div class="world-live-header">
+
+                <div>
+
+                    <div class="world-live-badge">
+                        <span></span>
+                        CANLI
+                    </div>
+
+                    <h2>
+                        Sen buradayken...
+                    </h2>
+
+                    <p>
+                        Bu ekranı açtığın andan itibaren.
+                    </p>
+
+                </div>
+
+                <button
+                    class="world-live-back"
+                    onclick="backToWorldIntro()"
+                >
+                    ← GERİ
+                </button>
+
+            </div>
+
+
+            <!-- SÜRE -->
+
+            <div class="world-time-card">
+
+                <span>
+                    BURADA GEÇİRDİĞİN SÜRE
+                </span>
+
+                <strong id="worldElapsed">
+                    00:00:00
+                </strong>
+
+            </div>
+
+
+            <!-- AKAN SAYAÇLAR -->
+
+            <div class="world-counter-grid">
+
+
+                <div class="world-counter-card">
+
+                    <div class="world-counter-icon">
+                        👶
+                    </div>
+
+                    <span class="world-counter-label">
+                        TAHMİNİ DOĞUM
+                    </span>
+
+                    <strong
+                        id="worldBirths"
+                        class="world-counter-number"
+                    >
+                        0
+                    </strong>
+
+                    <small>
+                        sen buradayken
+                    </small>
+
+                </div>
+
+
+                <div class="world-counter-card">
+
+                    <div class="world-counter-icon">
+                        🕯️
+                    </div>
+
+                    <span class="world-counter-label">
+                        TAHMİNİ ÖLÜM
+                    </span>
+
+                    <strong
+                        id="worldDeaths"
+                        class="world-counter-number"
+                    >
+                        0
+                    </strong>
+
+                    <small>
+                        sen buradayken
+                    </small>
+
+                </div>
+
+
+                <div class="
+                    world-counter-card
+                    world-counter-featured
+                ">
+
+                    <div class="world-counter-icon">
+                        🌍
+                    </div>
+
+                    <span class="world-counter-label">
+                        DÜNYA'NIN YÖRÜNGEDE ALDIĞI YOL
+                    </span>
+
+                    <strong
+                        id="worldTravel"
+                        class="world-counter-number"
+                    >
+                        0 KM
+                    </strong>
+
+                    <small>
+                        Ortalama yörünge hızı:
+                        29,78 km/sn • NASA
+                    </small>
+
+                </div>
+
+
+                <div class="world-counter-card">
+
+                    <div class="world-counter-icon">
+                        ☀️
+                    </div>
+
+                    <span class="world-counter-label">
+                        GÜNEŞ'TEN DÜNYA'YA GELEN GÜÇ
+                    </span>
+
+                    <strong
+                        class="world-counter-number"
+                    >
+                        ~174 PW
+                    </strong>
+
+                    <small>
+                        Dünya'nın Güneş'e bakan kesitine
+                        ulaşan yaklaşık toplam güç
+                    </small>
+
+                </div>
+
+
+                <div class="world-counter-card">
+
+                    <div class="world-counter-icon">
+                        🌌
+                    </div>
+
+                    <span class="world-counter-label">
+                        GÜNEŞ SİSTEMİ'NİN GALAKSİDE
+                        ALDIĞI YOL
+                    </span>
+
+                    <strong
+                        id="worldGalaxyTravel"
+                        class="world-counter-number"
+                    >
+                        0 KM
+                    </strong>
+
+                    <small>
+                        yaklaşık • sen buradayken
+                    </small>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- BİR DÜŞÜN -->
+
+            <div class="world-perspective">
+
+                <span class="world-perspective-label">
+                    BİR DÜŞÜN
+                </span>
+
+                <p id="worldPerspectiveText">
+                    Sen bu yazıyı okurken bile
+                    Dünya uzayda binlerce kilometre
+                    yol aldı.
+                </p>
+
+            </div>
+
+
+            <!-- =====================================
+                 ŞU ANDA DÜNYA
+            ====================================== -->
+
+            ${createWorldNowSection()}
+
+
+            <!-- KAYNAK NOTU -->
+
+            <div class="world-source-area">
+
+                <span>
+                    VERİLER HAKKINDA
+                </span>
+
+                <p>
+                    Bu bölümdeki değerlerin bir kısmı
+                    doğrudan yayımlanmış istatistikler,
+                    bir kısmı bilimsel tahminlerdir.
+                    Tahmini değerler kesin canlı ölçüm
+                    anlamına gelmez.
+                </p>
+
+                <div class="world-source-links">
+
+                    <a
+                        href="https://nssdc.gsfc.nasa.gov/planetary/factsheet/earthfact.html"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        NASA ↗
+                    </a>
+
+                    <a
+                        href="https://www.itu.int/en/ITU-D/Statistics/pages/stat/default.aspx"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        ITU ↗
+                    </a>
+
+                    <a
+                        href="https://www.fao.org/interactive/2025/forest-resources-assessment/en/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        FAO ↗
+                    </a>
+
+                    <a
+                        href="https://www.nature.com/articles/nature14967"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        NATURE ↗
+                    </a>
+
+                    <a
+                        href="https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1001127"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        PLOS BIOLOGY ↗
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+    `;
+
+    updateWorldLive();
+
+    worldLiveInterval =
+        setInterval(
+            updateWorldLive,
+            250
+        );
+}
+
+
+/* =========================================================
+   ŞU ANDA DÜNYA
+========================================================= */
+
+function createWorldNowSection() {
+
+    return `
+
+        <section class="world-now-section">
+
+            <div class="world-now-heading">
+
+                <span class="world-now-kicker">
+                    GEZEGENİN BÜYÜK RESMİ
+                </span>
+
+                <h2>
+                    Şu Anda Dünya
+                </h2>
+
+                <p>
+                    Dünya hakkında güncel istatistikler
+                    ve bilimsel tahminler.
+                </p>
+
+            </div>
+
+
+            <div class="world-now-planet">
+
+                <div class="
+                    world-now-ring
+                    ring-a
+                "></div>
+
+                <div class="
+                    world-now-ring
+                    ring-b
+                "></div>
+
+                <div class="world-now-earth">
+                    🌍
+                </div>
+
+                <span>
+                    7/24 HAREKET HALİNDE
+                </span>
+
+            </div>
+
+
+            <div class="world-now-grid">
+
+
+                <!-- DÜNYA NÜFUSU -->
+
+                <div class="
+                    world-now-card
+                    world-now-featured
+                ">
+
+                    <div class="world-now-icon">
+                        👥
+                    </div>
+
+                    <span class="world-now-label">
+                        DÜNYA NÜFUSU
+                    </span>
+
+                    <strong>
+                        8+ MİLYAR
+                    </strong>
+
+                    <p>
+                        Dünya nüfusu sekiz milyarı
+                        aşmış durumda. Bu kart kesin
+                        anlık kişi sayısı değil,
+                        küresel nüfus ölçeğini gösterir.
+                    </p>
+
+                    <small>
+                        BM • KÜRESEL TAHMİN
+                    </small>
+
+                </div>
+
+
+                <!-- İNTERNET -->
+
+                <div class="
+                    world-now-card
+                    world-now-featured
+                ">
+
+                    <div class="world-now-icon">
+                        🌐
+                    </div>
+
+                    <span class="world-now-label">
+                        İNTERNET KULLANICISI
+                    </span>
+
+                    <strong>
+                        ~6 MİLYAR
+                    </strong>
+
+                    <p>
+                        Dünya nüfusunun yaklaşık
+                        %74'ü internet kullanıyor.
+                    </p>
+
+                    <small>
+                        ITU • 2025
+                    </small>
+
+                </div>
+
+
+                <!-- YÖRÜNGE HIZI -->
+
+                <div class="world-now-card">
+
+                    <div class="world-now-icon">
+                        🚀
+                    </div>
+
+                    <span class="world-now-label">
+                        YÖRÜNGE HIZI
+                    </span>
+
+                    <strong>
+                        29,78 KM/S
+                    </strong>
+
+                    <p>
+                        Dünya'nın Güneş çevresindeki
+                        ortalama yörünge hızı.
+                    </p>
+
+                    <small>
+                        NASA
+                    </small>
+
+                </div>
+
+
+                <!-- ORMAN ALANI -->
+
+                <div class="world-now-card">
+
+                    <div class="world-now-icon">
+                        🌲
+                    </div>
+
+                    <span class="world-now-label">
+                        KÜRESEL ORMAN ALANI
+                    </span>
+
+                    <strong>
+                        4,14 MİLYAR HA
+                    </strong>
+
+                    <p>
+                        Dünya kara alanının yaklaşık
+                        %32'si ormanlarla kaplı.
+                    </p>
+
+                    <small>
+                        FAO • FRA 2025
+                    </small>
+
+                </div>
+
+
+                <!-- AĞAÇ SAYISI -->
+
+                <div class="world-now-card">
+
+                    <div class="world-now-icon">
+                        🌳
+                    </div>
+
+                    <span class="world-now-label">
+                        TAHMİNİ AĞAÇ SAYISI
+                    </span>
+
+                    <strong>
+                        ~3,04 TRİLYON
+                    </strong>
+
+                    <p>
+                        Küresel ağaç yoğunluğu
+                        araştırmasından elde edilen
+                        bilimsel tahmin.
+                    </p>
+
+                    <small>
+                        NATURE • 2015 TAHMİNİ
+                    </small>
+
+                </div>
+
+
+                <!-- TÜRLER -->
+
+                <div class="world-now-card">
+
+                    <div class="world-now-icon">
+                        🧬
+                    </div>
+
+                    <span class="world-now-label">
+                        TAHMİNİ ÖKARYOTİK TÜR
+                    </span>
+
+                    <strong>
+                        ~8,7 MİLYON
+                    </strong>
+
+                    <p>
+                        Hayvanlar, bitkiler,
+                        mantarlar ve diğer ökaryotik
+                        canlılar için model tahmini.
+                    </p>
+
+                    <small>
+                        PLOS BIOLOGY • 2011
+                    </small>
+
+                </div>
+
+
+                <!-- DENİZ TÜRLERİ -->
+
+                <div class="world-now-card">
+
+                    <div class="world-now-icon">
+                        🌊
+                    </div>
+
+                    <span class="world-now-label">
+                        TAHMİNİ DENİZ TÜRÜ
+                    </span>
+
+                    <strong>
+                        ~2,2 MİLYON
+                    </strong>
+
+                    <p>
+                        Okyanuslarda yaşadığı tahmin
+                        edilen ökaryotik tür sayısı.
+                    </p>
+
+                    <small>
+                        PLOS BIOLOGY • 2011
+                    </small>
+
+                </div>
+
+
+                <!-- ÇEVRİMDIŞI -->
+
+                <div class="world-now-card">
+
+                    <div class="world-now-icon">
+                        📵
+                    </div>
+
+                    <span class="world-now-label">
+                        HÂLÂ ÇEVRİMDIŞI
+                    </span>
+
+                    <strong>
+                        ~2,2 MİLYAR
+                    </strong>
+
+                    <p>
+                        2025 itibarıyla internet
+                        kullanmadığı tahmin edilen
+                        insan sayısı.
+                    </p>
+
+                    <small>
+                        ITU • 2025
+                    </small>
+
+                </div>
+
+
+                <!-- ORMAN ORANI -->
+
+                <div class="world-now-card">
+
+                    <div class="world-now-icon">
+                        🍃
+                    </div>
+
+                    <span class="world-now-label">
+                        KARALARIN ORMAN ORANI
+                    </span>
+
+                    <strong>
+                        %32
+                    </strong>
+
+                    <p>
+                        Dünya'nın toplam kara
+                        alanının ormanlarla
+                        kaplı bölümü.
+                    </p>
+
+                    <small>
+                        FAO • FRA 2025
+                    </small>
+
+                </div>
+
+
+                <!-- KEŞFEDİLMEMİŞ TÜRLER -->
+
+                <div class="world-now-card">
+
+                    <div class="world-now-icon">
+                        🔬
+                    </div>
+
+                    <span class="world-now-label">
+                        TANIMLANMAYI BEKLEYEN TÜRLER
+                    </span>
+
+                    <strong>
+                        ~%86
+                    </strong>
+
+                    <p>
+                        2011 modeline göre Dünya'daki
+                        ökaryotik türlerin büyük
+                        bölümü henüz bilimsel olarak
+                        tanımlanmamış olabilir.
+                    </p>
+
+                    <small>
+                        PLOS BIOLOGY • 2011
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="world-now-warning">
+
+                <span>
+                    NEDEN BAZILARINDA
+                    “TAHMİNİ” YAZIYOR?
+                </span>
+
+                <p>
+                    Dünya üzerindeki her ağacı,
+                    canlı türünü veya insanı
+                    aynı anda tek tek saymak mümkün
+                    değildir. Bu nedenle bazı
+                    değerler bilimsel araştırmalar,
+                    istatistikler ve modeller
+                    kullanılarak tahmin edilir.
+                </p>
+
+            </div>
+
+        </section>
+    `;
+}
+
+
+/* =========================================================
+   CANLI SAYAÇ HESAPLARI
+========================================================= */
+
+function updateWorldLive() {
+
+    if (!worldLiveStartTime) {
+        return;
+    }
+
+    const elapsed =
+        (Date.now() - worldLiveStartTime)
+        / 1000;
+
+
+    /* -----------------------------------------
+       SÜRE
+    ----------------------------------------- */
+
+    const totalSeconds =
+        Math.floor(elapsed);
+
+    const hours =
+        Math.floor(totalSeconds / 3600);
+
+    const minutes =
+        Math.floor(
+            (totalSeconds % 3600) / 60
+        );
+
+    const seconds =
+        totalSeconds % 60;
+
+    const elapsedElement =
+        document.getElementById(
+            "worldElapsed"
+        );
+
+    if (elapsedElement) {
+
+        elapsedElement.textContent =
+            `${String(hours).padStart(2, "0")}:` +
+            `${String(minutes).padStart(2, "0")}:` +
+            `${String(seconds).padStart(2, "0")}`;
+
+    }
+
+
+    /* -----------------------------------------
+       DOĞUM / ÖLÜM
+
+       Bunlar yaklaşık küresel oranlardır.
+       Kesin gerçek zamanlı kayıt değildir.
+    ----------------------------------------- */
+
+    const birthsPerSecond = 4.1;
+    const deathsPerSecond = 2.0;
+
+    const births =
+        Math.floor(
+            elapsed * birthsPerSecond
+        );
+
+    const deaths =
+        Math.floor(
+            elapsed * deathsPerSecond
+        );
+
+
+    /* -----------------------------------------
+       DÜNYA'NIN YÖRÜNGE HAREKETİ
+       NASA: 29.78 km/s ortalama
+    ----------------------------------------- */
+
+    const earthTravel =
+        elapsed * 29.78;
+
+
+    /* -----------------------------------------
+       GÜNEŞ SİSTEMİ'NİN GALAKTİK HAREKETİ
+
+       ~828.000 km/saat
+       = ~230 km/s
+    ----------------------------------------- */
+
+    const galaxyTravel =
+        elapsed * 230;
+
+
+    updateWorldNumber(
+        "worldBirths",
+        births
+    );
+
+    updateWorldNumber(
+        "worldDeaths",
+        deaths
+    );
+
+
+    const travelElement =
+        document.getElementById(
+            "worldTravel"
+        );
+
+    if (travelElement) {
+
+        travelElement.textContent =
+            formatWorldNumber(
+                Math.floor(earthTravel)
+            ) + " KM";
+
+    }
+
+
+    const galaxyElement =
+        document.getElementById(
+            "worldGalaxyTravel"
+        );
+
+    if (galaxyElement) {
+
+        galaxyElement.textContent =
+            formatWorldNumber(
+                Math.floor(galaxyTravel)
+            ) + " KM";
+
+    }
+
+
+    updateWorldPerspective(elapsed);
+}
+
+
+/* =========================================================
+   SAYI YAZDIR
+========================================================= */
+
+function updateWorldNumber(
+    elementId,
+    number
+) {
+
+    const element =
+        document.getElementById(
+            elementId
+        );
+
+    if (!element) {
+        return;
+    }
+
+    element.textContent =
+        formatWorldNumber(number);
+}
+
+
+function formatWorldNumber(number) {
+
+    return Math.floor(number)
+        .toLocaleString("tr-TR");
+}
+
+
+/* =========================================================
+   BİR DÜŞÜN MESAJLARI
+========================================================= */
+
+function updateWorldPerspective(elapsed) {
+
+    const element =
+        document.getElementById(
+            "worldPerspectiveText"
+        );
+
+    if (!element) {
+        return;
+    }
+
+
+    if (elapsed < 15) {
+
+        element.textContent =
+            "Sen bu yazıyı okurken bile Dünya, Güneş çevresindeki yörüngesinde yüzlerce kilometre yol aldı.";
+
+    } else if (elapsed < 30) {
+
+        element.textContent =
+            "Burada yalnızca birkaç saniye geçirdin. Bu sırada Dünya uzayda durmadan yoluna devam etti.";
+
+    } else if (elapsed < 60) {
+
+        element.textContent =
+            "Yarım dakikadan uzun süredir buradasın. Dünya bu sürede Güneş çevresinde yaklaşık bin kilometreden fazla yol aldı.";
+
+    } else if (elapsed < 120) {
+
+        element.textContent =
+            "Bir dakikayı geçtin. Dünya'nın yörüngedeki hareketi gözle fark edilmese de her saniye yaklaşık 29,78 kilometre devam ediyor.";
+
+    } else {
+
+        element.textContent =
+            "İki dakikadan uzun süredir bu ekrandasın. Yukarıdaki sayaçların ne kadar büyüdüğüne tekrar bak.";
+
+    }
+
+}
+
+
+/* =========================================================
+   GERİ DÖN
+========================================================= */
+
+function backToWorldIntro() {
+
+    if (worldLiveInterval) {
+
+        clearInterval(
+            worldLiveInterval
+        );
+
+        worldLiveInterval = null;
+
+    }
+
+    worldLiveStartTime = null;
+
+    experienceContent.innerHTML =
+        createWorldExperience();
+}
+
+/* =========================================================
+   OVERLAY - BOŞ ALANDA DA SCROLL
+========================================================= */
+
+overlay.addEventListener(
+    "wheel",
+    function (event) {
+
+        if (!overlay.classList.contains("active")) {
+            return;
+        }
+
+        const scrollContainer =
+            experienceContent;
+
+        scrollContainer.scrollTop +=
+            event.deltaY;
+
+        event.preventDefault();
+
+    },
+    {
+        passive: false
+    }
+);
+
+/* =========================================================
+   08 — RAHATSIZ EDİCİ BİLGİLER
+========================================================= */
+
+const disturbingFacts = [
+
+    {
+        level: "ÇOK KARANLIK",
+        icon: "☠️",
+        title: "Bir seri katil 93 cinayeti itiraf etti.",
+        text: "Samuel Little, 1970 ile 2005 yılları arasında 93 kişiyi öldürdüğünü itiraf etti. FBI onu ABD tarihinin en üretken seri katili olarak tanımladı.",
+        sourceName: "FBI",
+        source: "https://www.fbi.gov/news/stories/samuel-little-most-prolific-serial-killer-in-us-history-100619"
+    },
+
+    {
+        level: "ÇOK KARANLIK",
+        icon: "📁",
+        title: "Bazı cinayetleri yıllarca cinayet olarak bile bilinmedi.",
+        text: "FBI'a göre Samuel Little'ın bazı kurbanlarının ölümleri başlangıçta aşırı doz, kaza veya nedeni belirlenemeyen ölüm olarak değerlendirildi.",
+        sourceName: "FBI",
+        source: "https://www.fbi.gov/news/stories/samuel-little-most-prolific-serial-killer-in-us-history-100619"
+    },
+
+    {
+        level: "ÇOK KARANLIK",
+        icon: "❓",
+        title: "Bazı kurbanların bedenleri hiç bulunamadı.",
+        text: "FBI'ın Samuel Little soruşturmasına ilişkin açıklamasına göre itiraf ettiği vakaların bazılarında kurbanların bedenlerine hiçbir zaman ulaşılamadı.",
+        sourceName: "FBI",
+        source: "https://www.fbi.gov/news/stories/samuel-little-most-prolific-serial-killer-in-us-history-100619"
+    },
+
+    {
+        level: "ADLİ",
+        icon: "🪰",
+        title: "Bir cesede gelen böcekler ölüm zamanının araştırılmasına yardım edebilir.",
+        text: "Adli entomolojide belirli böceklerin insan kalıntılarına hangi sırayla ve ne zaman ulaştığı incelenerek ölümden sonra geçen süre hakkında bilgi elde edilebilir.",
+        sourceName: "SMITHSONIAN",
+        source: "https://www.smithsonianmag.com/history/the-crime-of-the-century-a-century-later-180984586/"
+    },
+
+    {
+        level: "ADLİ",
+        icon: "🌲",
+        title: "Bilim insanları gerçek insan bedenlerini açık arazide çürümeye bırakıyor.",
+        text: "Adli antropoloji araştırma tesislerinde bağışlanan insan bedenleri açık hava, orman, sığ mezar, su ve başka koşullarda inceleniyor. Amaç ölüm sonrası değişimleri anlayarak adli soruşturmalara yardımcı olmak.",
+        sourceName: "SMITHSONIAN",
+        source: "https://smithsonianassociates.org/ticketing/programs/body-farm"
+    },
+
+    {
+        level: "ADLİ",
+        icon: "🚗",
+        title: "Bağışlanan insan bedenleri araba bagajlarında bile incelenebiliyor.",
+        text: "Adli antropoloji araştırmalarında farklı çevrelerin çürüme üzerindeki etkisini anlamak amacıyla bağışlanmış bedenler araç bagajı gibi kapalı ortamlarda da araştırılmıştır.",
+        sourceName: "SMITHSONIAN",
+        source: "https://smithsonianassociates.org/ticketing/programs/body-farm"
+    },
+
+    {
+        level: "ADLİ",
+        icon: "🧱",
+        title: "Beton altında kalan insan bedenleri üzerinde bile araştırmalar var.",
+        text: "Adli tafonomi literatüründe beton altında gizlenen insan kalıntılarının ölüm sonrası değişimlerinin incelendiği vaka çalışmaları bulunuyor.",
+        sourceName: "SMITHSONIAN",
+        source: "https://www.si.edu/object/taphonomy-human-remains-forensic-analysis-dead-and-depositional-environment-edited-eline-mj%3Asiris_sil_1105379"
+    },
+
+    {
+        level: "TEKİNSİZ",
+        icon: "🦴",
+        title: "Ölümden sonra kemikler bile çevreden etkilenmeye devam eder.",
+        text: "Hava koşulları, toprak, hayvanlar ve bulunduğu ortam insan kalıntılarında ölümden sonra değişiklikler oluşturabilir. Adli tafonomi bu değişimleri inceler.",
+        sourceName: "SMITHSONIAN",
+        source: "https://www.si.edu/object/taphonomy-human-remains-forensic-analysis-dead-and-depositional-environment-edited-eline-mj%3Asiris_sil_1105379"
+    },
+
+    {
+        level: "RAHATSIZ EDİCİ",
+        icon: "🐾",
+        title: "Hayvanlar insan kalıntılarının görünümünü ölümden sonra değiştirebilir.",
+        text: "Adli bilim insanları memeli ve kuşların insan kalıntıları üzerindeki etkilerini inceler. Bu izlerin doğru yorumlanması ölüm sonrası değişikliklerin travmayla karıştırılmaması açısından önemlidir.",
+        sourceName: "SMITHSONIAN",
+        source: "https://www.si.edu/object/taphonomy-human-remains-forensic-analysis-dead-and-depositional-environment-edited-eline-mj%3Asiris_sil_1105379"
+    },
+
+    {
+        level: "RAHATSIZ EDİCİ",
+        icon: "🌊",
+        title: "Bir beden suda karadakinden farklı şekilde değişir.",
+        text: "İnsan kalıntılarının su ortamındaki ayrışması ayrı bir adli araştırma alanıdır. Çevre koşulları ölüm sonrası değişimlerin hızını ve biçimini etkileyebilir.",
+        sourceName: "SMITHSONIAN",
+        source: "https://www.si.edu/object/taphonomy-human-remains-forensic-analysis-dead-and-depositional-environment-edited-eline-mj%3Asiris_sil_1105379"
+    },
+
+    {
+        level: "RAHATSIZ EDİCİ",
+        icon: "🦷",
+        title: "Bir beden ağır biçimde bozulsa bile dişler hâlâ kimlik hakkında bilgi taşıyabilir.",
+        text: "Diş ve diğer iskelet yapılarının ölüm sonrası korunumu adli antropoloji ve kimliklendirme çalışmalarında önemli bilgi sağlayabilir.",
+        sourceName: "SMITHSONIAN",
+        source: "https://www.si.edu/object/taphonomy-human-remains-forensic-analysis-dead-and-depositional-environment-edited-eline-mj%3Asiris_sil_1105379"
+    },
+
+    {
+        level: "RAHATSIZ EDİCİ",
+        icon: "🧬",
+        title: "Ölümden sonra DNA da parçalanmaya devam eder.",
+        text: "DNA ölümden sonra sabit kalmaz. Zaman ve çevresel koşullar genetik materyalin bozulmasına neden olabilir; bu nedenle DNA'nın ölüm sonrası değişimi adli bilimde ayrıca araştırılır.",
+        sourceName: "SMITHSONIAN",
+        source: "https://www.si.edu/object/taphonomy-human-remains-forensic-analysis-dead-and-depositional-environment-edited-eline-mj%3Asiris_sil_1105379"
+    },
+
+    {
+        level: "BİYOLOJİ",
+        icon: "🦠",
+        title: "Bazı bulaşıcı etkenler bakterilerden ve virüslerden bile daha sıra dışıdır.",
+        text: "Prionlar normal mikroorganizmalar gibi değildir. CDC'nin sterilizasyon rehberinde prionlar, standart dezenfeksiyon ve sterilizasyon yöntemlerine karşı en dirençli biyolojik ajanlar arasında en üst düzeyde gösterilir.",
+        sourceName: "CDC",
+        source: "https://www.cdc.gov/infection-control/hcp/disinfection-and-sterilization/resistance.html"
+    },
+
+    {
+        level: "TEKİNSİZ",
+        icon: "🧠",
+        title: "Bir enfeksiyon etkeninin DNA veya RNA taşıması şart değil.",
+        text: "Prion hastalıklarında sorun klasik bir bakteri veya virüs değil, anormal biçimde katlanmış proteinlerle ilişkilidir.",
+        sourceName: "CDC",
+        source: "https://www.cdc.gov/infection-control/hcp/disinfection-and-sterilization/resistance.html"
+    },
+
+    {
+        level: "ADLİ",
+        icon: "🧪",
+        title: "Bir insanın ölümünden sonra oluşan kimyasallar bile araştırılıyor.",
+        text: "Adli bilim insanları ayrışma sırasında oluşan uçucu organik bileşikleri ve diğer kimyasal değişimleri inceleyerek ölüm sonrası süreçleri anlamaya çalışıyor.",
+        sourceName: "SMITHSONIAN",
+        source: "https://www.si.edu/object/taphonomy-human-remains-forensic-analysis-dead-and-depositional-environment-edited-eline-mj%3Asiris_sil_1105379"
+    },
+
+    {
+        level: "ADLİ",
+        icon: "🩸",
+        title: "Kan lekesinin kendisi de zamanla değişir.",
+        text: "Adli bilimde kanın ölüm ve çevre koşulları sonrasında nasıl bozulduğu ve kan lekelerinin yaşının nasıl tahmin edilebileceği araştırılır.",
+        sourceName: "SMITHSONIAN",
+        source: "https://www.si.edu/object/taphonomy-human-remains-forensic-analysis-dead-and-depositional-environment-edited-eline-mj%3Asiris_sil_1105379"
+    },
+
+    {
+        level: "ÇOK KARANLIK",
+        icon: "🕳️",
+        title: "Gizli mezarlar bile çevrede iz bırakabilir.",
+        text: "Adli tafonomi; mezarları, toprağı, bitkileri ve insan kalıntılarının bulunduğu çevreyi birlikte inceleyerek gizli gömülerin ve ölüm sonrası süreçlerin anlaşılmasına yardımcı olur.",
+        sourceName: "SMITHSONIAN",
+        source: "https://www.si.edu/object/taphonomy-human-remains-forensic-analysis-dead-and-depositional-environment-edited-eline-mj%3Asiris_sil_1105379"
+    },
+
+    {
+        level: "TEKİNSİZ",
+        icon: "🌿",
+        title: "Bir suç mahallindeki bitkiler bile olay hakkında bilgi verebilir.",
+        text: "Adli botanikte bitki materyalleri ve çevresel değişiklikler olayların ve insan kalıntılarının bulunduğu ortamın değerlendirilmesine yardımcı olabilir.",
+        sourceName: "SMITHSONIAN",
+        source: "https://www.si.edu/object/taphonomy-human-remains-forensic-analysis-dead-and-depositional-environment-edited-eline-mj%3Asiris_sil_1105379"
+    }
+
+];
+
+
+/* =========================================================
+   08 DURUM
+========================================================= */
+
+let disturbingQueue = [];
+let disturbingCurrent = null;
+let disturbingIndex = 0;
+let disturbingRevealed = false;
+
+
+/* =========================================================
+   GİRİŞ
+========================================================= */
+
+function createDisturbingExperience() {
+
+    return `
+        <div class="disturbing-experience">
+
+            <div class="disturbing-warning-icon">
+                ☠️
+            </div>
+
+            <span class="disturbing-kicker">
+                08 — RAHATSIZ EDİCİ BİLGİLER
+            </span>
+
+            <h2>
+                Bazı gerçekleri<br>
+                bilmemek daha iyidir.
+            </h2>
+
+            <p class="disturbing-intro">
+                Gerçek suçlardan adli bilime,
+                insan bedeninden doğanın karanlık
+                tarafına kadar gerçek ve
+                kaynaklandırılmış bilgiler.
+            </p>
+
+            <div class="disturbing-content-warning">
+                <span>İÇERİK UYARISI</span>
+
+                <p>
+                    Bu bölüm ölüm, cinayet,
+                    insan kalıntıları ve rahatsız
+                    edici biyolojik konular içerir.
+                </p>
+            </div>
+
+            <button
+                class="disturbing-start-button"
+                onclick="startDisturbingFacts()"
+            >
+                DEVAM ET
+                <span>→</span>
+            </button>
+
+        </div>
+    `;
+}
+
+
+/* =========================================================
+   BAŞLAT
+========================================================= */
+
+function startDisturbingFacts() {
+
+    disturbingQueue =
+        [...disturbingFacts]
+        .sort(() => Math.random() - 0.5);
+
+    disturbingIndex = 0;
+
+    showDisturbingFact();
+}
+
+
+/* =========================================================
+   BİLGİYİ GÖSTER
+========================================================= */
+
+function showDisturbingFact() {
+
+    if (
+        disturbingIndex >=
+        disturbingQueue.length
+    ) {
+
+        finishDisturbingFacts();
+        return;
+    }
+
+    disturbingCurrent =
+        disturbingQueue[
+            disturbingIndex
+        ];
+
+    disturbingRevealed = false;
+
+    experienceContent.innerHTML = `
+
+        <div class="disturbing-reader">
+
+            <div class="disturbing-reader-top">
+
+                <button
+                    class="disturbing-back"
+                    onclick="backToDisturbingIntro()"
+                >
+                    ← GERİ
+                </button>
+
+                <span class="disturbing-progress">
+                    ${String(
+                        disturbingIndex + 1
+                    ).padStart(2, "0")}
+                    /
+                    ${String(
+                        disturbingQueue.length
+                    ).padStart(2, "0")}
+                </span>
+
+            </div>
+
+
+            <div class="disturbing-card">
+
+                <div class="disturbing-level">
+                    ${disturbingCurrent.level}
+                </div>
+
+                <div class="disturbing-big-icon">
+                    ${disturbingCurrent.icon}
+                </div>
+
+                <h2>
+                    ${disturbingCurrent.title}
+                </h2>
+
+                <p class="disturbing-question">
+                    Gerçeğin tamamını görmek
+                    istiyor musun?
+                </p>
+
+                <button
+                    class="disturbing-reveal-button"
+                    onclick="revealDisturbingFact()"
+                >
+                    GERÇEĞİ GÖR
+                </button>
+
+            </div>
+
+        </div>
+    `;
+}
+
+
+/* =========================================================
+   GERÇEĞİ AÇ
+========================================================= */
+
+function revealDisturbingFact() {
+
+    if (disturbingRevealed) {
+        return;
+    }
+
+    disturbingRevealed = true;
+
+    const card =
+        document.querySelector(
+            ".disturbing-card"
+        );
+
+    if (!card) {
+        return;
+    }
+
+    card.classList.add("revealed");
+
+    card.innerHTML = `
+
+        <div class="disturbing-level">
+            ${disturbingCurrent.level}
+        </div>
+
+        <div class="disturbing-big-icon">
+            ${disturbingCurrent.icon}
+        </div>
+
+        <h2>
+            ${disturbingCurrent.title}
+        </h2>
+
+        <div class="disturbing-answer">
+
+            <p>
+                ${disturbingCurrent.text}
+            </p>
+
+        </div>
+
+        <a
+            class="disturbing-source"
+            href="${disturbingCurrent.source}"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            ${disturbingCurrent.sourceName}
+            — KAYNAĞI GÖR ↗
+        </a>
+
+        <button
+            class="disturbing-next-button"
+            onclick="nextDisturbingFact()"
+        >
+            SONRAKİ GERÇEK
+            <span>→</span>
+        </button>
+
+    `;
+}
+
+
+/* =========================================================
+   SONRAKİ
+========================================================= */
+
+function nextDisturbingFact() {
+
+    disturbingIndex++;
+
+    showDisturbingFact();
+}
+
+
+/* =========================================================
+   BİTİŞ
+========================================================= */
+
+function finishDisturbingFacts() {
+
+    experienceContent.innerHTML = `
+
+        <div class="disturbing-finish">
+
+            <div class="disturbing-warning-icon">
+                ☠️
+            </div>
+
+            <span class="disturbing-kicker">
+                SONUNA GELDİN
+            </span>
+
+            <h2>
+                Artık bunları<br>
+                bilmiyor olamazsın.
+            </h2>
+
+            <p>
+                ${disturbingFacts.length}
+                rahatsız edici gerçeğin
+                tamamını gördün.
+            </p>
+
+            <button
+                class="disturbing-start-button"
+                onclick="startDisturbingFacts()"
+            >
+                TEKRAR KARIŞTIR
+            </button>
+
+            <button
+                class="disturbing-secondary-button"
+                onclick="backToDisturbingIntro()"
+            >
+                BAŞA DÖN
+            </button>
+
+        </div>
+    `;
+}
+
+
+/* =========================================================
+   GİRİŞE DÖN
+========================================================= */
+
+function backToDisturbingIntro() {
+
+    experienceContent.innerHTML =
+        createDisturbingExperience();
+}
+
+/* =========================================================
+   09 — SAÇMA TESTLER
+========================================================= */
+
+const sillyTests = [
+
+    /* =====================================================
+       01 — NPC TESTİ
+    ===================================================== */
+
+    {
+        id: "npc",
+        emoji: "🤖",
+        title: "NPC olma ihtimalin yüzde kaç?",
+        description: "Ana karakter olduğunu düşünüyorsun. Sistem aynı fikirde mi bakalım.",
+        questions: [
+            {
+                text: "Markete girdin ama ne alacağını unuttun. Ne yaparsın?",
+                answers: [
+                    { text: "Listeye bakarım.", score: 0 },
+                    { text: "Bütün reyonları gezerim.", score: 2 },
+                    { text: "Hiçbir şey almadan çıkarım.", score: 3 },
+                    { text: "Markete neden geldiğimi sorgularım.", score: 4 }
+                ]
+            },
+            {
+                text: "Birisi sana 'naber?' dedi.",
+                answers: [
+                    { text: "İyiyim, senden?", score: 3 },
+                    { text: "Uzun uzun anlatırım.", score: 0 },
+                    { text: "Aynen.", score: 4 },
+                    { text: "Duymazdan gelirim.", score: 2 }
+                ]
+            },
+            {
+                text: "Evden çıkarken telefonunu unuttun.",
+                answers: [
+                    { text: "Geri dönerim.", score: 1 },
+                    { text: "Telefonsuz devam ederim.", score: 0 },
+                    { text: "20 metre sonra fark ederim.", score: 2 },
+                    { text: "Telefon elimdeyken telefonumu ararım.", score: 4 }
+                ]
+            },
+            {
+                text: "Asansörde yabancı biriyle yalnızsın.",
+                answers: [
+                    { text: "Sessizce beklerim.", score: 3 },
+                    { text: "Muhabbet açarım.", score: 0 },
+                    { text: "Telefonuma bakıyormuş gibi yaparım.", score: 4 },
+                    { text: "Kat göstergesini izlerim.", score: 3 }
+                ]
+            },
+            {
+                text: "Bir odaya girdin ama neden geldiğini unuttun.",
+                answers: [
+                    { text: "Geri dönüp hatırlamaya çalışırım.", score: 2 },
+                    { text: "Odada boş boş beklerim.", score: 4 },
+                    { text: "Başka bir şey yaparım.", score: 3 },
+                    { text: "Bu bana hiç olmaz.", score: 0 }
+                ]
+            }
+        ],
+        results: [
+            {
+                max: 20,
+                title: "ANA KARAKTER",
+                text: "NPC sinyali çok düşük. Kendi görevlerini kendin oluşturuyorsun."
+            },
+            {
+                max: 45,
+                title: "ARKA PLANDA AMA BİLİNCİ AÇIK",
+                text: "Bazen ana hikâyeye katılıyorsun, bazen haritada amaçsızca dolaşıyorsun."
+            },
+            {
+                max: 70,
+                title: "YAN GÖREV NPC'Sİ",
+                text: "Sana yaklaşınca kafanın üzerinde sarı ünlem belirme ihtimali yüksek."
+            },
+            {
+                max: 100,
+                title: "TAM NPC",
+                text: "Ana görev verilmeden hareket etmekte zorlanıyorsun. Aynı koridordan üç kere geçebilirsin."
+            }
+        ]
+    },
+
+
+    /* =====================================================
+       02 — ZOMBİ
+    ===================================================== */
+
+    {
+        id: "zombie",
+        emoji: "🧟",
+        title: "Zombi kıyametinde ne kadar yaşarsın?",
+        description: "Hollywood bilgilerin gerçek hayatta işe yarayacak mı?",
+        questions: [
+            {
+                text: "Televizyonda zombi salgını haberi çıktı. İlk hareketin?",
+                answers: [
+                    { text: "Market basarım.", score: 2 },
+                    { text: "Kapıları kilitlerim ve bilgi toplarım.", score: 4 },
+                    { text: "Dışarı çıkıp bakarım.", score: 0 },
+                    { text: "Arkadaşlarıma giderim.", score: 1 }
+                ]
+            },
+            {
+                text: "Yanında sadece bir şey taşıyabilirsin.",
+                answers: [
+                    { text: "Su.", score: 4 },
+                    { text: "Telefon.", score: 1 },
+                    { text: "Yiyecek.", score: 3 },
+                    { text: "Hoparlör.", score: 0 }
+                ]
+            },
+            {
+                text: "Arkadaşın ısırıldığını söylüyor.",
+                answers: [
+                    { text: "Aramızda mesafe koyarım.", score: 4 },
+                    { text: "Bir şey olmaz derim.", score: 0 },
+                    { text: "Onu gözlem altında tutarım.", score: 3 },
+                    { text: "Kimseye söylemem.", score: 1 }
+                ]
+            },
+            {
+                text: "Geceyi nerede geçirirsin?",
+                answers: [
+                    { text: "Kalabalık AVM.", score: 1 },
+                    { text: "Kontrol edilebilir küçük bina.", score: 4 },
+                    { text: "Arabada.", score: 2 },
+                    { text: "Ormanda tek başıma.", score: 2 }
+                ]
+            },
+            {
+                text: "Uzakta yardım isteyen birini gördün.",
+                answers: [
+                    { text: "Direkt koşarım.", score: 0 },
+                    { text: "Önce çevreyi kontrol ederim.", score: 4 },
+                    { text: "Hiç yaklaşmam.", score: 3 },
+                    { text: "Uzaktan seslenirim.", score: 2 }
+                ]
+            }
+        ],
+        results: [
+            {
+                max: 20,
+                title: "11 DAKİKA",
+                text: "Açılış jeneriği bitmeden seni kaybettik."
+            },
+            {
+                max: 45,
+                title: "1 GÜN",
+                text: "İlk geceyi gördün. Bu bile beklediğimizden iyi."
+            },
+            {
+                max: 70,
+                title: "BİRKAÇ HAFTA",
+                text: "Hayatta kalma içgüdün var ama bir noktada merakın başına bela olacak."
+            },
+            {
+                max: 100,
+                title: "SEZON FİNALİNİ GÖRÜRSÜN",
+                text: "Seni öldürmek senaristlerin bile birkaç sezonunu alır."
+            }
+        ]
+    },
+
+
+    /* =====================================================
+       03 — ARKADAŞ GRUBU
+    ===================================================== */
+
+    {
+        id: "friendgroup",
+        emoji: "👥",
+        title: "Arkadaş grubundaki rolün ne?",
+        description: "Grubun seni nasıl görüyor olabilir? Öğrenmek istemeyebilirsin.",
+        questions: [
+            {
+                text: "Akşam dışarı çıkılacak. Planı kim yapıyor?",
+                answers: [
+                    { text: "Ben.", score: 0 },
+                    { text: "Başkasını beklerim.", score: 2 },
+                    { text: "Plan yapılırken ortada yokum.", score: 4 },
+                    { text: "'Fark etmez' derim.", score: 3 }
+                ]
+            },
+            {
+                text: "Grup tartışmaya başladı.",
+                answers: [
+                    { text: "Ortamı sakinleştiririm.", score: 0 },
+                    { text: "Taraf seçerim.", score: 2 },
+                    { text: "Kavgayı daha da büyütürüm.", score: 4 },
+                    { text: "Sessizce izlerim.", score: 3 }
+                ]
+            },
+            {
+                text: "Herkes nerede buluşacağını konuşuyor.",
+                answers: [
+                    { text: "Konum atarım.", score: 0 },
+                    { text: "Neresi olursa gelirim.", score: 2 },
+                    { text: "Sonradan 'nerdesiniz?' yazarım.", score: 4 },
+                    { text: "Mesajları okumam.", score: 3 }
+                ]
+            },
+            {
+                text: "Hesap geldi.",
+                answers: [
+                    { text: "Hemen paylaştırırım.", score: 0 },
+                    { text: "Ne yediğimi hesaplarım.", score: 2 },
+                    { text: "Tuvalete giderim.", score: 4 },
+                    { text: "Birinin çözmesini beklerim.", score: 3 }
+                ]
+            },
+            {
+                text: "Grup fotoğraf çekilecek.",
+                answers: [
+                    { text: "Fotoğrafı ben çekerim.", score: 1 },
+                    { text: "Ortaya geçerim.", score: 0 },
+                    { text: "Son anda kadraja girerim.", score: 4 },
+                    { text: "Fotoğraf istemem.", score: 3 }
+                ]
+            }
+        ],
+        results: [
+            {
+                max: 20,
+                title: "GRUBUN EBEVEYNİ",
+                text: "Konum atan, rezervasyon yapan ve herkesin eve ulaştığından emin olan sensin."
+            },
+            {
+                max: 45,
+                title: "NORMAL OLAN",
+                text: "Grubun denge unsuruna benziyorsun. Şimdilik."
+            },
+            {
+                max: 70,
+                title: "KAYIP ÜYE",
+                text: "Grup planı üç saat önce yaptı. Sen birazdan 'nerdesiniz?' yazacaksın."
+            },
+            {
+                max: 100,
+                title: "KAOS MAKİNESİ",
+                text: "Sen gelmeden önce normal bir arkadaş grubuydular."
+            }
+        ]
+    },
+
+
+    /* =====================================================
+       04 — KORKU FİLMİ
+    ===================================================== */
+
+    {
+        id: "horror",
+        emoji: "🔪",
+        title: "Korku filminde ne kadar dayanırsın?",
+        description: "Bodrumdan ses geliyor. Tabii ki aşağı ineceksin, değil mi?",
+        questions: [
+            {
+                text: "Gece bodrumdan ses geldi.",
+                answers: [
+                    { text: "Polisi ararım.", score: 4 },
+                    { text: "Aşağı inerim.", score: 0 },
+                    { text: "Evi terk ederim.", score: 4 },
+                    { text: "'Kim var orada?' diye bağırırım.", score: 1 }
+                ]
+            },
+            {
+                text: "Arkadaşın 'ayrılalım, daha hızlı ararız' dedi.",
+                answers: [
+                    { text: "Kesinlikle hayır.", score: 4 },
+                    { text: "Mantıklı.", score: 0 },
+                    { text: "Ben arabada beklerim.", score: 3 },
+                    { text: "Tek başıma giderim.", score: 0 }
+                ]
+            },
+            {
+                text: "Terk edilmiş bir evin kapısı açık.",
+                answers: [
+                    { text: "Yoluma devam ederim.", score: 4 },
+                    { text: "İçeri bakarım.", score: 1 },
+                    { text: "İçeri girerim.", score: 0 },
+                    { text: "Fotoğrafını çeker giderim.", score: 3 }
+                ]
+            },
+            {
+                text: "Telefonun çekmiyor.",
+                answers: [
+                    { text: "Çeken bir yere giderim.", score: 4 },
+                    { text: "Paniklerim.", score: 1 },
+                    { text: "Tek başıma etrafa bakarım.", score: 0 },
+                    { text: "Yanımdakilerle kalırım.", score: 3 }
+                ]
+            },
+            {
+                text: "Katil yere düştü.",
+                answers: [
+                    { text: "Oradan uzaklaşırım.", score: 4 },
+                    { text: "Öldü mü diye yakından bakarım.", score: 0 },
+                    { text: "Yardım çağırırım.", score: 3 },
+                    { text: "Arkamı dönüp kutlama yaparım.", score: 0 }
+                ]
+            }
+        ],
+        results: [
+            {
+                max: 20,
+                title: "İLK 10 DAKİKA",
+                text: "Film daha karakterleri tanıtırken sen jeneriğe adını yazdırdın."
+            },
+            {
+                max: 45,
+                title: "FİLMİN ORTASINA KADAR",
+                text: "Fena değildi. Ama o bodruma gerçekten inmemeliydin."
+            },
+            {
+                max: 70,
+                title: "SON ÜÇLÜ",
+                text: "Finale çok yaklaştın. Seyirci artık seni destekliyor."
+            },
+            {
+                max: 100,
+                title: "FİNAL KARAKTERİ",
+                text: "Korku filmi kurallarını senden daha iyi bilen yok."
+            }
+        ]
+    },
+
+
+    /* =====================================================
+       05 — UZAYLILAR
+    ===================================================== */
+
+    {
+        id: "aliens",
+        emoji: "👽",
+        title: "Uzaylılar seni geri bırakır mı?",
+        description: "Kaçırıldın. Şimdi asıl soru: Seni tutmaya değer bulacaklar mı?",
+        questions: [
+            {
+                text: "Uzaylı ilk kez seni gördü.",
+                answers: [
+                    { text: "El sallarım.", score: 1 },
+                    { text: "Kaçarım.", score: 2 },
+                    { text: "Fotoğraf çekmeye çalışırım.", score: 4 },
+                    { text: "Sakin kalırım.", score: 0 }
+                ]
+            },
+            {
+                text: "Sana Dünya'yı anlatmanı istediler.",
+                answers: [
+                    { text: "İnterneti anlatırım.", score: 3 },
+                    { text: "İnsanlığı anlatırım.", score: 1 },
+                    { text: "Meme gösteririm.", score: 4 },
+                    { text: "Beni geri bırakmalarını isterim.", score: 2 }
+                ]
+            },
+            {
+                text: "Uzay gemisinde yanlış bir düğmeye bastın.",
+                answers: [
+                    { text: "Hiçbir şey olmamış gibi yaparım.", score: 4 },
+                    { text: "Özür dilerim.", score: 1 },
+                    { text: "Bir daha basarım.", score: 4 },
+                    { text: "Dokunmam zaten.", score: 0 }
+                ]
+            },
+            {
+                text: "Sana Dünya'dan tek yemek seç dediler.",
+                answers: [
+                    { text: "Pizza.", score: 1 },
+                    { text: "Döner.", score: 1 },
+                    { text: "Ne bulursam.", score: 3 },
+                    { text: "Enerji içeceği.", score: 4 }
+                ]
+            },
+            {
+                text: "Seni incelemeleri bitti.",
+                answers: [
+                    { text: "Eve dönmek isterim.", score: 0 },
+                    { text: "Gemiyi gezmek isterim.", score: 2 },
+                    { text: "Wi-Fi şifresini sorarım.", score: 4 },
+                    { text: "Beni de götürün derim.", score: 3 }
+                ]
+            }
+        ],
+        results: [
+            {
+                max: 20,
+                title: "SENİ TUTARLAR",
+                text: "İnsanlık hakkında işe yarar veri sağladın. Laboratuvarın yeni gözdesisin."
+            },
+            {
+                max: 45,
+                title: "BİRAZ DAHA İNCELERLER",
+                text: "Sende bir şey var ama ne olduğunu onlar da çözemedi."
+            },
+            {
+                max: 70,
+                title: "DÜNYA'YA GERİ BIRAKIRLAR",
+                text: "Uzaylılar dosyana 'yeterli veri alındı' yazdı."
+            },
+            {
+                max: 100,
+                title: "SENİ HEMEN GERİ BIRAKIRLAR",
+                text: "İnsanlığı senin üzerinden değerlendirmemeye karar verdiler."
+            }
+        ]
+    },
+
+
+    /* =====================================================
+       06 — İNTERNET TARTIŞMASI
+    ===================================================== */
+
+    {
+        id: "internet",
+        emoji: "⌨️",
+        title: "İnternette tartışma kazanabilir misin?",
+        description: "Gerçeklerin hiçbir önemi olmayabilir. Burası internet.",
+        questions: [
+            {
+                text: "Karşı taraf sana uzun bir paragraf yazdı.",
+                answers: [
+                    { text: "Okurum.", score: 0 },
+                    { text: "'Aynen kanka' yazarım.", score: 4 },
+                    { text: "Kaynak isterim.", score: 1 },
+                    { text: "Sadece son cümleyi okurum.", score: 3 }
+                ]
+            },
+            {
+                text: "Haksız olduğunu fark ettin.",
+                answers: [
+                    { text: "Kabul ederim.", score: 0 },
+                    { text: "Konuyu değiştiririm.", score: 3 },
+                    { text: "Mesajı silerim.", score: 2 },
+                    { text: "Daha yüksek sesle savunurum.", score: 4 }
+                ]
+            },
+            {
+                text: "Karşı taraf kaynak gönderdi.",
+                answers: [
+                    { text: "Okurum.", score: 0 },
+                    { text: "'O kaynak güvenilmez' derim.", score: 4 },
+                    { text: "Ben de kaynak gönderirim.", score: 1 },
+                    { text: "Görmezden gelirim.", score: 3 }
+                ]
+            },
+            {
+                text: "Tartışma iki saattir sürüyor.",
+                answers: [
+                    { text: "Bırakırım.", score: 0 },
+                    { text: "Devam.", score: 3 },
+                    { text: "Son sözü ben söylemeliyim.", score: 4 },
+                    { text: "Bildirimleri kapatırım.", score: 1 }
+                ]
+            },
+            {
+                text: "Karşı taraf 'tamam' yazdı.",
+                answers: [
+                    { text: "Biter.", score: 0 },
+                    { text: "Bir mesaj daha atarım.", score: 3 },
+                    { text: "Kazandım sayarım.", score: 4 },
+                    { text: "Beğeni bırakırım.", score: 1 }
+                ]
+            }
+        ],
+        results: [
+            {
+                max: 20,
+                title: "TARTIŞMAYA GİRMİYORSUN",
+                text: "Ruh sağlığını korumayı seçtin. Nadir görülen internet kullanıcısı."
+            },
+            {
+                max: 45,
+                title: "MANTIKLI TARTIŞMACI",
+                text: "Kaynak okuyorsun. İnternet buna henüz hazır değil."
+            },
+            {
+                max: 70,
+                title: "YORUM SAVAŞÇISI",
+                text: "Bildirim sesi artık savaş davulu gibi geliyor."
+            },
+            {
+                max: 100,
+                title: "KLAVYE GLADYATÖRÜ",
+                text: "Tartışmayı kazanmadın. Ama karşı taraf uyumaya gittiği için son mesaj senin."
+            }
+        ]
+    },
+
+
+    /* =====================================================
+       07 — ISSIZ ADA
+    ===================================================== */
+
+    {
+        id: "island",
+        emoji: "🏝️",
+        title: "Issız adada kaç gün dayanırsın?",
+        description: "Wi-Fi yok. Asıl felaket şimdi başladı.",
+        questions: [
+            {
+                text: "İlk olarak ne ararsın?",
+                answers: [
+                    { text: "Su.", score: 4 },
+                    { text: "Yiyecek.", score: 2 },
+                    { text: "Barınak.", score: 3 },
+                    { text: "Telefon çekiyor mu diye bakarım.", score: 0 }
+                ]
+            },
+            {
+                text: "Gece yaklaşıyor.",
+                answers: [
+                    { text: "Barınak hazırlarım.", score: 4 },
+                    { text: "Sahilde beklerim.", score: 1 },
+                    { text: "Ada keşfine çıkarım.", score: 0 },
+                    { text: "Ateş yakmaya çalışırım.", score: 3 }
+                ]
+            },
+            {
+                text: "Tanımadığın bir meyve buldun.",
+                answers: [
+                    { text: "Yerim.", score: 0 },
+                    { text: "Dokunmam.", score: 4 },
+                    { text: "Azıcık denerim.", score: 1 },
+                    { text: "Yanıma alırım.", score: 2 }
+                ]
+            },
+            {
+                text: "Uzakta bir gemi gördün.",
+                answers: [
+                    { text: "Ateş/dumanla işaret veririm.", score: 4 },
+                    { text: "Bağırırım.", score: 1 },
+                    { text: "Denize doğru yüzerim.", score: 0 },
+                    { text: "El sallarım.", score: 2 }
+                ]
+            },
+            {
+                text: "Üçüncü gün moralin bozuldu.",
+                answers: [
+                    { text: "Rutin oluştururum.", score: 4 },
+                    { text: "Uyurum.", score: 1 },
+                    { text: "Kendi kendime konuşurum.", score: 2 },
+                    { text: "Bir hindistan cevizini arkadaş edinirim.", score: 3 }
+                ]
+            }
+        ],
+        results: [
+            {
+                max: 20,
+                title: "6 SAAT",
+                text: "Ada senden daha hazırlıklı çıktı."
+            },
+            {
+                max: 45,
+                title: "2 GÜN",
+                text: "Başlangıç umut vericiydi. Sonra tanımadığın meyveyi yedin."
+            },
+            {
+                max: 70,
+                title: "2 HAFTA",
+                text: "Hayatta kalıyorsun ama hindistan cevizine isim vermeye başladın."
+            },
+            {
+                max: 100,
+                title: "ADAYI SAHİPLENİRSİN",
+                text: "Kurtarma ekibi geldiğinde gitmek istememe ihtimalin var."
+            }
+        ]
+    },
+
+
+    /* =====================================================
+       08 — KÖTÜ KARAKTER
+    ===================================================== */
+
+    {
+        id: "villain",
+        emoji: "😈",
+        title: "Gizlice kötü karakter misin?",
+        description: "Kötü karakter olduğunu kötü karakterler genelde en son öğrenir.",
+        questions: [
+            {
+                text: "Birisi sırada önüne geçti.",
+                answers: [
+                    { text: "Uyarırım.", score: 1 },
+                    { text: "Boş veririm.", score: 0 },
+                    { text: "Bütün gün bunu düşünürüm.", score: 3 },
+                    { text: "İntikam planı başlar.", score: 4 }
+                ]
+            },
+            {
+                text: "Arkadaşın oyununu bozdu.",
+                answers: [
+                    { text: "Güler geçerim.", score: 0 },
+                    { text: "Bir sonraki tur beklerim.", score: 2 },
+                    { text: "Onun oyununu da bozarım.", score: 3 },
+                    { text: "Artık bu kişisel.", score: 4 }
+                ]
+            },
+            {
+                text: "Bir düğme var. Basarsan ne olduğu yazmıyor.",
+                answers: [
+                    { text: "Basmam.", score: 0 },
+                    { text: "Biraz düşünürüm.", score: 1 },
+                    { text: "Basarım.", score: 3 },
+                    { text: "İki kere basarım.", score: 4 }
+                ]
+            },
+            {
+                text: "Dünyayı yönetme fırsatın oldu.",
+                answers: [
+                    { text: "İstemem.", score: 0 },
+                    { text: "Bir gün denerim.", score: 2 },
+                    { text: "Kabul.", score: 3 },
+                    { text: "Sonunda.", score: 4 }
+                ]
+            },
+            {
+                text: "Kötü karakterin gizli üssü nerede olmalı?",
+                answers: [
+                    { text: "Gizli üs istemiyorum.", score: 0 },
+                    { text: "Dağın içinde.", score: 3 },
+                    { text: "Volkanın altında.", score: 4 },
+                    { text: "Normal apartman dairesi.", score: 2 }
+                ]
+            }
+        ],
+        results: [
+            {
+                max: 20,
+                title: "MASUM YAN KARAKTER",
+                text: "Kötülük enerjin şaşırtıcı derecede düşük."
+            },
+            {
+                max: 45,
+                title: "ŞÜPHELİ DERECEDE NORMAL",
+                text: "Şimdilik kimse senden şüphelenmiyor."
+            },
+            {
+                max: 70,
+                title: "KÖTÜ KARAKTER ADAYI",
+                text: "Sadece dramatik bir geçmiş hikâyesine ihtiyacın kaldı."
+            },
+            {
+                max: 100,
+                title: "FİNAL BOSS",
+                text: "Volkanın altındaki üssünün inşaatı muhtemelen çoktan başladı."
+            }
+        ]
+    }
+
+];
+
+
+/* =========================================================
+   TEST DURUMU
+========================================================= */
+
+let selectedSillyTest = null;
+let sillyQuestionIndex = 0;
+let sillyScore = 0;
+let sillyAnswered = false;
+
+
+/* =========================================================
+   09 GİRİŞ
+========================================================= */
+
+function createTestsExperience() {
+
+    const randomTests =
+        [...sillyTests]
+            .sort(() => Math.random() - 0.5)
+            .slice(0, 3);
+
+    return `
+        <div class="tests-experience">
+
+            <span class="tests-kicker">
+                09 — SAÇMA TESTLER
+            </span>
+
+            <h2>
+                Bilimin cevaplamaya<br>
+                cesaret edemediği sorular.
+            </h2>
+
+            <p class="tests-intro">
+                Tamamen eğlence amaçlı.
+                Sonuçları hayat kararlarında
+                kullanırsan sorumluluk kabul etmiyoruz.
+            </p>
+
+            <div class="tests-selection">
+
+                ${randomTests.map(test => `
+                    <button
+                        class="tests-select-card"
+                        onclick="startSillyTest('${test.id}')"
+                    >
+
+                        <span class="tests-select-emoji">
+                            ${test.emoji}
+                        </span>
+
+                        <strong>
+                            ${test.title}
+                        </strong>
+
+                        <p>
+                            ${test.description}
+                        </p>
+
+                        <span class="tests-select-action">
+                            TESTİ BAŞLAT →
+                        </span>
+
+                    </button>
+                `).join("")}
+
+            </div>
+
+            <button
+                class="tests-shuffle"
+                onclick="refreshSillyTests()"
+            >
+                ↻ BAŞKA TESTLER GÖSTER
+            </button>
+
+        </div>
+    `;
+}
+
+
+/* =========================================================
+   TESTLERİ KARIŞTIR
+========================================================= */
+
+function refreshSillyTests() {
+
+    experienceContent.innerHTML =
+        createTestsExperience();
+}
+
+
+/* =========================================================
+   TEST BAŞLAT
+========================================================= */
+
+function startSillyTest(testId) {
+
+    selectedSillyTest =
+        sillyTests.find(
+            test => test.id === testId
+        );
+
+    if (!selectedSillyTest) {
+        return;
+    }
+
+    sillyQuestionIndex = 0;
+    sillyScore = 0;
+    sillyAnswered = false;
+
+    showSillyQuestion();
+}
+
+
+/* =========================================================
+   SORUYU GÖSTER
+========================================================= */
+
+function showSillyQuestion() {
+
+    if (!selectedSillyTest) {
+        return;
+    }
+
+    if (
+        sillyQuestionIndex >=
+        selectedSillyTest.questions.length
+    ) {
+
+        finishSillyTest();
+        return;
+    }
+
+    sillyAnswered = false;
+
+    const question =
+        selectedSillyTest.questions[
+            sillyQuestionIndex
+        ];
+
+    const progress =
+        ((sillyQuestionIndex + 1) /
+        selectedSillyTest.questions.length) * 100;
+
+    experienceContent.innerHTML = `
+
+        <div class="silly-test-play">
+
+            <div class="silly-test-header">
+
+                <button
+                    class="silly-test-back"
+                    onclick="backToTests()"
+                >
+                    ← TESTLER
+                </button>
+
+                <div class="silly-test-name">
+                    <span>
+                        ${selectedSillyTest.emoji}
+                    </span>
+
+                    ${selectedSillyTest.title}
+                </div>
+
+                <span class="silly-test-counter">
+                    ${sillyQuestionIndex + 1}
+                    /
+                    ${selectedSillyTest.questions.length}
+                </span>
+
+            </div>
+
+
+            <div class="silly-progress">
+
+                <div
+                    class="silly-progress-bar"
+                    style="width:${progress}%"
+                ></div>
+
+            </div>
+
+
+            <div class="silly-question-card">
+
+                <span class="silly-question-label">
+                    SORU ${String(
+                        sillyQuestionIndex + 1
+                    ).padStart(2, "0")}
+                </span>
+
+                <h2>
+                    ${question.text}
+                </h2>
+
+                <div class="silly-answers">
+
+                    ${question.answers.map(
+                        (answer, index) => `
+                            <button
+                                class="silly-answer"
+                                onclick="answerSillyQuestion(${index})"
+                            >
+                                <span>
+                                    ${String.fromCharCode(
+                                        65 + index
+                                    )}
+                                </span>
+
+                                ${answer.text}
+                            </button>
+                        `
+                    ).join("")}
+
+                </div>
+
+            </div>
+
+        </div>
+    `;
+}
+
+
+/* =========================================================
+   CEVAPLA
+========================================================= */
+
+function answerSillyQuestion(answerIndex) {
+
+    if (sillyAnswered) {
+        return;
+    }
+
+    const question =
+        selectedSillyTest.questions[
+            sillyQuestionIndex
+        ];
+
+    const answer =
+        question.answers[
+            answerIndex
+        ];
+
+    if (!answer) {
+        return;
+    }
+
+    sillyAnswered = true;
+
+    sillyScore += answer.score;
+
+    const buttons =
+        document.querySelectorAll(
+            ".silly-answer"
+        );
+
+    buttons.forEach(
+        button =>
+            button.classList.add("disabled")
+    );
+
+    if (buttons[answerIndex]) {
+        buttons[answerIndex]
+            .classList.add("selected");
+    }
+
+    setTimeout(() => {
+
+        sillyQuestionIndex++;
+
+        showSillyQuestion();
+
+    }, 450);
+}
+
+
+/* =========================================================
+   SONUÇ
+========================================================= */
+
+function finishSillyTest() {
+
+    const questionCount =
+        selectedSillyTest.questions.length;
+
+    const maximumScore =
+        questionCount * 4;
+
+    const percentage =
+        Math.round(
+            (sillyScore / maximumScore) * 100
+        );
+
+    let selectedResult =
+        selectedSillyTest.results[
+            selectedSillyTest.results.length - 1
+        ];
+
+    for (
+        const result
+        of selectedSillyTest.results
+    ) {
+
+        if (percentage <= result.max) {
+
+            selectedResult = result;
+            break;
+        }
+    }
+
+
+    experienceContent.innerHTML = `
+
+        <div class="silly-result">
+
+            <span class="silly-result-kicker">
+                TEST TAMAMLANDI
+            </span>
+
+            <div class="silly-result-emoji">
+                ${selectedSillyTest.emoji}
+            </div>
+
+            <span class="silly-result-test">
+                ${selectedSillyTest.title}
+            </span>
+
+            <div class="silly-result-percentage">
+                %${percentage}
+            </div>
+
+            <h2>
+                ${selectedResult.title}
+            </h2>
+
+            <p>
+                ${selectedResult.text}
+            </p>
+
+
+            <div class="silly-result-actions">
+
+                <button
+                    class="silly-result-main"
+                    onclick="startSillyTest('${selectedSillyTest.id}')"
+                >
+                    TEKRAR ÇÖZ
+                </button>
+
+                <button
+                    class="silly-result-secondary"
+                    onclick="backToTests()"
+                >
+                    BAŞKA TEST SEÇ
+                </button>
+
+            </div>
+
+            <small>
+                Bu test tamamen eğlence amaçlıdır.
+            </small>
+
+        </div>
+    `;
+}
+
+
+/* =========================================================
+   TESTLERE GERİ DÖN
+========================================================= */
+
+function backToTests() {
+
+    selectedSillyTest = null;
+    sillyQuestionIndex = 0;
+    sillyScore = 0;
+
+    experienceContent.innerHTML =
+        createTestsExperience();
+}
+
+/* =========================================================
+   10 — BUGÜNKÜ KADERİN
+========================================================= */
+
+
+/* =========================================================
+   ANA KADERLER
+========================================================= */
+
+const fortuneMessages = [
+
+    {
+        icon: "✨",
+        title: "BEKLENMEDİK BİR ŞEY OLACAK",
+        text: "Bugün planında olmayan küçük bir gelişme gününün yönünü değiştirebilir. İlk anda önemsiz görünen bir şey daha sonra düşündüğünden önemli hale gelebilir."
+    },
+
+    {
+        icon: "🌙",
+        title: "GEÇMİŞTEN BİR ŞEY GERİ DÖNECEK",
+        text: "Uzun zamandır aklına gelmeyen bir kişi, konu veya anı bugün yeniden karşına çıkabilir."
+    },
+
+    {
+        icon: "👀",
+        title: "BİR DETAYI FARK EDECEKSİN",
+        text: "Daha önce defalarca gördüğün bir şey bugün sana farklı görünebilir. Küçük bir ayrıntı kafandaki bazı parçaları yerine oturtabilir."
+    },
+
+    {
+        icon: "📩",
+        title: "BEKLEMEDİĞİN BİR MESAJ ALABİLİRSİN",
+        text: "Bugün telefonuna düşen sıradan görünen bir bildirim veya mesaj düşündüğünden daha fazla dikkatini çekebilir."
+    },
+
+    {
+        icon: "🚪",
+        title: "KÜÇÜK BİR FIRSAT ÇIKACAK",
+        text: "Büyük görünmeyen bir fırsat bugün karşına çıkabilir. Değerlendirip değerlendirmemek tamamen sana kalacak."
+    },
+
+    {
+        icon: "🧠",
+        title: "KAFANDAKİ BİR ŞEY NETLEŞECEK",
+        text: "Bir süredir düşündüğün ama karar veremediğin bir konuda bugün daha net hissetmeye başlayabilirsin."
+    },
+
+    {
+        icon: "🔥",
+        title: "BUGÜN ENERJİN YÜKSELİYOR",
+        text: "Uzun zamandır ertelediğin bir işi başlatmak için beklenmedik bir istek duyabilirsin."
+    },
+
+    {
+        icon: "🪞",
+        title: "KENDİNLE İLGİLİ BİR ŞEY FARK EDECEKSİN",
+        text: "Bugün vereceğin küçük bir tepki sana kendi karakterin hakkında beklemediğin bir şey gösterebilir."
+    },
+
+    {
+        icon: "🌌",
+        title: "GARİP BİR TESADÜF YAŞAYABİLİRSİN",
+        text: "Aklından geçirdiğin bir şeyin kısa süre sonra karşına çıkması bugün sana biraz tuhaf gelebilir."
+    },
+
+    {
+        icon: "🎯",
+        title: "DOĞRU ZAMANDA DOĞRU YERDE OLABİLİRSİN",
+        text: "Bugün yapacağın küçük bir zamanlama değişikliği seni beklemediğin bir durumun içine sokabilir."
+    },
+
+    {
+        icon: "🕯️",
+        title: "SESSİZ BİR GÜN SANA İYİ GELECEK",
+        text: "Bugün büyük olaylardan çok kendi alanında kalmak ve biraz yavaşlamak sana düşündüğünden daha iyi gelebilir."
+    },
+
+    {
+        icon: "🌀",
+        title: "PLANLARIN DEĞİŞEBİLİR",
+        text: "Bugün her şey planladığın sırayla gitmeyebilir. Fakat değişen plan düşündüğünden daha iyi bir sonuca çıkabilir."
+    },
+
+    {
+        icon: "💭",
+        title: "AKLINA ESKİ BİR FİKİR GELECEK",
+        text: "Bir zamanlar düşünüp vazgeçtiğin bir fikir bugün yeniden mantıklı görünmeye başlayabilir."
+    },
+
+    {
+        icon: "🤝",
+        title: "BİRİNDEN BEKLEMEDİĞİN BİR DESTEK GELEBİLİR",
+        text: "Bugün bir konuda tek başına olduğunu düşünürken beklemediğin birinden yardım veya destek görebilirsin."
+    },
+
+    {
+        icon: "⚡",
+        title: "ANİ BİR KARAR VEREBİLİRSİN",
+        text: "Normalde uzun uzun düşüneceğin bir konuda bugün içgüdülerin daha hızlı davranmana neden olabilir."
+    },
+
+    {
+        icon: "🧩",
+        title: "EKSİK PARÇA YERİNE OTURACAK",
+        text: "Bir süredir anlam veremediğin bir durumun nedenini bugün fark edebilirsin."
+    },
+
+    {
+        icon: "🌤️",
+        title: "KAFANI KURCALAYAN BİR ŞEY HAFİFLEYECEK",
+        text: "Bugün bazı şeylerin sandığın kadar büyük olmadığını fark edip rahatlayabilirsin."
+    },
+
+    {
+        icon: "🎲",
+        title: "ŞANS KÜÇÜK BİR YERDEN GELECEK",
+        text: "Bugünün şansı büyük bir olay şeklinde değil, tam ihtiyacın olduğu anda ortaya çıkan küçük bir kolaylık şeklinde gelebilir."
+    },
+
+    {
+        icon: "🛤️",
+        title: "İKİ SEÇENEK ARASINDA KALABİLİRSİN",
+        text: "Bugün önüne iki farklı yol çıkabilir. İlk bakışta kolay olan seçenek mutlaka sana en uygun olan olmayabilir."
+    },
+
+    {
+        icon: "💡",
+        title: "ANİDEN BİR FİKİR GELECEK",
+        text: "Hiç beklemediğin bir anda aklına gelen fikir not almaya değer olabilir."
+    },
+
+    {
+        icon: "🌒",
+        title: "BUGÜN BİRAZ GERİDE DURMAK İŞİNE YARAYACAK",
+        text: "Her şeye hemen tepki vermemek bugün sana avantaj sağlayabilir. Bazı şeyleri önce izle."
+    },
+
+    {
+        icon: "☀️",
+        title: "GÜNÜN İKİNCİ YARISI DAHA İYİ GEÇEBİLİR",
+        text: "Günün başlangıcı istediğin gibi gitmese bile ilerleyen saatlerde enerjin ve modun değişebilir."
+    },
+
+    {
+        icon: "🔑",
+        title: "ÇÖZÜM ASLINDA YAKININDA",
+        text: "Zorlaştırdığın bir konunun çözümünün düşündüğünden daha basit olduğunu bugün fark edebilirsin."
+    },
+
+    {
+        icon: "🌊",
+        title: "AKIŞINA BIRAKMAN GEREKEN BİR GÜN",
+        text: "Bugün her ayrıntıyı kontrol etmeye çalışmak yerine bazı şeylerin kendi yolunu bulmasına izin vermek daha rahat olabilir."
+    },
+
+    {
+        icon: "🧭",
+        title: "YÖNÜNÜ DEĞİŞTİRECEK KÜÇÜK BİR İŞARET GÖREBİLİRSİN",
+        text: "Bir konuşma, cümle veya tesadüf bugün düşündüğün bir konuya farklı açıdan bakmana neden olabilir."
+    },
+
+    {
+        icon: "🪶",
+        title: "BİR YÜKÜ BIRAKMA ZAMANI",
+        text: "Bugün gereğinden fazla düşündüğün bir şeyi biraz serbest bırakmak sana iyi gelebilir."
+    },
+
+    {
+        icon: "⏳",
+        title: "ACELE ETMEMEK AVANTAJ SAĞLAYACAK",
+        text: "Bugün hızlı karar vermek yerine birkaç dakika daha düşünmek bazı gereksiz sorunları önleyebilir."
+    },
+
+    {
+        icon: "🎧",
+        title: "BİR ŞARKI SENİ ESKİ BİR ANA GÖTÜREBİLİR",
+        text: "Bugün duyduğun bir müzik uzun zamandır hatırlamadığın bir anıyı aniden geri getirebilir."
+    },
+
+    {
+        icon: "🌠",
+        title: "BUGÜN BİR ŞEY DİLE",
+        text: "Gerçekleşeceğinin garantisi yok ama bugün ne istediğini kendine açıkça söylemek bile bazı şeyleri değiştirebilir."
+    },
+
+    {
+        icon: "📍",
+        title: "NORMALDE GİTMEDİĞİN BİR YERE GİDEBİLİRSİN",
+        text: "Küçük bir rota veya plan değişikliği günün en akılda kalan anlarından birini yaratabilir."
+    }
+
+];
+
+
+/* =========================================================
+   BUGÜN YAP
+========================================================= */
+
+const fortuneDo = [
+
+    "Uzun zamandır ertelediğin küçük bir işi bitir.",
+    "Aklına gelen ilk iyi fikri bir yere not et.",
+    "Bir süredir konuşmadığın birine mesaj at.",
+    "Bugün normalde seçmeyeceğin bir şeyi seç.",
+    "En az yarım saat telefonu bir kenara bırak.",
+    "Bir şeyi gereğinden fazla düşünmeden yap.",
+    "Bugün birine küçük bir iyilik yap.",
+    "Uzun zamandır dinlemediğin bir şarkıyı aç.",
+    "Odanda veya masanda küçük bir değişiklik yap.",
+    "Bir konuda ilk adımı sen at.",
+    "Bugün biraz daha fazla gözlem yap.",
+    "Yarım bıraktığın bir şeyi tamamla.",
+    "Aklındaki planlardan birini yazıya dök.",
+    "Kendine küçük bir ödül ver.",
+    "Normalden biraz daha erken harekete geç.",
+    "Bugün merak ettiğin bir şeyi araştır.",
+    "Bir fotoğraf çek ve bugünü kaydet.",
+    "Küçük de olsa yeni bir şey dene.",
+    "Bir konuda içgüdülerini dinle.",
+    "Akşam olmadan kendin için bir şey yap."
+
+];
+
+
+/* =========================================================
+   BUGÜN YAPMA
+========================================================= */
+
+const fortuneDont = [
+
+    "İlk sinirlendiğin anda cevap verme.",
+    "Her şeyi kişisel algılama.",
+    "Gereksiz bir tartışmayı uzatma.",
+    "Bir şeyi sırf başkaları yapıyor diye yapma.",
+    "Bugün acele karar verme.",
+    "Eski bir konuyu gereksiz yere yeniden açma.",
+    "Kendini başkalarıyla kıyaslama.",
+    "Küçük bir aksiliğin bütün gününü bozmasına izin verme.",
+    "Her şeyi aynı anda çözmeye çalışma.",
+    "Söyleyeceğin şeyi düşünmeden gönderme.",
+    "Plan değiştiğinde hemen moralini bozma.",
+    "Sadece kötü ihtimalleri düşünme.",
+    "Bugün gereksiz harcama yapma.",
+    "Bir şeyi anlamadan kesin karar verme.",
+    "Yorgunken önemli bir tartışmaya girme.",
+    "Sırf meraktan başına iş açma.",
+    "Bir mesajı gereğinden fazla analiz etme.",
+    "Başkasının stresini kendi stresin yapma.",
+    "Ufak bir hatayı büyütme.",
+    "Geçmişte verdiğin bir kararı bütün gün sorgulama."
+
+];
+
+
+/* =========================================================
+   GİRİŞ EKRANI
+========================================================= */
+
+function createFortuneExperience() {
+
+    return `
+
+        <div class="fortune-experience">
+
+            <div class="fortune-stars">
+                <span>✦</span>
+                <span>✧</span>
+                <span>✦</span>
+                <span>✧</span>
+                <span>✦</span>
+            </div>
+
+            <span class="fortune-kicker">
+                10 — BUGÜNKÜ KADERİN
+            </span>
+
+            <div class="fortune-orb">
+                🔮
+            </div>
+
+            <h2>
+                Bugün seni<br>
+                ne bekliyor?
+            </h2>
+
+            <p class="fortune-intro">
+                İnternet geleceğin hakkında kararını verdi.
+                Sonucu beğenmezsen evrenle görüşebilirsin.
+            </p>
+
+            <div class="fortune-date">
+                ${getFortuneDateText()}
+            </div>
+
+            <button
+                class="fortune-open-button"
+                onclick="revealDailyFortune()"
+            >
+                KADERİMİ GÖSTER
+                <span>✦</span>
+            </button>
+
+            <small class="fortune-note">
+                Kaderin her gün değişir.
+            </small>
+
+        </div>
+
+    `;
+}
+
+
+/* =========================================================
+   TARİH YAZISI
+========================================================= */
+
+function getFortuneDateText() {
+
+    const now = new Date();
+
+    return now.toLocaleDateString(
+        "tr-TR",
+        {
+            day: "numeric",
+            month: "long",
+            year: "numeric"
+        }
+    );
+}
+
+
+/* =========================================================
+   GÜNLÜK SEED
+========================================================= */
+
+function getFortuneSeed() {
+
+    const now = new Date();
+
+    const dateKey =
+        now.getFullYear() +
+        "-" +
+        String(
+            now.getMonth() + 1
+        ).padStart(2, "0") +
+        "-" +
+        String(
+            now.getDate()
+        ).padStart(2, "0");
+
+    let visitorId =
+        localStorage.getItem(
+            "fortuneVisitorId"
+        );
+
+    if (!visitorId) {
+
+        visitorId =
+            Math.random()
+                .toString(36)
+                .substring(2) +
+            Date.now()
+                .toString(36);
+
+        localStorage.setItem(
+            "fortuneVisitorId",
+            visitorId
+        );
+    }
+
+    const input =
+        dateKey + "-" + visitorId;
+
+    let hash = 0;
+
+    for (
+        let i = 0;
+        i < input.length;
+        i++
+    ) {
+
+        hash =
+            ((hash << 5) - hash) +
+            input.charCodeAt(i);
+
+        hash |= 0;
+    }
+
+    return Math.abs(hash);
+}
+
+
+/* =========================================================
+   SEED'DEN SAYI ÜRET
+========================================================= */
+
+function fortuneNumber(
+    seed,
+    offset,
+    min,
+    max
+) {
+
+    const x =
+        Math.sin(
+            seed + offset * 999
+        ) * 10000;
+
+    const normalized =
+        x - Math.floor(x);
+
+    return Math.floor(
+        normalized *
+        (max - min + 1)
+    ) + min;
+}
+
+
+/* =========================================================
+   ARRAY'DEN GÜNLÜK SEÇİM
+========================================================= */
+
+function fortunePick(
+    array,
+    seed,
+    offset
+) {
+
+    const index =
+        fortuneNumber(
+            seed,
+            offset,
+            0,
+            array.length - 1
+        );
+
+    return array[index];
+}
+
+
+/* =========================================================
+   GÜNLÜK KADERİ OLUŞTUR
+========================================================= */
+
+function getDailyFortune() {
+
+    const seed =
+        getFortuneSeed();
+
+    const message =
+        fortunePick(
+            fortuneMessages,
+            seed,
+            1
+        );
+
+    const doToday =
+        fortunePick(
+            fortuneDo,
+            seed,
+            2
+        );
+
+    const dontToday =
+        fortunePick(
+            fortuneDont,
+            seed,
+            3
+        );
+
+
+    const luck =
+        fortuneNumber(
+            seed,
+            4,
+            42,
+            98
+        );
+
+
+    const energy =
+        fortuneNumber(
+            seed,
+            5,
+            35,
+            96
+        );
+
+
+    const social =
+        fortuneNumber(
+            seed,
+            6,
+            28,
+            97
+        );
+
+
+    const luckyNumber =
+        fortuneNumber(
+            seed,
+            7,
+            1,
+            99
+        );
+
+
+    const luckyHour =
+        fortuneNumber(
+            seed,
+            8,
+            8,
+            23
+        );
+
+
+    const luckyMinuteRaw =
+        fortuneNumber(
+            seed,
+            9,
+            0,
+            11
+        ) * 5;
+
+
+    const luckyMinute =
+        String(
+            luckyMinuteRaw
+        ).padStart(2, "0");
+
+
+    return {
+
+        message,
+
+        doToday,
+
+        dontToday,
+
+        luck,
+
+        energy,
+
+        social,
+
+        luckyNumber,
+
+        luckyTime:
+            String(luckyHour)
+                .padStart(2, "0") +
+            ":" +
+            luckyMinute
+
+    };
+}
+
+
+/* =========================================================
+   KADERİ AÇ
+========================================================= */
+
+function revealDailyFortune() {
+
+    const fortune =
+        getDailyFortune();
+
+    experienceContent.innerHTML = `
+
+        <div class="fortune-result">
+
+            <div class="fortune-result-top">
+
+                <button
+                    class="fortune-back"
+                    onclick="backToFortuneIntro()"
+                >
+                    ← GERİ
+                </button>
+
+                <span>
+                    ${getFortuneDateText()}
+                </span>
+
+            </div>
+
+
+            <div class="fortune-result-orb">
+
+                <span class="fortune-orb-glow"></span>
+
+                <span class="fortune-result-icon">
+                    ${fortune.message.icon}
+                </span>
+
+            </div>
+
+
+            <span class="fortune-result-kicker">
+                BUGÜNÜN KADERİ
+            </span>
+
+
+            <h2>
+                ${fortune.message.title}
+            </h2>
+
+
+            <p class="fortune-result-text">
+                ${fortune.message.text}
+            </p>
+
+
+            <div class="fortune-stats">
+
+                ${createFortuneStat(
+                    "ŞANSIN",
+                    fortune.luck
+                )}
+
+                ${createFortuneStat(
+                    "ENERJİN",
+                    fortune.energy
+                )}
+
+                ${createFortuneStat(
+                    "SOSYALLİK",
+                    fortune.social
+                )}
+
+            </div>
+
+
+            <div class="fortune-lucky-grid">
+
+                <div class="fortune-lucky-card">
+
+                    <span>
+                        ŞANSLI SAATİN
+                    </span>
+
+                    <strong>
+                        ${fortune.luckyTime}
+                    </strong>
+
+                </div>
+
+
+                <div class="fortune-lucky-card">
+
+                    <span>
+                        ŞANSLI SAYIN
+                    </span>
+
+                    <strong>
+                        ${fortune.luckyNumber}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="fortune-advice">
+
+                <div class="fortune-advice-card do">
+
+                    <span>
+                        BUGÜN YAP
+                    </span>
+
+                    <p>
+                        ${fortune.doToday}
+                    </p>
+
+                </div>
+
+
+                <div class="fortune-advice-card dont">
+
+                    <span>
+                        BUGÜN YAPMA
+                    </span>
+
+                    <p>
+                        ${fortune.dontToday}
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="fortune-tomorrow">
+
+                ✦
+
+                <span>
+                    Yarın yeni bir kader seni bekliyor.
+                </span>
+
+                ✦
+
+            </div>
+
+
+            <small class="fortune-entertainment">
+                Tamamen eğlence amaçlıdır.
+            </small>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   İSTATİSTİK OLUŞTUR
+========================================================= */
+
+function createFortuneStat(
+    title,
+    value
+) {
+
+    return `
+
+        <div class="fortune-stat">
+
+            <div class="fortune-stat-header">
+
+                <span>
+                    ${title}
+                </span>
+
+                <strong>
+                    %${value}
+                </strong>
+
+            </div>
+
+            <div class="fortune-stat-track">
+
+                <div
+                    class="fortune-stat-fill"
+                    style="width: ${value}%"
+                ></div>
+
+            </div>
+
+        </div>
+
+    `;
+}
+
+
+/* =========================================================
+   GİRİŞE GERİ DÖN
+========================================================= */
+
+function backToFortuneIntro() {
+
+    experienceContent.innerHTML =
+        createFortuneExperience();
+
+}
+
+
+/* =========================================================
+   11 — MİNİ OYUNLAR
+========================================================= */
+
+let miniGameTimer = null;
+let miniGameTimeout = null;
+
+/* =========================================================
+   ORTAK YARDIMCILAR
+========================================================= */
+
+function miniGetRecord(key, fallback = "—") {
+    const value = localStorage.getItem("miniGame_" + key);
+    return value !== null ? value : fallback;
+}
+
+function miniSetHigherRecord(key, value) {
+    const oldValue = Number(localStorage.getItem("miniGame_" + key) || 0);
+
+    if (value > oldValue) {
+        localStorage.setItem("miniGame_" + key, value);
+        return true;
+    }
+
+    return false;
+}
+
+function miniSetLowerRecord(key, value) {
+    const stored = localStorage.getItem("miniGame_" + key);
+
+    if (stored === null || value < Number(stored)) {
+        localStorage.setItem("miniGame_" + key, value);
+        return true;
+    }
+
+    return false;
+}
+
+function miniClearTimers() {
+    if (miniGameTimer) {
+        clearInterval(miniGameTimer);
+        miniGameTimer = null;
+    }
+
+    if (miniGameTimeout) {
+        clearTimeout(miniGameTimeout);
+        miniGameTimeout = null;
+    }
+}
+
+function backToMiniGames() {
+    miniClearTimers();
+    experienceContent.innerHTML = createGamesExperience();
+}
+
+
+/* =========================================================
+   ANA OYUN MENÜSÜ
+========================================================= */
+
+function createGamesExperience() {
+
+    miniClearTimers();
+
+    const reaction = miniGetRecord("reaction");
+    const memory = miniGetRecord("memory");
+    const digits = miniGetRecord("digits");
+    const target = miniGetRecord("target");
+    const stroop = miniGetRecord("stroop");
+    const mines = miniGetRecord("mines");
+
+    return `
+        <div class="games-experience">
+
+            <span class="games-kicker">
+                11 — MİNİ OYUNLAR
+            </span>
+
+            <h2>
+                Bir dakikan<br>
+                var mı?
+            </h2>
+
+            <p class="games-intro">
+                Refleks, hafıza, dikkat ve biraz da şans.
+                Rekorların bu tarayıcıda saklanır.
+            </p>
+
+            <div class="games-grid">
+
+                ${createGameCard(
+                    "🎯",
+                    "REFLEKS TESTİ",
+                    "Yeşili gördüğün anda bas.",
+                    reaction === "—" ? "REKOR YOK" : `EN İYİ: ${reaction} ms`,
+                    "startReactionGame()"
+                )}
+
+                ${createGameCard(
+                    "🧠",
+                    "HAFIZA MATRİSİ",
+                    "Parlayan kutuları doğru sırada bul.",
+                    memory === "—" ? "REKOR YOK" : `REKOR: SEVİYE ${memory}`,
+                    "startMemoryGame()"
+                )}
+
+                ${createGameCard(
+                    "🔢",
+                    "SAYIYI HATIRLA",
+                    "Sayı kaybolmadan hafızana kazı.",
+                    digits === "—" ? "REKOR YOK" : `REKOR: ${digits} HANE`,
+                    "startDigitGame()"
+                )}
+
+                ${createGameCard(
+                    "🎯",
+                    "HEDEF AVI",
+                    "20 saniyede mümkün olduğunca çok vur.",
+                    target === "—" ? "REKOR YOK" : `REKOR: ${target}`,
+                    "startTargetGame()"
+                )}
+
+                ${createGameCard(
+                    "⚡",
+                    "RENK KARMAŞASI",
+                    "Kelimeyi değil, yazının rengini seç.",
+                    stroop === "—" ? "REKOR YOK" : `REKOR: ${stroop}`,
+                    "startStroopGame()"
+                )}
+
+                ${createGameCard(
+                    "💣",
+                    "MAYIN ALANI",
+                    "Mayınlara basmadan bütün güvenli alanı aç.",
+                    mines === "—" ? "REKOR YOK" : `EN İYİ: ${mines} sn`,
+                    "startMinesGame()"
+                )}
+
+            </div>
+
+        </div>
+    `;
+}
+
+function createGameCard(icon, title, description, record, action) {
+
+    return `
+        <button
+            class="game-card"
+            onclick="${action}"
+        >
+            <span class="game-card-icon">
+                ${icon}
+            </span>
+
+            <div class="game-card-content">
+                <strong>${title}</strong>
+
+                <p>
+                    ${description}
+                </p>
+            </div>
+
+            <div class="game-card-bottom">
+                <span>${record}</span>
+                <b>OYNA →</b>
+            </div>
+        </button>
+    `;
+}
+
+
+/* =========================================================
+   01 — REFLEKS TESTİ
+========================================================= */
+
+let reactionState = "idle";
+let reactionStartTime = 0;
+
+function startReactionGame() {
+
+    miniClearTimers();
+
+    reactionState = "ready";
+
+    experienceContent.innerHTML = `
+        <div class="mini-game-screen reaction-game">
+
+            <div class="mini-game-top">
+                <button onclick="backToMiniGames()">
+                    ← OYUNLAR
+                </button>
+
+                <span>REFLEKS TESTİ</span>
+
+                <small>
+                    EN İYİ:
+                    ${miniGetRecord("reaction") === "—"
+                        ? "—"
+                        : miniGetRecord("reaction") + " ms"}
+                </small>
+            </div>
+
+            <div
+                id="reactionArea"
+                class="reaction-area waiting"
+                onclick="reactionClick()"
+            >
+                <span class="reaction-icon">
+                    •
+                </span>
+
+                <h2>
+                    HAZIR MISIN?
+                </h2>
+
+                <p>
+                    Başlamak için tıkla.
+                    Yeşil olmadan tekrar basma.
+                </p>
+            </div>
+
+        </div>
+    `;
+}
+
+function reactionClick() {
+
+    const area = document.getElementById("reactionArea");
+
+    if (!area) return;
+
+    if (reactionState === "ready") {
+
+        reactionState = "waiting";
+
+        area.className = "reaction-area waiting";
+
+        area.innerHTML = `
+            <span class="reaction-icon pulse">•</span>
+            <h2>BEKLE...</h2>
+            <p>Yeşili görmeden basma.</p>
+        `;
+
+        const delay =
+            Math.floor(Math.random() * 3000) + 1800;
+
+        miniGameTimeout = setTimeout(() => {
+
+            reactionState = "go";
+            reactionStartTime = performance.now();
+
+            area.className = "reaction-area go";
+
+            area.innerHTML = `
+                <span class="reaction-icon">●</span>
+                <h2>ŞİMDİ!</h2>
+                <p>BAS!</p>
+            `;
+
+        }, delay);
+
+        return;
+    }
+
+    if (reactionState === "waiting") {
+
+        clearTimeout(miniGameTimeout);
+
+        reactionState = "early";
+
+        area.className = "reaction-area early";
+
+        area.innerHTML = `
+            <span class="reaction-icon">×</span>
+
+            <h2>
+                ÇOK ERKEN!
+            </h2>
+
+            <p>
+                Yeşili beklemen gerekiyordu.
+            </p>
+
+            <button
+                class="mini-primary-button"
+                onclick="event.stopPropagation(); startReactionGame();"
+            >
+                TEKRAR DENE
+            </button>
+        `;
+
+        return;
+    }
+
+    if (reactionState === "go") {
+
+        reactionState = "done";
+
+        const reactionTime =
+            Math.round(
+                performance.now() -
+                reactionStartTime
+            );
+
+        const newRecord =
+            miniSetLowerRecord(
+                "reaction",
+                reactionTime
+            );
+
+        let rating = "";
+
+        if (reactionTime < 180) {
+            rating = "İNSAN MISIN?";
+        } else if (reactionTime < 230) {
+            rating = "ÇOK HIZLI";
+        } else if (reactionTime < 300) {
+            rating = "İYİ REFLEKS";
+        } else if (reactionTime < 400) {
+            rating = "ORTALAMA";
+        } else {
+            rating = "BİRAZ UYUYORSUN";
+        }
+
+        area.className =
+            "reaction-area result";
+
+        area.innerHTML = `
+            <span class="reaction-result-number">
+                ${reactionTime}
+                <small>ms</small>
+            </span>
+
+            <h2>${rating}</h2>
+
+            ${
+                newRecord
+                ? `<div class="mini-new-record">YENİ REKOR</div>`
+                : ""
+            }
+
+            <button
+                class="mini-primary-button"
+                onclick="event.stopPropagation(); startReactionGame();"
+            >
+                TEKRAR DENE
+            </button>
+        `;
+    }
+}
+
+
+/* =========================================================
+   02 — HAFIZA MATRİSİ
+========================================================= */
+
+let memoryLevel = 1;
+let memoryCells = [];
+let memorySelected = [];
+let memoryAccepting = false;
+
+function startMemoryGame() {
+
+    miniClearTimers();
+
+    memoryLevel = 1;
+
+    renderMemoryRound();
+}
+
+function renderMemoryRound() {
+
+    memoryAccepting = false;
+    memorySelected = [];
+
+    const gridSize =
+        memoryLevel <= 3
+            ? 3
+            : memoryLevel <= 7
+                ? 4
+                : 5;
+
+    const totalCells =
+        gridSize * gridSize;
+
+    const highlightCount =
+        Math.min(
+            2 + memoryLevel,
+            Math.floor(totalCells * 0.55)
+        );
+
+    memoryCells = [];
+
+    while (
+        memoryCells.length <
+        highlightCount
+    ) {
+
+        const random =
+            Math.floor(
+                Math.random() *
+                totalCells
+            );
+
+        if (!memoryCells.includes(random)) {
+            memoryCells.push(random);
+        }
+    }
+
+    experienceContent.innerHTML = `
+        <div class="mini-game-screen memory-game">
+
+            <div class="mini-game-top">
+                <button onclick="backToMiniGames()">
+                    ← OYUNLAR
+                </button>
+
+                <span>HAFIZA MATRİSİ</span>
+
+                <small>
+                    SEVİYE ${memoryLevel}
+                </small>
+            </div>
+
+            <div class="memory-info">
+                <span>
+                    ${highlightCount} kutuyu hatırla
+                </span>
+
+                <strong id="memoryStatus">
+                    HAZIRLAN...
+                </strong>
+            </div>
+
+            <div
+                id="memoryGrid"
+                class="memory-grid"
+                style="
+                    grid-template-columns:
+                    repeat(${gridSize}, 1fr);
+                "
+            >
+                ${Array
+                    .from(
+                        { length: totalCells },
+                        (_, index) => `
+                            <button
+                                class="memory-cell"
+                                data-index="${index}"
+                                onclick="memoryCellClick(${index})"
+                            ></button>
+                        `
+                    )
+                    .join("")}
+            </div>
+
+        </div>
+    `;
+
+    setTimeout(() => {
+
+        memoryCells.forEach(index => {
+
+            const cell =
+                document.querySelector(
+                    `.memory-cell[data-index="${index}"]`
+                );
+
+            if (cell) {
+                cell.classList.add("show");
+            }
+        });
+
+        const status =
+            document.getElementById("memoryStatus");
+
+        if (status) {
+            status.textContent = "HATIRLA";
+        }
+
+    }, 500);
+
+    setTimeout(() => {
+
+        document
+            .querySelectorAll(".memory-cell")
+            .forEach(cell => {
+                cell.classList.remove("show");
+            });
+
+        const status =
+            document.getElementById("memoryStatus");
+
+        if (status) {
+            status.textContent = "ŞİMDİ BUL";
+        }
+
+        memoryAccepting = true;
+
+    }, 1700);
+}
+
+function memoryCellClick(index) {
+
+    if (!memoryAccepting) return;
+
+    if (memorySelected.includes(index)) {
+        return;
+    }
+
+    const cell =
+        document.querySelector(
+            `.memory-cell[data-index="${index}"]`
+        );
+
+    if (!memoryCells.includes(index)) {
+
+        memoryAccepting = false;
+
+        if (cell) {
+            cell.classList.add("wrong");
+        }
+
+        memoryCells.forEach(correctIndex => {
+
+            const correct =
+                document.querySelector(
+                    `.memory-cell[data-index="${correctIndex}"]`
+                );
+
+            if (correct) {
+                correct.classList.add("correct");
+            }
+        });
+
+        setTimeout(() => {
+            finishMemoryGame();
+        }, 800);
+
+        return;
+    }
+
+    memorySelected.push(index);
+
+    if (cell) {
+        cell.classList.add("selected");
+    }
+
+    if (
+        memorySelected.length ===
+        memoryCells.length
+    ) {
+
+        memoryAccepting = false;
+
+        miniSetHigherRecord(
+            "memory",
+            memoryLevel
+        );
+
+        const status =
+            document.getElementById("memoryStatus");
+
+        if (status) {
+            status.textContent = "DOĞRU!";
+        }
+
+        setTimeout(() => {
+
+            memoryLevel++;
+            renderMemoryRound();
+
+        }, 850);
+    }
+}
+
+function finishMemoryGame() {
+
+    const reachedLevel =
+        Math.max(1, memoryLevel);
+
+    miniSetHigherRecord(
+        "memory",
+        reachedLevel
+    );
+
+    experienceContent.innerHTML = `
+        <div class="mini-game-result">
+
+            <span class="mini-result-icon">
+                🧠
+            </span>
+
+            <span class="mini-result-label">
+                OYUN BİTTİ
+            </span>
+
+            <h2>
+                SEVİYE ${reachedLevel}
+            </h2>
+
+            <p>
+                Hafızan seni buraya kadar getirdi.
+            </p>
+
+            <div class="mini-result-actions">
+
+                <button
+                    class="mini-primary-button"
+                    onclick="startMemoryGame()"
+                >
+                    TEKRAR OYNA
+                </button>
+
+                <button
+                    class="mini-secondary-button"
+                    onclick="backToMiniGames()"
+                >
+                    OYUNLARA DÖN
+                </button>
+
+            </div>
+
+        </div>
+    `;
+}
+
+
+/* =========================================================
+   03 — SAYIYI HATIRLA
+========================================================= */
+
+let digitLevel = 3;
+let digitCurrentNumber = "";
+
+function startDigitGame() {
+
+    miniClearTimers();
+
+    digitLevel = 3;
+
+    showDigitRound();
+}
+
+function generateDigitNumber(length) {
+
+    let result =
+        String(
+            Math.floor(
+                Math.random() * 9
+            ) + 1
+        );
+
+    for (
+        let i = 1;
+        i < length;
+        i++
+    ) {
+        result +=
+            Math.floor(
+                Math.random() * 10
+            );
+    }
+
+    return result;
+}
+
+function showDigitRound() {
+
+    digitCurrentNumber =
+        generateDigitNumber(
+            digitLevel
+        );
+
+    experienceContent.innerHTML = `
+        <div class="mini-game-screen digit-game">
+
+            <div class="mini-game-top">
+                <button onclick="backToMiniGames()">
+                    ← OYUNLAR
+                </button>
+
+                <span>SAYIYI HATIRLA</span>
+
+                <small>
+                    ${digitLevel} HANE
+                </small>
+            </div>
+
+            <div class="digit-display">
+
+                <span>
+                    HAFIZANA KAZI
+                </span>
+
+                <strong id="digitNumber">
+                    ${digitCurrentNumber}
+                </strong>
+
+                <div class="digit-timer-line">
+                    <div
+                        class="digit-timer-fill"
+                        style="
+                            animation-duration:
+                            ${Math.min(
+                                1.2 + digitLevel * 0.18,
+                                3
+                            )}s;
+                        "
+                    ></div>
+                </div>
+
+            </div>
+
+        </div>
+    `;
+
+    const showTime =
+        Math.min(
+            1200 + digitLevel * 180,
+            3000
+        );
+
+    miniGameTimeout =
+        setTimeout(
+            askDigitAnswer,
+            showTime
+        );
+}
+
+function askDigitAnswer() {
+
+    experienceContent.innerHTML = `
+        <div class="mini-game-screen digit-game">
+
+            <div class="mini-game-top">
+                <button onclick="backToMiniGames()">
+                    ← OYUNLAR
+                </button>
+
+                <span>SAYIYI HATIRLA</span>
+
+                <small>
+                    ${digitLevel} HANE
+                </small>
+            </div>
+
+            <div class="digit-answer-area">
+
+                <span>
+                    SAYI NEYDİ?
+                </span>
+
+                <input
+                    id="digitAnswer"
+                    class="digit-input"
+                    type="text"
+                    inputmode="numeric"
+                    autocomplete="off"
+                    maxlength="${digitLevel}"
+                    onkeydown="
+                        if(event.key === 'Enter') {
+                            checkDigitAnswer();
+                        }
+                    "
+                >
+
+                <button
+                    class="mini-primary-button"
+                    onclick="checkDigitAnswer()"
+                >
+                    CEVAPLA
+                </button>
+
+            </div>
+
+        </div>
+    `;
+
+    setTimeout(() => {
+
+        const input =
+            document.getElementById(
+                "digitAnswer"
+            );
+
+        if (input) {
+            input.focus();
+        }
+
+    }, 100);
+}
+
+function checkDigitAnswer() {
+
+    const input =
+        document.getElementById(
+            "digitAnswer"
+        );
+
+    if (!input) return;
+
+    const answer =
+        input.value.trim();
+
+    if (
+        answer ===
+        digitCurrentNumber
+    ) {
+
+        miniSetHigherRecord(
+            "digits",
+            digitLevel
+        );
+
+        digitLevel++;
+
+        experienceContent.innerHTML = `
+            <div class="mini-game-result compact">
+
+                <span class="mini-result-icon">
+                    ✓
+                </span>
+
+                <h2>DOĞRU</h2>
+
+                <p>
+                    Şimdi ${digitLevel} hane.
+                </p>
+
+            </div>
+        `;
+
+        setTimeout(
+            showDigitRound,
+            700
+        );
+
+        return;
+    }
+
+    const score =
+        Math.max(
+            0,
+            digitLevel - 1
+        );
+
+    miniSetHigherRecord(
+        "digits",
+        score
+    );
+
+    experienceContent.innerHTML = `
+        <div class="mini-game-result">
+
+            <span class="mini-result-icon">
+                🔢
+            </span>
+
+            <span class="mini-result-label">
+                OYUN BİTTİ
+            </span>
+
+            <h2>
+                ${score} HANE
+            </h2>
+
+            <p>
+                Doğru sayı:
+                <strong>
+                    ${digitCurrentNumber}
+                </strong>
+            </p>
+
+            <div class="mini-result-actions">
+
+                <button
+                    class="mini-primary-button"
+                    onclick="startDigitGame()"
+                >
+                    TEKRAR OYNA
+                </button>
+
+                <button
+                    class="mini-secondary-button"
+                    onclick="backToMiniGames()"
+                >
+                    OYUNLARA DÖN
+                </button>
+
+            </div>
+
+        </div>
+    `;
+}
+
+
+/* =========================================================
+   04 — HEDEF AVI
+========================================================= */
+
+let targetScore = 0;
+let targetHits = 0;
+let targetMisses = 0;
+let targetTimeLeft = 20;
+
+function startTargetGame() {
+
+    miniClearTimers();
+
+    targetScore = 0;
+    targetHits = 0;
+    targetMisses = 0;
+    targetTimeLeft = 20;
+
+    experienceContent.innerHTML = `
+        <div class="mini-game-screen target-game">
+
+            <div class="mini-game-top">
+                <button onclick="backToMiniGames()">
+                    ← OYUNLAR
+                </button>
+
+                <span>HEDEF AVI</span>
+
+                <small>
+                    <b id="targetTimer">
+                        20
+                    </b>
+                    SN
+                </small>
+            </div>
+
+            <div class="target-stats">
+
+                <span>
+                    SKOR
+                    <b id="targetScore">
+                        0
+                    </b>
+                </span>
+
+                <span>
+                    İSABET
+                    <b id="targetHits">
+                        0
+                    </b>
+                </span>
+
+                <span>
+                    KAÇAN
+                    <b id="targetMisses">
+                        0
+                    </b>
+                </span>
+
+            </div>
+
+            <div
+                id="targetArena"
+                class="target-arena"
+                onclick="targetArenaMiss(event)"
+            >
+
+                <button
+                    id="targetDot"
+                    class="target-dot"
+                    onclick="
+                        event.stopPropagation();
+                        hitTarget();
+                    "
+                >
+                    <span></span>
+                </button>
+
+            </div>
+
+        </div>
+    `;
+
+    moveTarget();
+
+    miniGameTimer =
+        setInterval(() => {
+
+            targetTimeLeft--;
+
+            const timer =
+                document.getElementById(
+                    "targetTimer"
+                );
+
+            if (timer) {
+                timer.textContent =
+                    targetTimeLeft;
+            }
+
+            if (targetTimeLeft <= 5) {
+
+                const arena =
+                    document.getElementById(
+                        "targetArena"
+                    );
+
+                if (arena) {
+                    arena.classList.add(
+                        "danger"
+                    );
+                }
+            }
+
+            if (targetTimeLeft <= 0) {
+                finishTargetGame();
+            }
+
+        }, 1000);
+}
+
+function moveTarget() {
+
+    const arena =
+        document.getElementById(
+            "targetArena"
+        );
+
+    const target =
+        document.getElementById(
+            "targetDot"
+        );
+
+    if (!arena || !target) return;
+
+    const rect =
+        arena.getBoundingClientRect();
+
+    const size =
+        Math.max(
+            34,
+            64 -
+            targetHits * 1.3
+        );
+
+    target.style.width =
+        size + "px";
+
+    target.style.height =
+        size + "px";
+
+    const maxX =
+        Math.max(
+            0,
+            rect.width - size - 10
+        );
+
+    const maxY =
+        Math.max(
+            0,
+            rect.height - size - 10
+        );
+
+    target.style.left =
+        Math.floor(
+            Math.random() * maxX
+        ) + "px";
+
+    target.style.top =
+        Math.floor(
+            Math.random() * maxY
+        ) + "px";
+}
+
+function hitTarget() {
+
+    if (targetTimeLeft <= 0) return;
+
+    targetHits++;
+
+    const bonus =
+        Math.max(
+            100,
+            250 -
+            targetHits * 3
+        );
+
+    targetScore += bonus;
+
+    document.getElementById(
+        "targetScore"
+    ).textContent = targetScore;
+
+    document.getElementById(
+        "targetHits"
+    ).textContent = targetHits;
+
+    moveTarget();
+}
+
+function targetArenaMiss(event) {
+
+    if (
+        event.target.closest(
+            "#targetDot"
+        )
+    ) {
+        return;
+    }
+
+    targetMisses++;
+
+    targetScore =
+        Math.max(
+            0,
+            targetScore - 50
+        );
+
+    document.getElementById(
+        "targetScore"
+    ).textContent = targetScore;
+
+    document.getElementById(
+        "targetMisses"
+    ).textContent = targetMisses;
+}
+
+function finishTargetGame() {
+
+    miniClearTimers();
+
+    miniSetHigherRecord(
+        "target",
+        targetScore
+    );
+
+    const attempts =
+        targetHits +
+        targetMisses;
+
+    const accuracy =
+        attempts === 0
+            ? 0
+            : Math.round(
+                targetHits /
+                attempts *
+                100
+            );
+
+    experienceContent.innerHTML = `
+        <div class="mini-game-result">
+
+            <span class="mini-result-icon">
+                🎯
+            </span>
+
+            <span class="mini-result-label">
+                SÜRE BİTTİ
+            </span>
+
+            <h2>
+                ${targetScore}
+            </h2>
+
+            <div class="mini-result-stats">
+
+                <span>
+                    <b>${targetHits}</b>
+                    İSABET
+                </span>
+
+                <span>
+                    <b>${accuracy}%</b>
+                    DOĞRULUK
+                </span>
+
+                <span>
+                    <b>${targetMisses}</b>
+                    KAÇAN
+                </span>
+
+            </div>
+
+            <div class="mini-result-actions">
+
+                <button
+                    class="mini-primary-button"
+                    onclick="startTargetGame()"
+                >
+                    TEKRAR OYNA
+                </button>
+
+                <button
+                    class="mini-secondary-button"
+                    onclick="backToMiniGames()"
+                >
+                    OYUNLARA DÖN
+                </button>
+
+            </div>
+
+        </div>
+    `;
+}
+
+
+/* =========================================================
+   05 — RENK KARMAŞASI / STROOP
+========================================================= */
+
+const stroopColors = [
+    {
+        name: "KIRMIZI",
+        value: "#ef4444"
+    },
+    {
+        name: "MAVİ",
+        value: "#3b82f6"
+    },
+    {
+        name: "YEŞİL",
+        value: "#22c55e"
+    },
+    {
+        name: "SARI",
+        value: "#eab308"
+    }
+];
+
+let stroopScore = 0;
+let stroopLives = 3;
+let stroopTime = 30;
+let stroopCorrectColor = "";
+
+function startStroopGame() {
+
+    miniClearTimers();
+
+    stroopScore = 0;
+    stroopLives = 3;
+    stroopTime = 30;
+
+    experienceContent.innerHTML = `
+        <div class="mini-game-screen stroop-game">
+
+            <div class="mini-game-top">
+                <button onclick="backToMiniGames()">
+                    ← OYUNLAR
+                </button>
+
+                <span>RENK KARMAŞASI</span>
+
+                <small>
+                    <b id="stroopTime">
+                        30
+                    </b>
+                    SN
+                </small>
+            </div>
+
+            <div class="stroop-hud">
+
+                <span>
+                    SKOR
+                    <b id="stroopScore">
+                        0
+                    </b>
+                </span>
+
+                <span>
+                    CAN
+                    <b id="stroopLives">
+                        ♥♥♥
+                    </b>
+                </span>
+
+            </div>
+
+            <div id="stroopStage"></div>
+
+        </div>
+    `;
+
+    nextStroopQuestion();
+
+    miniGameTimer =
+        setInterval(() => {
+
+            stroopTime--;
+
+            const time =
+                document.getElementById(
+                    "stroopTime"
+                );
+
+            if (time) {
+                time.textContent =
+                    stroopTime;
+            }
+
+            if (stroopTime <= 0) {
+                finishStroopGame();
+            }
+
+        }, 1000);
+}
+
+function nextStroopQuestion() {
+
+    const stage =
+        document.getElementById(
+            "stroopStage"
+        );
+
+    if (!stage) return;
+
+    const word =
+        stroopColors[
+            Math.floor(
+                Math.random() *
+                stroopColors.length
+            )
+        ];
+
+    let ink =
+        stroopColors[
+            Math.floor(
+                Math.random() *
+                stroopColors.length
+            )
+        ];
+
+    if (Math.random() < 0.8) {
+
+        while (
+            ink.name ===
+            word.name
+        ) {
+            ink =
+                stroopColors[
+                    Math.floor(
+                        Math.random() *
+                        stroopColors.length
+                    )
+                ];
+        }
+    }
+
+    stroopCorrectColor =
+        ink.name;
+
+    const shuffled =
+        [...stroopColors]
+            .sort(
+                () =>
+                    Math.random() - 0.5
+            );
+
+    stage.innerHTML = `
+        <div class="stroop-stage">
+
+            <span class="stroop-instruction">
+                YAZININ RENGİ NE?
+            </span>
+
+            <strong
+                class="stroop-word"
+                style="
+                    color:${ink.value};
+                "
+            >
+                ${word.name}
+            </strong>
+
+            <div class="stroop-options">
+
+                ${shuffled
+                    .map(color => `
+                        <button
+                            onclick="
+                                answerStroop(
+                                    '${color.name}'
+                                )
+                            "
+                        >
+                            ${color.name}
+                        </button>
+                    `)
+                    .join("")}
+
+            </div>
+
+        </div>
+    `;
+}
+
+function answerStroop(answer) {
+
+    if (
+        answer ===
+        stroopCorrectColor
+    ) {
+
+        stroopScore++;
+
+        const score =
+            document.getElementById(
+                "stroopScore"
+            );
+
+        if (score) {
+            score.textContent =
+                stroopScore;
+        }
+
+    } else {
+
+        stroopLives--;
+
+        const lives =
+            document.getElementById(
+                "stroopLives"
+            );
+
+        if (lives) {
+            lives.textContent =
+                "♥".repeat(
+                    Math.max(
+                        0,
+                        stroopLives
+                    )
+                );
+        }
+
+        if (stroopLives <= 0) {
+            finishStroopGame();
+            return;
+        }
+    }
+
+    nextStroopQuestion();
+}
+
+function finishStroopGame() {
+
+    miniClearTimers();
+
+    miniSetHigherRecord(
+        "stroop",
+        stroopScore
+    );
+
+    experienceContent.innerHTML = `
+        <div class="mini-game-result">
+
+            <span class="mini-result-icon">
+                ⚡
+            </span>
+
+            <span class="mini-result-label">
+                OYUN BİTTİ
+            </span>
+
+            <h2>
+                ${stroopScore}
+            </h2>
+
+            <p>
+                Doğru renk
+            </p>
+
+            <div class="mini-result-actions">
+
+                <button
+                    class="mini-primary-button"
+                    onclick="startStroopGame()"
+                >
+                    TEKRAR OYNA
+                </button>
+
+                <button
+                    class="mini-secondary-button"
+                    onclick="backToMiniGames()"
+                >
+                    OYUNLARA DÖN
+                </button>
+
+            </div>
+
+        </div>
+    `;
+}
+
+
+/* =========================================================
+   06 — MAYIN ALANI
+========================================================= */
+
+const minesRows = 7;
+const minesCols = 7;
+const minesCount = 7;
+
+let minesBoard = [];
+let minesStarted = false;
+let minesFinished = false;
+let minesSeconds = 0;
+let minesOpened = 0;
+let minesFlags = 0;
+
+function startMinesGame() {
+
+    miniClearTimers();
+
+    minesBoard = [];
+    minesStarted = false;
+    minesFinished = false;
+    minesSeconds = 0;
+    minesOpened = 0;
+    minesFlags = 0;
+
+    for (
+        let row = 0;
+        row < minesRows;
+        row++
+    ) {
+
+        minesBoard[row] = [];
+
+        for (
+            let col = 0;
+            col < minesCols;
+            col++
+        ) {
+
+            minesBoard[row][col] = {
+                mine: false,
+                open: false,
+                flag: false,
+                number: 0
+            };
+        }
+    }
+
+    renderMinesGame();
+}
+
+function renderMinesGame() {
+
+    experienceContent.innerHTML = `
+        <div class="mini-game-screen mines-game">
+
+            <div class="mini-game-top">
+                <button onclick="backToMiniGames()">
+                    ← OYUNLAR
+                </button>
+
+                <span>MAYIN ALANI</span>
+
+                <small>
+                    <b id="minesTimer">0</b>
+                    SN
+                </small>
+            </div>
+
+            <div class="mines-hud">
+
+                <span>
+                    💣
+                    <b id="mineCount">
+                        ${minesCount}
+                    </b>
+                </span>
+
+                <button
+                    onclick="startMinesGame()"
+                >
+                    🙂
+                </button>
+
+                <span>
+                    🚩
+                    <b id="flagCount">
+                        0
+                    </b>
+                </span>
+
+            </div>
+
+            <div
+                id="minesGrid"
+                class="mines-grid"
+            >
+
+                ${createMinesCellsHTML()}
+
+            </div>
+
+            <p class="mines-help">
+                Sol tık: aç • Sağ tık: bayrak
+            </p>
+
+        </div>
+    `;
+
+    attachMineEvents();
+}
+
+function createMinesCellsHTML() {
+
+    let html = "";
+
+    for (
+        let row = 0;
+        row < minesRows;
+        row++
+    ) {
+
+        for (
+            let col = 0;
+            col < minesCols;
+            col++
+        ) {
+
+            html += `
+                <button
+                    class="mine-cell"
+                    data-row="${row}"
+                    data-col="${col}"
+                ></button>
+            `;
+        }
+    }
+
+    return html;
+}
+
+function attachMineEvents() {
+
+    document
+        .querySelectorAll(".mine-cell")
+        .forEach(cell => {
+
+            const row =
+                Number(
+                    cell.dataset.row
+                );
+
+            const col =
+                Number(
+                    cell.dataset.col
+                );
+
+            cell.addEventListener(
+                "click",
+                () => {
+                    openMineCell(
+                        row,
+                        col
+                    );
+                }
+            );
+
+            cell.addEventListener(
+                "contextmenu",
+                event => {
+
+                    event.preventDefault();
+
+                    toggleMineFlag(
+                        row,
+                        col
+                    );
+                }
+            );
+        });
+}
+
+function placeMinesSafe(
+    safeRow,
+    safeCol
+) {
+
+    let placed = 0;
+
+    while (
+        placed < minesCount
+    ) {
+
+        const row =
+            Math.floor(
+                Math.random() *
+                minesRows
+            );
+
+        const col =
+            Math.floor(
+                Math.random() *
+                minesCols
+            );
+
+        const isSafeArea =
+            Math.abs(
+                row - safeRow
+            ) <= 1 &&
+            Math.abs(
+                col - safeCol
+            ) <= 1;
+
+        if (
+            isSafeArea ||
+            minesBoard[row][col].mine
+        ) {
+            continue;
+        }
+
+        minesBoard[row][col].mine =
+            true;
+
+        placed++;
+    }
+
+    calculateMineNumbers();
+}
+
+function calculateMineNumbers() {
+
+    for (
+        let row = 0;
+        row < minesRows;
+        row++
+    ) {
+
+        for (
+            let col = 0;
+            col < minesCols;
+            col++
+        ) {
+
+            if (
+                minesBoard[row][col].mine
+            ) {
+                continue;
+            }
+
+            let count = 0;
+
+            for (
+                let dr = -1;
+                dr <= 1;
+                dr++
+            ) {
+
+                for (
+                    let dc = -1;
+                    dc <= 1;
+                    dc++
+                ) {
+
+                    const nr =
+                        row + dr;
+
+                    const nc =
+                        col + dc;
+
+                    if (
+                        nr >= 0 &&
+                        nr < minesRows &&
+                        nc >= 0 &&
+                        nc < minesCols &&
+                        minesBoard[nr][nc].mine
+                    ) {
+                        count++;
+                    }
+                }
+            }
+
+            minesBoard[row][col].number =
+                count;
+        }
+    }
+}
+
+function startMinesTimer() {
+
+    miniGameTimer =
+        setInterval(() => {
+
+            minesSeconds++;
+
+            const timer =
+                document.getElementById(
+                    "minesTimer"
+                );
+
+            if (timer) {
+                timer.textContent =
+                    minesSeconds;
+            }
+
+        }, 1000);
+}
+
+function openMineCell(row, col) {
+
+    if (minesFinished) return;
+
+    const cell =
+        minesBoard[row][col];
+
+    if (
+        cell.open ||
+        cell.flag
+    ) {
+        return;
+    }
+
+    if (!minesStarted) {
+
+        minesStarted = true;
+
+        placeMinesSafe(
+            row,
+            col
+        );
+
+        startMinesTimer();
+    }
+
+    if (cell.mine) {
+
+        cell.open = true;
+
+        finishMinesGame(false);
+        return;
+    }
+
+    floodOpenMines(
+        row,
+        col
+    );
+
+    updateMinesBoard();
+
+    const safeCells =
+        minesRows *
+        minesCols -
+        minesCount;
+
+    if (
+        minesOpened >=
+        safeCells
+    ) {
+        finishMinesGame(true);
+    }
+}
+
+function floodOpenMines(
+    startRow,
+    startCol
+) {
+
+    const queue = [
+        [startRow, startCol]
+    ];
+
+    while (queue.length) {
+
+        const [row, col] =
+            queue.shift();
+
+        if (
+            row < 0 ||
+            row >= minesRows ||
+            col < 0 ||
+            col >= minesCols
+        ) {
+            continue;
+        }
+
+        const cell =
+            minesBoard[row][col];
+
+        if (
+            cell.open ||
+            cell.flag ||
+            cell.mine
+        ) {
+            continue;
+        }
+
+        cell.open = true;
+        minesOpened++;
+
+        if (cell.number !== 0) {
+            continue;
+        }
+
+        for (
+            let dr = -1;
+            dr <= 1;
+            dr++
+        ) {
+
+            for (
+                let dc = -1;
+                dc <= 1;
+                dc++
+            ) {
+
+                if (
+                    dr === 0 &&
+                    dc === 0
+                ) {
+                    continue;
+                }
+
+                queue.push([
+                    row + dr,
+                    col + dc
+                ]);
+            }
+        }
+    }
+}
+
+function toggleMineFlag(row, col) {
+
+    if (minesFinished) return;
+
+    const cell =
+        minesBoard[row][col];
+
+    if (cell.open) return;
+
+    if (
+        !cell.flag &&
+        minesFlags >= minesCount
+    ) {
+        return;
+    }
+
+    cell.flag =
+        !cell.flag;
+
+    minesFlags +=
+        cell.flag ? 1 : -1;
+
+    updateMinesBoard();
+}
+
+function updateMinesBoard(
+    revealAll = false
+) {
+
+    document
+        .querySelectorAll(".mine-cell")
+        .forEach(element => {
+
+            const row =
+                Number(
+                    element.dataset.row
+                );
+
+            const col =
+                Number(
+                    element.dataset.col
+                );
+
+            const cell =
+                minesBoard[row][col];
+
+            element.className =
+                "mine-cell";
+
+            element.textContent = "";
+
+            if (
+                revealAll &&
+                cell.mine
+            ) {
+
+                element.classList.add(
+                    "mine"
+                );
+
+                element.textContent =
+                    "💣";
+
+                return;
+            }
+
+            if (cell.open) {
+
+                element.classList.add(
+                    "open"
+                );
+
+                if (cell.mine) {
+
+                    element.classList.add(
+                        "mine"
+                    );
+
+                    element.textContent =
+                        "💣";
+
+                } else if (
+                    cell.number > 0
+                ) {
+
+                    element.textContent =
+                        cell.number;
+
+                    element.dataset.number =
+                        cell.number;
+                }
+
+                return;
+            }
+
+            if (cell.flag) {
+
+                element.classList.add(
+                    "flag"
+                );
+
+                element.textContent =
+                    "🚩";
+            }
+        });
+
+    const flag =
+        document.getElementById(
+            "flagCount"
+        );
+
+    if (flag) {
+        flag.textContent =
+            minesFlags;
+    }
+}
+
+function finishMinesGame(won) {
+
+    if (minesFinished) return;
+
+    minesFinished = true;
+
+    miniClearTimers();
+
+    updateMinesBoard(true);
+
+    if (won) {
+
+        miniSetLowerRecord(
+            "mines",
+            minesSeconds
+        );
+    }
+
+    setTimeout(() => {
+
+        experienceContent.innerHTML = `
+            <div class="mini-game-result">
+
+                <span class="mini-result-icon">
+                    ${won ? "🏆" : "💥"}
+                </span>
+
+                <span class="mini-result-label">
+                    ${
+                        won
+                        ? "MAYIN ALANI TEMİZLENDİ"
+                        : "MAYINA BASTIN"
+                    }
+                </span>
+
+                <h2>
+                    ${
+                        won
+                        ? minesSeconds + " SN"
+                        : "BOOM!"
+                    }
+                </h2>
+
+                <p>
+                    ${
+                        won
+                        ? "Bütün güvenli kutuları açtın."
+                        : "Bir sonraki turda biraz daha dikkat."
+                    }
+                </p>
+
+                <div class="mini-result-actions">
+
+                    <button
+                        class="mini-primary-button"
+                        onclick="startMinesGame()"
+                    >
+                        TEKRAR OYNA
+                    </button>
+
+                    <button
+                        class="mini-secondary-button"
+                        onclick="backToMiniGames()"
+                    >
+                        OYUNLARA DÖN
+                    </button>
+
+                </div>
+
+            </div>
+        `;
+
+    }, 700);
+}
+
+/* =========================================================
+   12 — İNSAN BEYNİ ÇOK GARİP
+========================================================= */
+
+function createBrainLabExperience() {
+
+    return `
+        <div class="brainlab">
+
+            <div class="brainlab-header">
+
+                <span class="brainlab-kicker">
+                    12 — İNSAN BEYNİ ÇOK GARİP
+                </span>
+
+                <h2>
+                    Gördüğün her şeye<br>
+                    güvenebilir misin?
+                </h2>
+
+                <p>
+                    Aşağıdakiler sadece okuyacağın bilgiler değil.
+                    Kendi algın üzerinde deneyebileceğin küçük deneyler.
+                </p>
+
+            </div>
+
+            <div class="brainlab-grid">
+
+                ${createBrainLabCard(
+                    "👁️",
+                    "KÖR NOKTA",
+                    "Görüş alanındaki gerçek bir boşluğu bul.",
+                    "1 DAKİKA",
+                    "startBlindSpotExperiment()",
+                    true
+                )}
+
+                ${createBrainLabCard(
+                    "🔵",
+                    "BOYUT YANILSAMASI",
+                    "Aynı büyüklükteki iki şekil farklı görünebilir mi?",
+                    "30 SANİYE",
+                    "startEbbinghausExperiment()",
+                    true
+                )}
+
+                ${createBrainLabCard(
+                    "🎨",
+                    "ARDIL GÖRÜNTÜ",
+                    "Olmayan bir rengi görmeye hazırlan.",
+                    "YAKINDA",
+                    "",
+                    false
+                )}
+
+                ${createBrainLabCard(
+                    "🔎",
+                    "DEĞİŞİM KÖRLÜĞÜ",
+                    "Gözünün önündeki değişikliği fark edebilir misin?",
+                    "YAKINDA",
+                    "",
+                    false
+                )}
+
+                ${createBrainLabCard(
+                    "🔢",
+                    "HAFIZANIN HİLESİ",
+                    "Gruplamanın hatırlamayı nasıl değiştirdiğini dene.",
+                    "YAKINDA",
+                    "",
+                    false
+                )}
+
+                ${createBrainLabCard(
+                    "🧠",
+                    "STROOP ETKİSİ",
+                    "Beyninin otomatik okuma alışkanlığına karşı koy.",
+                    "YAKINDA",
+                    "",
+                    false
+                )}
+
+            </div>
+
+            <p class="brainlab-disclaimer">
+                Bu bölüm eğlenceli algı deneyleri içerir; tıbbi veya
+                psikolojik değerlendirme amacı taşımaz.
+            </p>
+
+        </div>
+    `;
+}
+
+
+function createBrainLabCard(
+    icon,
+    title,
+    description,
+    duration,
+    action,
+    active
+) {
+
+    return `
+        <button
+            class="brainlab-card ${active ? "" : "locked"}"
+            ${active ? `onclick="${action}"` : ""}
+        >
+
+            <div class="brainlab-card-top">
+
+                <span class="brainlab-card-icon">
+                    ${icon}
+                </span>
+
+                <span class="brainlab-duration">
+                    ${duration}
+                </span>
+
+            </div>
+
+            <div class="brainlab-card-content">
+
+                <h3>
+                    ${title}
+                </h3>
+
+                <p>
+                    ${description}
+                </p>
+
+            </div>
+
+            <div class="brainlab-card-action">
+
+                ${
+                    active
+                        ? "DENE →"
+                        : "HAZIRLANIYOR"
+                }
+
+            </div>
+
+        </button>
+    `;
+}
+
+
+function backToBrainLab() {
+
+    experienceContent.innerHTML =
+        createBrainLabExperience();
+}
+
+
+/* =========================================================
+   DENEY 01 — KÖR NOKTA
+========================================================= */
+
+function startBlindSpotExperiment() {
+
+    experienceContent.innerHTML = `
+        <div class="brainlab-experiment">
+
+            <div class="brainlab-experiment-top">
+
+                <button onclick="backToBrainLab()">
+                    ← DENEYLERE DÖN
+                </button>
+
+                <span>
+                    DENEY 01 — KÖR NOKTA
+                </span>
+
+            </div>
+
+            <div class="blindspot-intro">
+
+                <span class="brainlab-big-icon">
+                    👁️
+                </span>
+
+                <span class="brainlab-step">
+                    ÖNCE TALİMATLARI OKU
+                </span>
+
+                <h2>
+                    Görüşünde bir delik var.
+                </h2>
+
+                <p>
+                    Ama beynin normalde bunu fark etmene
+                    izin vermiyor.
+                </p>
+
+                <div class="blindspot-instructions">
+
+                    <div>
+                        <b>01</b>
+
+                        <span>
+                            Sol gözünü kapat.
+                        </span>
+                    </div>
+
+                    <div>
+                        <b>02</b>
+
+                        <span>
+                            Sağ gözünle yalnızca
+                            soldaki <strong>+</strong>
+                            işaretine bak.
+                        </span>
+                    </div>
+
+                    <div>
+                        <b>03</b>
+
+                        <span>
+                            Ekrana yaklaşık
+                            40–50 cm uzaklıktan başla.
+                        </span>
+                    </div>
+
+                    <div>
+                        <b>04</b>
+
+                        <span>
+                            + işaretinden gözünü ayırmadan
+                            başını yavaşça ekrana yaklaştır
+                            veya uzaklaştır.
+                        </span>
+                    </div>
+
+                </div>
+
+                <button
+                    class="brainlab-primary"
+                    onclick="showBlindSpotTest()"
+                >
+                    DENEYE BAŞLA
+                </button>
+
+            </div>
+
+        </div>
+    `;
+}
+
+
+function showBlindSpotTest() {
+
+    experienceContent.innerHTML = `
+        <div class="brainlab-experiment">
+
+            <div class="brainlab-experiment-top">
+
+                <button onclick="startBlindSpotExperiment()">
+                    ← TALİMATLAR
+                </button>
+
+                <span>
+                    KÖR NOKTA
+                </span>
+
+            </div>
+
+            <div class="blindspot-test">
+
+                <span class="brainlab-step">
+                    SOL GÖZÜN KAPALI OLSUN
+                </span>
+
+                <h2>
+                    Sadece + işaretine bak.
+                </h2>
+
+                <p>
+                    Sağdaki noktaya doğrudan bakma.
+                </p>
+
+                <div class="blindspot-field">
+
+                    <div class="blindspot-focus">
+                        +
+                    </div>
+
+                    <div class="blindspot-target">
+                        ●
+                    </div>
+
+                </div>
+
+                <p class="blindspot-tip">
+                    Başını yavaşça ileri–geri hareket ettir.
+                    Belirli bir mesafede sağdaki nokta
+                    görüşünden kaybolabilir.
+                </p>
+
+                <div class="blindspot-question">
+
+                    <span>
+                        Nokta kayboldu mu?
+                    </span>
+
+                    <div>
+
+                        <button
+                            class="brainlab-primary"
+                            onclick="revealBlindSpotExplanation(true)"
+                        >
+                            EVET, KAYBOLDU
+                        </button>
+
+                        <button
+                            class="brainlab-secondary"
+                            onclick="revealBlindSpotExplanation(false)"
+                        >
+                            HAYIR, GÖRÜYORUM
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    `;
+}
+
+
+function revealBlindSpotExplanation(success) {
+
+    experienceContent.innerHTML = `
+        <div class="brainlab-experiment">
+
+            <div class="brainlab-reveal">
+
+                <span class="brainlab-reveal-icon">
+                    ${success ? "👁️" : "↔️"}
+                </span>
+
+                <span class="brainlab-step">
+                    ${success ? "İŞTE KÖR NOKTAN" : "BİR KEZ DAHA DENEYEBİLİRSİN"}
+                </span>
+
+                <h2>
+                    ${
+                        success
+                            ? "Nokta gerçekten yok olmadı."
+                            : "Doğru mesafeyi bulamamış olabilirsin."
+                    }
+                </h2>
+
+                <p>
+                    ${
+                        success
+                            ? `Noktanın görüntüsü, retinada optik sinirin
+                               gözden çıktığı bölgeye denk geldiğinde
+                               o bölgede ışığı algılayan fotoreseptörler
+                               bulunmadığı için nokta algılanmaz.`
+                            : `Kör noktanın ekrandaki konumu kişiden kişiye
+                               ve ekran mesafesine göre değişebilir.
+                               Bir gözünü tamamen kapatıp yalnızca +
+                               işaretine odaklanarak başını daha yavaş
+                               hareket ettirmeyi dene.`
+                    }
+                </p>
+
+                ${
+                    success
+                        ? `
+                            <div class="brainlab-wow">
+
+                                <span>
+                                    AMA SEN SİYAH BİR DELİK GÖRMEDİN.
+                                </span>
+
+                                <strong>
+                                    Neden?
+                                </strong>
+
+                                <p>
+                                    Görsel sistem, çevredeki bilgileri
+                                    kullanarak eksik bölgenin fark
+                                    edilmemesini sağlar. Bu nedenle günlük
+                                    yaşamda kör noktanı genellikle fark
+                                    etmezsin.
+                                </p>
+
+                            </div>
+                        `
+                        : ""
+                }
+
+                <div class="brainlab-result-actions">
+
+                    <button
+                        class="brainlab-primary"
+                        onclick="showBlindSpotTest()"
+                    >
+                        TEKRAR DENE
+                    </button>
+
+                    <button
+                        class="brainlab-secondary"
+                        onclick="backToBrainLab()"
+                    >
+                        DİĞER DENEYLER
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+    `;
+}
+
+
+/* =========================================================
+   DENEY 02 — EBBINGHAUS YANILSAMASI
+========================================================= */
+
+let ebbinghausChoice = null;
+
+
+function startEbbinghausExperiment() {
+
+    ebbinghausChoice = null;
+
+    experienceContent.innerHTML = `
+        <div class="brainlab-experiment">
+
+            <div class="brainlab-experiment-top">
+
+                <button onclick="backToBrainLab()">
+                    ← DENEYLERE DÖN
+                </button>
+
+                <span>
+                    DENEY 02 — BOYUT YANILSAMASI
+                </span>
+
+            </div>
+
+            <div class="ebbinghaus-test">
+
+                <span class="brainlab-step">
+                    FAZLA DÜŞÜNME
+                </span>
+
+                <h2>
+                    Hangi turuncu daire daha büyük?
+                </h2>
+
+                <p>
+                    İlk bakışta ne görüyorsan onu seç.
+                </p>
+
+                <div class="ebbinghaus-stage">
+
+                    <button
+                        class="ebbinghaus-choice"
+                        onclick="chooseEbbinghaus('left')"
+                    >
+
+                        <div class="ebbinghaus-illusion large-around">
+
+                            <span class="ebb-center"></span>
+
+                            <i style="--a:0deg"></i>
+                            <i style="--a:60deg"></i>
+                            <i style="--a:120deg"></i>
+                            <i style="--a:180deg"></i>
+                            <i style="--a:240deg"></i>
+                            <i style="--a:300deg"></i>
+
+                        </div>
+
+                        <span>
+                            SOL
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        class="ebbinghaus-choice"
+                        onclick="chooseEbbinghaus('right')"
+                    >
+
+                        <div class="ebbinghaus-illusion small-around">
+
+                            <span class="ebb-center"></span>
+
+                            <i style="--a:0deg"></i>
+                            <i style="--a:60deg"></i>
+                            <i style="--a:120deg"></i>
+                            <i style="--a:180deg"></i>
+                            <i style="--a:240deg"></i>
+                            <i style="--a:300deg"></i>
+
+                        </div>
+
+                        <span>
+                            SAĞ
+                        </span>
+
+                    </button>
+
+                </div>
+
+                <button
+                    class="ebbinghaus-same"
+                    onclick="chooseEbbinghaus('same')"
+                >
+                    İKİSİ DE AYNI
+                </button>
+
+            </div>
+
+        </div>
+    `;
+}
+
+
+function chooseEbbinghaus(choice) {
+
+    ebbinghausChoice = choice;
+
+    revealEbbinghaus();
+}
+
+
+function revealEbbinghaus() {
+
+    let reactionText = "";
+
+    if (ebbinghausChoice === "same") {
+
+        reactionText =
+            "Doğru gördün. İki orta daire de aynı büyüklükte.";
+
+    } else {
+
+        reactionText =
+            "Beynin çevredeki dairelerin boyutundan etkilendi.";
+    }
+
+    experienceContent.innerHTML = `
+        <div class="brainlab-experiment">
+
+            <div class="brainlab-reveal">
+
+                <span class="brainlab-reveal-icon">
+                    🔵
+                </span>
+
+                <span class="brainlab-step">
+                    CEVAP
+                </span>
+
+                <h2>
+                    İkisi de aynı büyüklükte.
+                </h2>
+
+                <p>
+                    ${reactionText}
+                </p>
+
+                <div class="ebbinghaus-proof">
+
+                    <div class="proof-circle one"></div>
+                    <div class="proof-circle two"></div>
+
+                </div>
+
+                <div class="brainlab-wow">
+
+                    <span>
+                        BEYNİNDE NE OLDU?
+                    </span>
+
+                    <strong>
+                        Bağlam, boyut algını değiştirdi.
+                    </strong>
+
+                    <p>
+                        Bu düzenleme Ebbinghaus yanılsaması olarak
+                        bilinir. Merkezdeki iki daire aynı fiziksel
+                        boyutta olmasına rağmen çevrelerindeki
+                        dairelerin büyüklüğü, merkezleri nasıl
+                        algıladığını etkileyebilir.
+                    </p>
+
+                </div>
+
+                <div class="brainlab-result-actions">
+
+                    <button
+                        class="brainlab-primary"
+                        onclick="startEbbinghausExperiment()"
+                    >
+                        TEKRAR BAK
+                    </button>
+
+                    <button
+                        class="brainlab-secondary"
+                        onclick="backToBrainLab()"
+                    >
+                        DİĞER DENEYLER
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+    `;
+}
+
+/* =========================================
+   13 — DOĞUM HARİTAN
+========================================= */
+
+function createBirthChartExperience() {
+
+    return `
+        <div class="birthchart-experience">
+
+            <div class="birthchart-stars"></div>
+
+            <span class="birthchart-kicker">
+                13 — DOĞUM HARİTAN
+            </span>
+
+            <div class="birthchart-symbol">
+                ☾
+            </div>
+
+            <h2>
+                Doğduğun anda<br>
+                gökyüzü nasıldı?
+            </h2>
+
+            <p class="birthchart-description">
+                Doğum tarihini, saatini ve yerini gir.
+                Gezegenlerin konumlarını, yükselenini
+                ve astrolojik evlerini keşfet.
+            </p>
+
+            <div class="birthchart-form">
+
+                <div class="birthchart-field">
+                    <label>DOĞUM TARİHİ</label>
+
+                    <input
+                        type="date"
+                        id="birthDate"
+                        autocomplete="off"
+                    >
+                </div>
+
+                <div class="birthchart-field">
+                    <label>DOĞUM SAATİ</label>
+
+                    <input
+                        type="time"
+                        id="birthTime"
+                        autocomplete="off"
+                    >
+
+                    <span class="birthchart-help">
+                        Yükselen ve evlerin hesaplanabilmesi için
+                        mümkün olduğunca doğru saat gir.
+                    </span>
+                </div>
+
+                <div class="birthchart-field">
+                    <label>DOĞUM YERİ</label>
+
+                    <input
+                        type="text"
+                        id="birthPlace"
+                        placeholder="Örn. Kayseri,Develi"
+                        autocomplete="off"
+                    >
+                </div>
+                <div class="birthchart-field">
+    <label>DOĞUM YERİNDEKİ UTC FARKI</label>
+
+    <select id="birthUtcOffset">
+        <option value="-12">UTC -12</option>
+        <option value="-11">UTC -11</option>
+        <option value="-10">UTC -10</option>
+        <option value="-9">UTC -9</option>
+        <option value="-8">UTC -8</option>
+        <option value="-7">UTC -7</option>
+        <option value="-6">UTC -6</option>
+        <option value="-5">UTC -5</option>
+        <option value="-4">UTC -4</option>
+        <option value="-3">UTC -3</option>
+        <option value="-2">UTC -2</option>
+        <option value="-1">UTC -1</option>
+        <option value="0">UTC 0</option>
+        <option value="1">UTC +1</option>
+        <option value="2">UTC +2</option>
+        <option value="3" selected>UTC +3</option>
+        <option value="4">UTC +4</option>
+        <option value="5">UTC +5</option>
+        <option value="6">UTC +6</option>
+        <option value="7">UTC +7</option>
+        <option value="8">UTC +8</option>
+        <option value="9">UTC +9</option>
+        <option value="10">UTC +10</option>
+        <option value="11">UTC +11</option>
+        <option value="12">UTC +12</option>
+        <option value="13">UTC +13</option>
+        <option value="14">UTC +14</option>
+    </select>
+
+    <span class="birthchart-help">
+        Doğduğun tarihte doğum yerinin kullandığı saat dilimini seç.
+    </span>
+</div>
+
+                <div class="birthchart-field">
+                    <label>EV SİSTEMİ</label>
+
+                    <select id="birthHouseSystem">
+                        <option value="placidus">
+                            Placidus
+                        </option>
+
+                        <option value="whole">
+                            Whole Sign
+                        </option>
+                    </select>
+                </div>
+
+                <button
+                    class="birthchart-submit"
+                    onclick="prepareBirthChart()"
+                >
+                    HARİTAMI OLUŞTUR
+                </button>
+
+            </div>
+
+            <p class="birthchart-disclaimer">
+                Astroloji bilimsel olarak doğrulanmış bir kişilik
+                veya gelecek tahmin yöntemi değildir. Bu bölüm
+                eğlence ve astrolojik harita keşfi amacıyla hazırlanmıştır.
+            </p>
+
+        </div>
+    `;
+}
+
+
+async function prepareBirthChart() {
+
+    const date =
+        document.getElementById("birthDate")?.value;
+
+    const time =
+        document.getElementById("birthTime")?.value;
+
+    const place =
+        document.getElementById("birthPlace")?.value.trim();
+
+    const houseSystem =
+        document.getElementById("birthHouseSystem")?.value;
+
+    const utcOffset =
+        Number(
+            document.getElementById("birthUtcOffset")?.value
+        );
+
+
+    if (!date || !time || !place) {
+
+        showBirthChartError(
+            "Doğum tarihi, doğum saati ve doğum yerini doldur."
+        );
+
+        return;
+    }
+
+
+    showBirthChartLoading({
+        date,
+        time,
+        place,
+        houseSystem
+    });
+
+
+    try {
+
+        const location =
+            await findBirthLocation(place);
+
+        if (!location) {
+
+            showBirthChartFatalError(
+                "Bu doğum yerini bulamadım. Şehir ve ülkeyi birlikte yazmayı dene. Örneğin: Sakarya, Türkiye"
+            );
+
+            return;
+        }
+
+
+        const birthData = {
+
+            date,
+            time,
+
+            place:
+                location.displayName,
+
+            latitude:
+                location.latitude,
+
+            longitude:
+                location.longitude,
+
+            utcOffset,
+
+            houseSystem
+        };
+
+
+        calculateBirthChart(birthData);
+
+    } catch (error) {
+
+        console.error(
+            "Doğum haritası hatası:",
+            error
+        );
+
+        showBirthChartFatalError(
+            "Doğum yeri veya harita hesaplanırken bir sorun oluştu."
+        );
+    }
+}
+
+   
+
+
+function showBirthChartError(message) {
+
+    const oldError =
+        document.querySelector(".birthchart-error");
+
+    if (oldError) {
+        oldError.remove();
+    }
+
+
+    const form =
+        document.querySelector(".birthchart-form");
+
+    if (!form) {
+        return;
+    }
+
+
+    const error =
+        document.createElement("div");
+
+    error.className =
+        "birthchart-error";
+
+    error.textContent =
+        message;
+
+    form.appendChild(error);
+}
+
+
+function showBirthChartLoading(data) {
+
+    experienceContent.innerHTML = `
+
+        <div class="birthchart-loading">
+
+            <div class="birthchart-loading-orbit">
+
+                <span>☉</span>
+
+                <div class="birthchart-loading-planet">
+                    ☾
+                </div>
+
+            </div>
+
+            <span class="birthchart-kicker">
+                GÖKYÜZÜ HESAPLANIYOR
+            </span>
+
+            <h2>
+                Doğduğun ana<br>
+                geri dönüyoruz...
+            </h2>
+
+            <div class="birthchart-loading-data">
+
+                <div>
+                    <span>TARİH</span>
+                    <strong>
+                        ${escapeBirthChartText(data.date)}
+                    </strong>
+                </div>
+
+                <div>
+                    <span>SAAT</span>
+                    <strong>
+                        ${escapeBirthChartText(data.time)}
+                    </strong>
+                </div>
+
+                <div>
+                    <span>YER</span>
+                    <strong>
+                        ${escapeBirthChartText(data.place)}
+                    </strong>
+                </div>
+
+            </div>
+
+            <p>
+                Gezegen konumları ve astrolojik evler hazırlanıyor.
+            </p>
+
+        </div>
+    `;
+
+
+    /*
+        ŞİMDİLİK BURADA DURUYORUZ.
+
+        Bir sonraki adımda buraya:
+
+        1. Şehir -> enlem / boylam
+        2. Yerel saat -> UTC
+        3. Gezegen boylamları
+        4. Yükselen
+        5. MC
+        6. 12 astrolojik ev
+        7. Doğum haritası çarkı
+
+        bağlanacak.
+    */
+
+
+
+function showBirthChartEngineNotice(data) {
+}
+    experienceContent.innerHTML = `
+
+        <div class="birthchart-engine-notice">
+
+            <span class="birthchart-engine-icon">
+                ✦
+            </span>
+
+            <span class="birthchart-kicker">
+                BİLGİLER HAZIR
+            </span>
+
+            <h2>
+                Şimdi gökyüzünü<br>
+                hesaplamamız gerekiyor.
+            </h2>
+
+            <p>
+                <strong>
+                    ${escapeBirthChartText(data.place)}
+                </strong>
+                için doğum anındaki gezegen konumları,
+                yükselen ve evler astronomik hesaplama
+                motoruyla çıkarılacak.
+            </p>
+
+            <div class="birthchart-engine-warning">
+
+                <span>!</span>
+
+                <p>
+                    Bu değerleri rastgele üretmiyoruz.
+                    Hesaplama motoru bağlanmadan
+                    yükselen veya ev sonucu göstermeyeceğiz.
+                </p>
+
+            </div>
+
+            <button
+                class="birthchart-secondary-button"
+                onclick="backToBirthChart()"
+            >
+                ← BİLGİLERİ DEĞİŞTİR
+            </button>
+
+        </div>
+    `;
+}
+
+
+function escapeBirthChartText(value) {
+
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+}
+
+
+function backToBirthChart() {
+
+    experienceContent.innerHTML =
+        createBirthChartExperience();
+}
+
+async function findBirthLocation(place) {
+
+    const cacheKey =
+        "birthLocation_" +
+        place.toLocaleLowerCase("tr-TR");
+
+    try {
+
+        const cached =
+            localStorage.getItem(cacheKey);
+
+        if (cached) {
+            return JSON.parse(cached);
+        }
+
+    } catch (error) {
+        // localStorage kapalıysa devam et
+    }
+
+
+    const url =
+        "https://nominatim.openstreetmap.org/search" +
+        "?format=jsonv2" +
+        "&limit=1" +
+        "&addressdetails=1" +
+        "&accept-language=tr" +
+        "&q=" +
+        encodeURIComponent(place);
+
+
+    const response =
+        await fetch(url);
+
+
+    if (!response.ok) {
+
+        throw new Error(
+            "Konum servisi yanıt vermedi."
+        );
+    }
+
+
+    const results =
+        await response.json();
+
+
+    if (!results.length) {
+        return null;
+    }
+
+
+    const result =
+        results[0];
+
+
+    const location = {
+
+        latitude:
+            Number(result.lat),
+
+        longitude:
+            Number(result.lon),
+
+        displayName:
+            result.display_name
+    };
+
+
+    try {
+
+        localStorage.setItem(
+            cacheKey,
+            JSON.stringify(location)
+        );
+
+    } catch (error) {
+        // sorun değil
+    }
+
+
+    return location;
+}
+
+const birthZodiacSigns = [
+
+    {
+        name: "Koç",
+        symbol: "♈",
+        element: "Ateş"
+    },
+
+    {
+        name: "Boğa",
+        symbol: "♉",
+        element: "Toprak"
+    },
+
+    {
+        name: "İkizler",
+        symbol: "♊",
+        element: "Hava"
+    },
+
+    {
+        name: "Yengeç",
+        symbol: "♋",
+        element: "Su"
+    },
+
+    {
+        name: "Aslan",
+        symbol: "♌",
+        element: "Ateş"
+    },
+
+    {
+        name: "Başak",
+        symbol: "♍",
+        element: "Toprak"
+    },
+
+    {
+        name: "Terazi",
+        symbol: "♎",
+        element: "Hava"
+    },
+
+    {
+        name: "Akrep",
+        symbol: "♏",
+        element: "Su"
+    },
+
+    {
+        name: "Yay",
+        symbol: "♐",
+        element: "Ateş"
+    },
+
+    {
+        name: "Oğlak",
+        symbol: "♑",
+        element: "Toprak"
+    },
+
+    {
+        name: "Kova",
+        symbol: "♒",
+        element: "Hava"
+    },
+
+    {
+        name: "Balık",
+        symbol: "♓",
+        element: "Su"
+    }
+];
+
+
+function getBirthZodiac(longitude) {
+
+    let normalized =
+        longitude % 360;
+
+    if (normalized < 0) {
+        normalized += 360;
+    }
+
+
+    const index =
+        Math.floor(
+            normalized / 30
+        );
+
+
+    const sign =
+        birthZodiacSigns[index];
+
+
+    const degree =
+        normalized % 30;
+
+
+    return {
+
+        ...sign,
+
+        degree
+    };
+}
+
+
+function formatBirthDegree(longitude) {
+
+    const zodiac =
+        getBirthZodiac(longitude);
+
+
+    const degree =
+        Math.floor(
+            zodiac.degree
+        );
+
+
+    const minutes =
+        Math.floor(
+            (
+                zodiac.degree -
+                degree
+            ) * 60
+        );
+
+
+    return (
+        degree +
+        "° " +
+        String(minutes).padStart(2, "0") +
+        "'"
+    );
+}
+
+
+function showCalculatedBirthChart(data) {
+
+    const sun =
+        data.planets.find(
+            planet =>
+                planet.key === "sun"
+        );
+
+
+    const moon =
+        data.planets.find(
+            planet =>
+                planet.key === "moon"
+        );
+
+
+    const sunSign =
+        getBirthZodiac(
+            sun.longitude
+        );
+
+
+    const moonSign =
+        getBirthZodiac(
+            moon.longitude
+        );
+
+
+    const rising =
+        getBirthZodiac(
+            data.houses.ascendant
+        );
+
+
+    const mc =
+        getBirthZodiac(
+            data.houses.mc
+        );
+
+
+    experienceContent.innerHTML = `
+
+        <div class="birthchart-result">
+
+            <div class="birthchart-result-header">
+
+                <span class="birthchart-kicker">
+                    DOĞUM HARİTAN
+                </span>
+
+                <h2>
+                    Gökyüzünün<br>
+                    parmak izi.
+                </h2>
+
+                <p>
+                    ${escapeBirthChartText(data.place)}
+                </p>
+
+            </div>
+
+
+            ${createBirthChartWheel(data)}
+
+
+            <div class="birthchart-big-three">
+
+                ${createBirthBigCard(
+                    "☉",
+                    "GÜNEŞ",
+                    sunSign,
+                    sun.longitude
+                )}
+
+                ${createBirthBigCard(
+                    "☾",
+                    "AY",
+                    moonSign,
+                    moon.longitude
+                )}
+
+                ${createBirthBigCard(
+                    "↑",
+                    "YÜKSELEN",
+                    rising,
+                    data.houses.ascendant
+                )}
+
+            </div>
+
+
+            <div class="birthchart-section">
+
+                <span class="birthchart-section-label">
+                    GEZEGENLER
+                </span>
+
+                <div class="birthchart-planets">
+
+                    ${data.planets.map(
+                        planet =>
+                            createBirthPlanetRow(
+                                planet
+                            )
+                    ).join("")}
+
+                </div>
+
+            </div>
+
+
+            <div class="birthchart-section">
+
+                <span class="birthchart-section-label">
+                    ASTROLOJİK EVLER
+                </span>
+
+                <div class="birthchart-houses">
+
+                    ${createBirthHouseRows(
+                        data.houses
+                    )}
+
+                </div>
+
+            </div>
+
+
+            <div class="birthchart-angle-grid">
+
+                <div>
+
+                    <span>ASCENDANT</span>
+
+                    <strong>
+                        ${rising.symbol}
+                        ${rising.name}
+                    </strong>
+
+                    <small>
+                        ${formatBirthDegree(
+                            data.houses.ascendant
+                        )}
+                    </small>
+
+                </div>
+
+
+                <div>
+
+                    <span>MIDHEAVEN / MC</span>
+
+                    <strong>
+                        ${mc.symbol}
+                        ${mc.name}
+                    </strong>
+
+                    <small>
+                        ${formatBirthDegree(
+                            data.houses.mc
+                        )}
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="birthchart-source-note">
+
+                <span>
+                    HESAPLAMA
+                </span>
+
+                <p>
+                    Gezegen konumları ve astrolojik
+                    evler Swiss Ephemeris kullanılarak
+                    hesaplandı.
+                </p>
+
+            </div>
+
+
+            <button
+                class="birthchart-secondary-button"
+                onclick="backToBirthChart()"
+            >
+                ← YENİ HARİTA
+            </button>
+
+        </div>
+    `;
+}
+
+function createBirthBigCard(
+    icon,
+    label,
+    zodiac,
+    longitude
+) {
+
+    return `
+
+        <div class="birthchart-big-card">
+
+            <span class="birthchart-big-icon">
+                ${icon}
+            </span>
+
+            <small>
+                ${label}
+            </small>
+
+            <strong>
+                ${zodiac.symbol}
+                ${zodiac.name}
+            </strong>
+
+            <span>
+                ${formatBirthDegree(longitude)}
+            </span>
+
+        </div>
+    `;
+}
+
+
+function createBirthPlanetRow(
+    planet
+) {
+
+    const zodiac =
+        getBirthZodiac(
+            planet.longitude
+        );
+
+
+    const retrograde =
+        planet.speed < 0;
+
+
+    return `
+
+        <div class="birthchart-planet-row">
+
+            <div class="birthchart-planet-name">
+
+                <span>
+                    ${planet.icon}
+                </span>
+
+                <strong>
+                    ${planet.name}
+                </strong>
+
+            </div>
+
+
+            <div class="birthchart-planet-position">
+
+                <strong>
+                    ${zodiac.symbol}
+                    ${zodiac.name}
+                </strong>
+
+                <span>
+                    ${formatBirthDegree(
+                        planet.longitude
+                    )}
+
+                    ${
+                        retrograde
+                            ? " ℞"
+                            : ""
+                    }
+                </span>
+
+            </div>
+
+        </div>
+    `;
+}
+
+
+function createBirthHouseRows(
+    houses
+) {
+
+    const cusps =
+        houses.cusps;
+
+
+    let html = "";
+
+
+    /*
+        Bazı wrapper'larda cusps[0],
+        bazılarında cusps[1] ilk ev olabilir.
+    */
+
+    const startIndex =
+        cusps.length === 13
+            ? 1
+            : 0;
+
+
+    for (
+        let house = 1;
+        house <= 12;
+        house++
+    ) {
+
+        const longitude =
+            cusps[
+                startIndex +
+                house -
+                1
+            ];
+
+
+        if (
+            typeof longitude !==
+            "number"
+        ) {
+            continue;
+        }
+
+
+        const zodiac =
+            getBirthZodiac(
+                longitude
+            );
+
+
+        html += `
+
+            <div class="birthchart-house-row">
+
+                <span>
+                    ${house}. EV
+                </span>
+
+                <strong>
+                    ${zodiac.symbol}
+                    ${zodiac.name}
+                </strong>
+
+                <small>
+                    ${formatBirthDegree(
+                        longitude
+                    )}
+                </small>
+
+            </div>
+        `;
+    }
+
+
+    return html;
+}
+
+function createBirthChartWheel(
+    data
+) {
+
+    const zodiacSymbols =
+        birthZodiacSigns
+            .map(
+                sign =>
+                    sign.symbol
+            );
+
+
+    const zodiacHTML =
+        zodiacSymbols
+            .map(
+                (symbol, index) => {
+
+                    const angle =
+                        index * 30;
+
+                    return `
+
+                        <span
+                            class="birth-wheel-zodiac"
+                            style="
+                                transform:
+                                rotate(${angle}deg)
+                                translateY(-142px)
+                                rotate(${-angle}deg);
+                            "
+                        >
+                            ${symbol}
+                        </span>
+                    `;
+                }
+            )
+            .join("");
+
+
+    const planetsHTML =
+        data.planets
+            .map(
+                planet => {
+
+                    const angle =
+                        planet.longitude;
+
+                    return `
+
+                        <span
+                            class="birth-wheel-planet"
+                            title="${planet.name}"
+                            style="
+                                transform:
+                                rotate(${angle}deg)
+                                translateY(-100px)
+                                rotate(${-angle}deg);
+                            "
+                        >
+                            ${planet.icon}
+                        </span>
+                    `;
+                }
+            )
+            .join("");
+
+
+    return `
+
+        <div class="birth-wheel-wrap">
+
+            <div class="birth-wheel">
+
+                <div class="birth-wheel-ring">
+                </div>
+
+                ${zodiacHTML}
+
+                ${planetsHTML}
+
+                <div class="birth-wheel-center">
+
+                    <span>
+                        ↑
+                    </span>
+
+                    <small>
+                        YÜKSELEN
+                    </small>
+
+                    <strong>
+                        ${
+                            getBirthZodiac(
+                                data.houses.ascendant
+                            ).name
+                        }
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+    `;
+}
+
+function showBirthChartFatalError(
+    message
+) {
+
+    experienceContent.innerHTML = `
+
+        <div class="birthchart-engine-notice">
+
+            <span class="birthchart-engine-icon">
+                !
+            </span>
+
+            <span class="birthchart-kicker">
+                BİR ŞEY TERS GİTTİ
+            </span>
+
+            <h2>
+                Harita oluşturulamadı.
+            </h2>
+
+            <p>
+                ${escapeBirthChartText(message)}
+            </p>
+
+            <button
+                class="birthchart-secondary-button"
+                onclick="backToBirthChart()"
+            >
+                ← GERİ DÖN
+            </button>
+
+        </div>
+    `;
+}

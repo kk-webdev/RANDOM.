@@ -26,7 +26,7 @@
         </div>
 
         <div class="nav-right">
-            <span id="discoveryCounter">0 / 12 keşfedildi</span>
+           <span id="discoveryCounter">0 / 15 keşfedildi</span>
         </div>
     </header>
 
@@ -200,8 +200,76 @@
                 <span class="open">DENEYİ BAŞLAT →</span>
             </button>
 
-        </div>
 
+<!-- 13 -->
+<button class="category-card" data-category="birthchart">
+
+    <span class="number">13</span>
+
+    <span class="emoji">
+        ♈
+    </span>
+
+    <h3>
+        Doğum haritan
+    </h3>
+
+    <p>
+        Doğduğun anda gökyüzü nasıldı?
+    </p>
+
+    <span class="open">
+        HARİTAMI GÖSTER →
+    </span>
+
+</button>
+
+
+<!-- 14 -->
+<button class="category-card" data-category="luckytrap">
+
+    <span class="number">14</span>
+
+    <span class="emoji">
+        🎰
+    </span>
+
+    <h3>
+        Biraz Kumar Oynamaya Ne Dersin?
+    </h3>
+
+    <p>
+        Bu oyunda şans senden yana. Ama neden?
+    </p>
+
+    <span class="open">
+        OYNA →
+    </span>
+
+</button>
+
+
+<button class="category-card" data-category="decisions">
+
+    <span class="number">15</span>
+
+    <span class="emoji">
+        🧠
+    </span>
+
+    <h3>
+        Kararlarını kim veriyor?
+    </h3>
+
+    <p>
+        Seçimlerinin ne kadarı gerçekten sana ait?
+    </p>
+
+    <span class="open">
+        TEST ET →
+    </span>
+
+</button>
     </main>
 
 
@@ -665,79 +733,6 @@
                     class="radio-stations"
                 >
 
-                    <button
-                        class="radio-station active"
-                        data-station="fenomen"
-                    >
-                        <span class="station-live-dot"></span>
-
-                        <div>
-                            <strong>
-                                Radyo Fenomen
-                            </strong>
-
-                            <small>
-                                Hit • Pop • Dance
-                            </small>
-                        </div>
-                    </button>
-
-
-                    <button
-                        class="radio-station"
-                        data-station="fenomenturk"
-                    >
-                        <span class="station-live-dot"></span>
-
-                        <div>
-                            <strong>
-                                Fenomen Türk
-                            </strong>
-
-                            <small>
-                                Türkçe Pop
-                            </small>
-                        </div>
-                    </button>
-
-
-                    <button
-                        class="radio-station"
-                        data-station="kralpop"
-                    >
-                        <span class="station-live-dot"></span>
-
-                        <div>
-                            <strong>
-                                Kral Pop
-                            </strong>
-
-                            <small>
-                                Türkçe Pop
-                            </small>
-                        </div>
-                    </button>
-
-
-                    <button
-                        class="radio-station"
-                        data-station="kralfm"
-                    >
-                        <span class="station-live-dot"></span>
-
-                        <div>
-                            <strong>
-                                Kral FM
-                            </strong>
-
-                            <small>
-                                Türkçe Müzik
-                            </small>
-                        </div>
-                    </button>
-
-                </div>
-
 
                 <!-- KONTROLLER -->
 
@@ -931,7 +926,236 @@
     <script src="script.js"></script>
 
 
+<script type="module">
 
+import {
+    SwissEphemeris,
+    Planet,
+    HouseSystem
+} from "https://esm.sh/@swisseph/browser";
+
+
+const birthSwe =
+    new SwissEphemeris();
+
+
+let birthSweReady =
+    false;
+
+
+async function initBirthEphemeris() {
+
+    if (birthSweReady) {
+        return;
+    }
+
+   await birthSwe.init();
+
+await birthSwe.loadStandardEphemeris();
+
+birthSweReady = true;
+}
+
+
+window.calculateBirthChart =
+async function(data) {
+
+    try {
+
+        await initBirthEphemeris();
+
+
+        const [year, month, day] =
+            data.date
+                .split("-")
+                .map(Number);
+
+
+        const [hour, minute] =
+            data.time
+                .split(":")
+                .map(Number);
+
+
+        /*
+            Yerel doğum saatini UTC'ye çeviriyoruz.
+        */
+
+        const utcMilliseconds =
+            Date.UTC(
+                year,
+                month - 1,
+                day,
+                hour,
+                minute
+            )
+            -
+            (
+                data.utcOffset *
+                60 *
+                60 *
+                1000
+            );
+
+
+        const utcDate =
+            new Date(
+                utcMilliseconds
+            );
+
+
+        const jd =
+            birthSwe.dateToJulianDay(
+                utcDate
+            );
+
+
+        const selectedHouseSystem =
+            data.houseSystem === "whole"
+                ? HouseSystem.WholeSign
+                : HouseSystem.Placidus;
+
+
+        const houses =
+            birthSwe.calculateHouses(
+                jd,
+                data.latitude,
+                data.longitude,
+                selectedHouseSystem
+            );
+
+
+        const planets = [
+
+            {
+                key: "sun",
+                name: "GÜNEŞ",
+                icon: "☉",
+                body: Planet.Sun
+            },
+
+            {
+                key: "moon",
+                name: "AY",
+                icon: "☾",
+                body: Planet.Moon
+            },
+
+            {
+                key: "mercury",
+                name: "MERKÜR",
+                icon: "☿",
+                body: Planet.Mercury
+            },
+
+            {
+                key: "venus",
+                name: "VENÜS",
+                icon: "♀",
+                body: Planet.Venus
+            },
+
+            {
+                key: "mars",
+                name: "MARS",
+                icon: "♂",
+                body: Planet.Mars
+            },
+
+            {
+                key: "jupiter",
+                name: "JÜPİTER",
+                icon: "♃",
+                body: Planet.Jupiter
+            },
+
+            {
+                key: "saturn",
+                name: "SATÜRN",
+                icon: "♄",
+                body: Planet.Saturn
+            },
+
+            {
+                key: "uranus",
+                name: "URANÜS",
+                icon: "♅",
+                body: Planet.Uranus
+            },
+
+                       {
+                key: "neptune",
+                name: "NEPTÜN",
+                icon: "♆",
+                body: Planet.Neptune
+            },
+
+            {
+                key: "pluto",
+                name: "PLÜTON",
+                icon: "♇",
+                body: Planet.Pluto
+            }
+
+        ];
+
+
+        const positions =
+            planets.map(planet => {
+
+                const position =
+                    birthSwe.calculatePosition(
+                        jd,
+                        planet.body
+                    );
+
+
+                return {
+
+                    ...planet,
+
+                    longitude:
+                        position.longitude,
+
+                    latitude:
+                        position.latitude,
+
+                    speed:
+                        position.longitudeSpeed ?? 0
+                };
+            });
+
+
+        window.showCalculatedBirthChart({
+
+            ...data,
+
+            utcDate,
+
+            jd,
+
+            houses,
+
+            planets:
+                positions
+        });
+
+
+    } catch (error) {
+
+        console.error(
+            "Swiss Ephemeris:",
+            error
+        );
+
+
+        window.showBirthChartFatalError(
+            "Gökyüzü hesaplanırken bir hata oluştu."
+        );
+    }
+};
+
+</script>
 
 </body>
 </html>

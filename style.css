@@ -10252,35 +10252,43 @@ html[data-font-size="xlarge"] {
 }
 
 /* =========================================================
-   YOĞUNLUK
+   YOĞUNLUK - GÜVENLİ SİSTEM
 ========================================================= */
 
-html[data-density="compact"]
-.category-grid {
+/* ---------- KOMPAKT ---------- */
+
+html[data-density="compact"] .category-grid {
     gap: 12px;
 }
 
-html[data-density="normal"]
-.category-grid {
+html[data-density="compact"] .category-card {
+    padding-left: 22px;
+    padding-right: 22px;
+}
+
+
+/* ---------- NORMAL ---------- */
+
+html[data-density="normal"] .category-grid {
     gap: 20px;
 }
 
-html[data-density="comfortable"]
-.category-grid {
-    gap: 28px;
-}
-
-html[data-density="compact"]
-.category-card {
-    padding: 20px;
-}
-
-html[data-density="comfortable"]
-.category-card {
-    padding: 32px;
+html[data-density="normal"] .category-card {
+    padding-left: 26px;
+    padding-right: 26px;
 }
 
 
+/* ---------- RAHAT ---------- */
+
+html[data-density="comfortable"] .category-grid {
+    gap: 30px;
+}
+
+html[data-density="comfortable"] .category-card {
+    padding-left: 32px;
+    padding-right: 32px;
+}
 /* =========================================================
    ANİMASYONLARI KAPAT
 ========================================================= */
@@ -10507,3 +10515,8679 @@ input:checked + span {
 }
 
 
+/* =========================================================
+   06 — HANGİSİ GERÇEK?
+========================================================= */
+
+.real-experience,
+.real-game,
+.real-finish {
+    width: min(920px, 100%);
+    margin: 0 auto;
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   GİRİŞ EKRANI
+========================================================= */
+
+.real-experience {
+    min-height: 620px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 50px 30px;
+}
+
+.real-intro-icon {
+    width: 92px;
+    height: 92px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 24px;
+
+    font-size: 42px;
+
+    border: 1px solid rgba(168, 85, 247, 0.35);
+    border-radius: 28px;
+
+    background:
+        radial-gradient(
+            circle at 30% 20%,
+            rgba(168, 85, 247, 0.22),
+            transparent 65%
+        ),
+        rgba(255, 255, 255, 0.035);
+
+    box-shadow:
+        0 0 45px rgba(139, 92, 246, 0.14),
+        inset 0 0 25px rgba(168, 85, 247, 0.06);
+}
+
+.real-kicker {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 14px;
+
+    color: #a855f7;
+
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 3px;
+}
+
+.real-experience h2,
+.real-finish h2 {
+    max-width: 700px;
+
+    margin: 0;
+
+    font-size: clamp(34px, 5vw, 58px);
+    line-height: 1.05;
+    letter-spacing: -2px;
+
+    color: #ffffff;
+}
+
+.real-experience > p {
+    max-width: 560px;
+
+    margin: 22px auto 0;
+
+    color: rgba(255, 255, 255, 0.58);
+
+    font-size: 16px;
+    line-height: 1.75;
+}
+
+.real-intro-rule {
+    margin-top: 30px;
+    padding: 15px 22px;
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+
+    background: rgba(255, 255, 255, 0.025);
+
+    color: rgba(255, 255, 255, 0.48);
+
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.real-intro-rule span {
+    color: #a855f7;
+    font-weight: 900;
+}
+
+.real-intro-rule strong {
+    color: #ffffff;
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   BAŞLA BUTONU
+========================================================= */
+
+.real-start-button {
+    min-width: 220px;
+
+    margin-top: 32px;
+    padding: 17px 26px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+
+    border: 1px solid rgba(168, 85, 247, 0.6);
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7c3aed,
+            #9333ea
+        );
+
+    color: #ffffff;
+
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 12px 35px rgba(124, 58, 237, 0.25);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.real-start-button span {
+    font-size: 19px;
+
+    transition:
+        transform 0.25s ease;
+}
+
+.real-start-button:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 18px 45px rgba(124, 58, 237, 0.35);
+}
+
+.real-start-button:hover span {
+    transform: translateX(4px);
+}
+
+
+/* =========================================================
+   OYUN EKRANI
+========================================================= */
+
+.real-game {
+    padding: 20px 10px 45px;
+}
+
+
+/* =========================================================
+   ÜST BAR
+========================================================= */
+
+.real-game-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 14px;
+}
+
+.real-back-button {
+    padding: 9px 13px;
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+
+    background: rgba(255, 255, 255, 0.025);
+
+    color: rgba(255, 255, 255, 0.48);
+
+    font-family: inherit;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.4px;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.real-back-button:hover {
+    color: #ffffff;
+
+    background: rgba(255, 255, 255, 0.055);
+
+    border-color: rgba(255, 255, 255, 0.16);
+}
+
+.real-round-counter {
+    color: rgba(255, 255, 255, 0.42);
+
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   İLERLEME ÇUBUĞU
+========================================================= */
+
+.real-progress {
+    width: 100%;
+    height: 4px;
+
+    overflow: hidden;
+
+    margin-bottom: 24px;
+
+    border-radius: 100px;
+
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.real-progress-fill {
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            #7c3aed,
+            #a855f7
+        );
+
+    box-shadow:
+        0 0 18px rgba(168, 85, 247, 0.55);
+
+    transition:
+        width 0.45s ease;
+}
+
+
+/* =========================================================
+   SKOR
+========================================================= */
+
+.real-score-row {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+
+    margin-bottom: 30px;
+}
+
+.real-score-row > div {
+    min-width: 76px;
+
+    padding: 9px 13px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 11px;
+
+    background: rgba(255, 255, 255, 0.025);
+}
+
+.real-score-row small {
+    color: rgba(255, 255, 255, 0.35);
+
+    font-size: 8px;
+    font-weight: 900;
+    letter-spacing: 1.2px;
+}
+
+.real-score-row strong {
+    color: #ffffff;
+
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   SORU BAŞLIĞI
+========================================================= */
+
+.real-question-head {
+    max-width: 700px;
+
+    margin: 0 auto 32px;
+
+    text-align: center;
+}
+
+.real-question-icon {
+    width: 70px;
+    height: 70px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto 18px;
+
+    border: 1px solid rgba(168, 85, 247, 0.24);
+    border-radius: 22px;
+
+    background:
+        rgba(168, 85, 247, 0.07);
+
+    font-size: 32px;
+
+    box-shadow:
+        0 0 35px rgba(124, 58, 237, 0.1);
+}
+
+.real-question-head > span {
+    display: block;
+
+    margin-bottom: 9px;
+
+    color: #a855f7;
+
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 2.5px;
+}
+
+.real-question-head h2 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: clamp(30px, 4vw, 44px);
+    line-height: 1.1;
+    letter-spacing: -1.4px;
+}
+
+.real-question-head p {
+    margin: 12px 0 0;
+
+    color: rgba(255, 255, 255, 0.42);
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   SEÇENEKLER
+========================================================= */
+
+.real-options {
+    max-width: 760px;
+
+    display: grid;
+    gap: 12px;
+
+    margin: 0 auto;
+}
+
+.real-option {
+    position: relative;
+
+    width: 100%;
+    min-height: 82px;
+
+    padding: 16px 22px;
+
+    display: flex;
+    align-items: center;
+    gap: 18px;
+
+    overflow: hidden;
+
+    border: 1px solid rgba(255, 255, 255, 0.085);
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.045),
+            rgba(255, 255, 255, 0.018)
+        );
+
+    color: #ffffff;
+
+    text-align: left;
+    font-family: inherit;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.22s ease,
+        border-color 0.22s ease,
+        background 0.22s ease,
+        box-shadow 0.22s ease;
+}
+
+.real-option::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    opacity: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(168, 85, 247, 0.1),
+            transparent 60%
+        );
+
+    transition:
+        opacity 0.22s ease;
+
+    pointer-events: none;
+}
+
+.real-option:hover:not(:disabled) {
+    transform: translateY(-2px);
+
+    border-color: rgba(168, 85, 247, 0.42);
+
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.2),
+        0 0 24px rgba(124, 58, 237, 0.08);
+}
+
+.real-option:hover:not(:disabled)::before {
+    opacity: 1;
+}
+
+.real-option-letter {
+    position: relative;
+    z-index: 1;
+
+    flex: 0 0 44px;
+
+    width: 44px;
+    height: 44px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(168, 85, 247, 0.25);
+    border-radius: 12px;
+
+    background: rgba(168, 85, 247, 0.07);
+
+    color: #b76cff;
+
+    font-size: 12px;
+    font-weight: 900;
+}
+
+.real-option-text {
+    position: relative;
+    z-index: 1;
+
+    color: rgba(255, 255, 255, 0.82);
+
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.55;
+}
+
+
+/* =========================================================
+   CEVAPLANDIRILDI
+========================================================= */
+
+.real-option.real-option-locked {
+    cursor: default;
+}
+
+.real-option.real-option-locked:not(.correct):not(.wrong) {
+    opacity: 0.42;
+}
+
+
+/* =========================================================
+   DOĞRU
+========================================================= */
+
+.real-option.correct {
+    opacity: 1;
+
+    border-color: rgba(34, 197, 94, 0.55);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(34, 197, 94, 0.14),
+            rgba(34, 197, 94, 0.035)
+        );
+
+    box-shadow:
+        0 0 30px rgba(34, 197, 94, 0.08);
+}
+
+.real-option.correct .real-option-letter {
+    border-color: rgba(34, 197, 94, 0.55);
+
+    background: rgba(34, 197, 94, 0.15);
+
+    color: #4ade80;
+}
+
+
+/* =========================================================
+   YANLIŞ
+========================================================= */
+
+.real-option.wrong {
+    opacity: 1;
+
+    border-color: rgba(239, 68, 68, 0.55);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(239, 68, 68, 0.13),
+            rgba(239, 68, 68, 0.03)
+        );
+}
+
+.real-option.wrong .real-option-letter {
+    border-color: rgba(239, 68, 68, 0.55);
+
+    background: rgba(239, 68, 68, 0.14);
+
+    color: #fb7185;
+}
+
+
+/* =========================================================
+   SONUÇ KUTUSU
+========================================================= */
+
+.real-result {
+    max-width: 760px;
+
+    margin: 18px auto 0;
+}
+
+.real-result:empty {
+    display: none;
+}
+
+.real-result-box {
+    padding: 25px;
+
+    border-radius: 18px;
+
+    animation:
+        realResultEnter 0.35s ease both;
+}
+
+@keyframes realResultEnter {
+
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+.real-result-box.correct {
+    border: 1px solid rgba(34, 197, 94, 0.2);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(34, 197, 94, 0.075),
+            rgba(255, 255, 255, 0.018)
+        );
+}
+
+.real-result-box.wrong {
+    border: 1px solid rgba(239, 68, 68, 0.2);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(239, 68, 68, 0.07),
+            rgba(255, 255, 255, 0.018)
+        );
+}
+
+.real-result-label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.real-result-box.correct
+.real-result-label {
+    color: #4ade80;
+}
+
+.real-result-box.wrong
+.real-result-label {
+    color: #fb7185;
+}
+
+.real-result-box h3 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: 23px;
+    line-height: 1.15;
+}
+
+.real-result-box p {
+    max-width: 650px;
+
+    margin: 13px 0 0;
+
+    color: rgba(255, 255, 255, 0.57);
+
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   KAYNAK
+========================================================= */
+
+.real-source-button {
+    display: inline-flex;
+
+    margin-top: 17px;
+
+    color: #a855f7;
+
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 1.3px;
+
+    text-decoration: none;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.real-source-button:hover {
+    color: #c084fc;
+    transform: translateX(3px);
+}
+
+
+/* =========================================================
+   SONRAKİ TUR
+========================================================= */
+
+.real-next-button {
+    width: 100%;
+
+    margin-top: 22px;
+    padding: 15px 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    border-radius: 12px;
+
+    background: rgba(168, 85, 247, 0.08);
+
+    color: #ffffff;
+
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 1.4px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.22s ease,
+        border-color 0.22s ease,
+        transform 0.22s ease;
+}
+
+.real-next-button:hover {
+    transform: translateY(-2px);
+
+    background: rgba(168, 85, 247, 0.15);
+
+    border-color: rgba(168, 85, 247, 0.5);
+}
+
+.real-next-button span {
+    font-size: 17px;
+}
+
+
+/* =========================================================
+   FİNAL EKRANI
+========================================================= */
+
+.real-finish {
+    min-height: 620px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 45px 25px;
+
+    text-align: center;
+}
+
+.real-finish-icon {
+    margin-bottom: 20px;
+
+    font-size: 55px;
+
+    filter:
+        drop-shadow(
+            0 0 25px
+            rgba(168, 85, 247, 0.22)
+        );
+}
+
+.real-final-score {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+
+    margin-top: 26px;
+}
+
+.real-final-score strong {
+    color: #a855f7;
+
+    font-size: 82px;
+    line-height: 1;
+    letter-spacing: -5px;
+
+    text-shadow:
+        0 0 35px
+        rgba(168, 85, 247, 0.25);
+}
+
+.real-final-score span {
+    margin-left: 9px;
+
+    color: rgba(255, 255, 255, 0.3);
+
+    font-size: 25px;
+    font-weight: 800;
+}
+
+.real-finish > p {
+    max-width: 570px;
+
+    margin: 20px auto 0;
+
+    color: rgba(255, 255, 255, 0.52);
+
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   FİNAL İSTATİSTİKLER
+========================================================= */
+
+.real-final-stats {
+    width: min(520px, 100%);
+
+    display: grid;
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 10px;
+
+    margin-top: 30px;
+}
+
+.real-final-stats > div {
+    padding: 17px 12px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 13px;
+
+    background: rgba(255, 255, 255, 0.025);
+}
+
+.real-final-stats small {
+    color: rgba(255, 255, 255, 0.32);
+
+    font-size: 8px;
+    font-weight: 900;
+    letter-spacing: 1.2px;
+}
+
+.real-final-stats strong {
+    color: #ffffff;
+
+    font-size: 22px;
+}
+
+.real-finish-back {
+    margin-top: 14px;
+
+    border: 0;
+    background: transparent;
+
+    color: rgba(255, 255, 255, 0.35);
+
+    font-family: inherit;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.3px;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease;
+}
+
+.real-finish-back:hover {
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   MOBİL
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .real-experience {
+        min-height: 540px;
+        padding: 35px 10px;
+    }
+
+    .real-experience h2,
+    .real-finish h2 {
+        font-size: 34px;
+        letter-spacing: -1.2px;
+    }
+
+    .real-intro-icon {
+        width: 78px;
+        height: 78px;
+
+        font-size: 35px;
+
+        border-radius: 22px;
+    }
+
+    .real-game {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .real-score-row {
+        justify-content: center;
+    }
+
+    .real-question-icon {
+        width: 62px;
+        height: 62px;
+
+        font-size: 28px;
+    }
+
+    .real-question-head h2 {
+        font-size: 31px;
+    }
+
+    .real-option {
+        min-height: 76px;
+
+        padding: 14px 15px;
+
+        gap: 13px;
+    }
+
+    .real-option-letter {
+        flex-basis: 39px;
+
+        width: 39px;
+        height: 39px;
+    }
+
+    .real-option-text {
+        font-size: 13px;
+    }
+
+    .real-result-box {
+        padding: 20px;
+    }
+
+    .real-final-score strong {
+        font-size: 70px;
+    }
+
+    .real-final-stats {
+        gap: 7px;
+    }
+
+    .real-final-stats > div {
+        padding: 14px 7px;
+    }
+
+}
+
+
+/* =========================================================
+   ÇOK KÜÇÜK EKRAN
+========================================================= */
+
+@media (max-width: 430px) {
+
+    .real-experience h2,
+    .real-finish h2 {
+        font-size: 30px;
+    }
+
+    .real-intro-rule {
+        padding: 13px 15px;
+    }
+
+    .real-start-button {
+        width: 100%;
+    }
+
+    .real-option {
+        align-items: flex-start;
+    }
+
+    .real-option-letter {
+        margin-top: 1px;
+    }
+
+    .real-final-stats {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+/* =========================================================
+   07 — DÜNYADA ŞU AN...
+========================================================= */
+
+.world-experience,
+.world-live {
+    width: min(1000px, 100%);
+    margin: 0 auto;
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   GİRİŞ EKRANI
+========================================================= */
+
+.world-experience {
+    min-height: 650px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 50px 25px;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   CANLI ROZET
+========================================================= */
+
+.world-live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    width: fit-content;
+
+    padding: 7px 12px;
+
+    border: 1px solid rgba(168, 85, 247, 0.18);
+    border-radius: 100px;
+
+    background: rgba(168, 85, 247, 0.055);
+
+    color: rgba(255, 255, 255, 0.52);
+
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 1.6px;
+}
+
+.world-experience > .world-live-badge {
+    margin-bottom: 24px;
+}
+
+.world-live-badge > span {
+    width: 7px;
+    height: 7px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: #a855f7;
+
+    box-shadow:
+        0 0 0 0 rgba(168, 85, 247, 0.6);
+
+    animation:
+        worldLivePulse 1.7s infinite;
+}
+
+@keyframes worldLivePulse {
+
+    0% {
+        box-shadow:
+            0 0 0 0
+            rgba(168, 85, 247, 0.55);
+    }
+
+    70% {
+        box-shadow:
+            0 0 0 8px
+            rgba(168, 85, 247, 0);
+    }
+
+    100% {
+        box-shadow:
+            0 0 0 0
+            rgba(168, 85, 247, 0);
+    }
+
+}
+
+
+/* =========================================================
+   DÜNYA GÖRSELİ
+========================================================= */
+
+.world-main-visual {
+    position: relative;
+
+    width: 180px;
+    height: 180px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 5px auto 35px;
+}
+
+.world-main-visual::before {
+    content: "";
+
+    position: absolute;
+
+    width: 115px;
+    height: 115px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(139, 92, 246, 0.22),
+            rgba(139, 92, 246, 0.06) 45%,
+            transparent 72%
+        );
+
+    filter: blur(7px);
+
+    animation:
+        worldGlow 3s ease-in-out infinite;
+}
+
+@keyframes worldGlow {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.7;
+    }
+
+    50% {
+        transform: scale(1.18);
+        opacity: 1;
+    }
+
+}
+
+.world-globe {
+    position: relative;
+    z-index: 3;
+
+    width: 92px;
+    height: 92px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(168, 85, 247, 0.28);
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle at 35% 25%,
+            rgba(255, 255, 255, 0.09),
+            rgba(168, 85, 247, 0.04) 50%,
+            rgba(0, 0, 0, 0.18)
+        );
+
+    font-size: 61px;
+
+    box-shadow:
+        0 0 30px rgba(139, 92, 246, 0.18),
+        0 0 70px rgba(139, 92, 246, 0.09),
+        inset 0 0 25px rgba(255, 255, 255, 0.035);
+
+    animation:
+        worldFloat 4s ease-in-out infinite;
+}
+
+@keyframes worldFloat {
+
+    0%,
+    100% {
+        transform: translateY(0)
+        rotate(-2deg);
+    }
+
+    50% {
+        transform: translateY(-7px)
+        rotate(2deg);
+    }
+
+}
+
+
+/* =========================================================
+   YÖRÜNGE HALKALARI
+========================================================= */
+
+.world-orbit {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    border: 1px solid rgba(168, 85, 247, 0.14);
+    border-radius: 50%;
+
+    transform:
+        translate(-50%, -50%)
+        rotateX(68deg)
+        rotateZ(-20deg);
+
+    pointer-events: none;
+}
+
+.orbit-one {
+    width: 155px;
+    height: 155px;
+
+    animation:
+        worldOrbitSpin 10s linear infinite;
+}
+
+.orbit-two {
+    width: 125px;
+    height: 125px;
+
+    border-color:
+        rgba(255, 255, 255, 0.08);
+
+    animation:
+        worldOrbitSpinReverse
+        7s linear infinite;
+}
+
+.world-orbit::after {
+    content: "";
+
+    position: absolute;
+
+    width: 7px;
+    height: 7px;
+
+    left: 50%;
+    top: -4px;
+
+    border-radius: 50%;
+
+    background: #a855f7;
+
+    box-shadow:
+        0 0 12px
+        rgba(168, 85, 247, 0.8);
+}
+
+@keyframes worldOrbitSpin {
+
+    from {
+        transform:
+            translate(-50%, -50%)
+            rotateX(68deg)
+            rotateZ(0deg);
+    }
+
+    to {
+        transform:
+            translate(-50%, -50%)
+            rotateX(68deg)
+            rotateZ(360deg);
+    }
+
+}
+
+@keyframes worldOrbitSpinReverse {
+
+    from {
+        transform:
+            translate(-50%, -50%)
+            rotateX(68deg)
+            rotateZ(360deg);
+    }
+
+    to {
+        transform:
+            translate(-50%, -50%)
+            rotateX(68deg)
+            rotateZ(0deg);
+    }
+
+}
+
+
+/* =========================================================
+   GİRİŞ YAZILARI
+========================================================= */
+
+.world-kicker {
+    display: block;
+
+    margin-bottom: 14px;
+
+    color: #a855f7;
+
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 3px;
+}
+
+.world-experience h2 {
+    max-width: 780px;
+
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: clamp(38px, 5vw, 61px);
+    line-height: 1.04;
+    letter-spacing: -2.4px;
+}
+
+.world-intro-text {
+    max-width: 560px;
+
+    margin: 21px auto 0;
+
+    color: rgba(255, 255, 255, 0.5);
+
+    font-size: 15px;
+    line-height: 1.75;
+}
+
+
+/* =========================================================
+   BAŞLA BUTONU
+========================================================= */
+
+.world-start-button {
+    min-width: 225px;
+
+    margin-top: 30px;
+    padding: 17px 25px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+
+    border: 1px solid rgba(168, 85, 247, 0.55);
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7c3aed,
+            #9333ea
+        );
+
+    color: #ffffff;
+
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 14px 40px rgba(124, 58, 237, 0.25);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.world-start-button span {
+    font-size: 18px;
+
+    transition:
+        transform 0.25s ease;
+}
+
+.world-start-button:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 18px 50px
+        rgba(124, 58, 237, 0.38);
+}
+
+.world-start-button:hover span {
+    transform: translateX(4px);
+}
+
+.world-estimate-note {
+    max-width: 500px;
+
+    margin: 19px auto 0;
+
+    color: rgba(255, 255, 255, 0.25);
+
+    font-size: 10px;
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   CANLI EKRAN
+========================================================= */
+
+.world-live {
+    padding: 20px 8px 50px;
+}
+
+.world-live-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 30px;
+
+    margin-bottom: 28px;
+}
+
+.world-live-header h2 {
+    margin: 13px 0 0;
+
+    color: #ffffff;
+
+    font-size: clamp(35px, 5vw, 52px);
+    line-height: 1;
+    letter-spacing: -2px;
+}
+
+.world-live-header p {
+    margin: 12px 0 0;
+
+    color: rgba(255, 255, 255, 0.42);
+
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   GERİ BUTONU
+========================================================= */
+
+.world-live-back {
+    flex-shrink: 0;
+
+    padding: 10px 14px;
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+
+    background:
+        rgba(255, 255, 255, 0.025);
+
+    color: rgba(255, 255, 255, 0.43);
+
+    font-family: inherit;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 1.3px;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease;
+}
+
+.world-live-back:hover {
+    color: #ffffff;
+
+    border-color:
+        rgba(255, 255, 255, 0.16);
+
+    background:
+        rgba(255, 255, 255, 0.05);
+}
+
+
+/* =========================================================
+   SÜRE KARTI
+========================================================= */
+
+.world-time-card {
+    position: relative;
+
+    overflow: hidden;
+
+    padding: 27px 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+
+    margin-bottom: 15px;
+
+    border: 1px solid rgba(168, 85, 247, 0.18);
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            120deg,
+            rgba(168, 85, 247, 0.09),
+            rgba(255, 255, 255, 0.018)
+        );
+}
+
+.world-time-card::before {
+    content: "";
+
+    position: absolute;
+
+    width: 250px;
+    height: 250px;
+
+    right: -100px;
+    top: -120px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(139, 92, 246, 0.1);
+
+    filter: blur(60px);
+
+    pointer-events: none;
+}
+
+.world-time-card > span {
+    position: relative;
+
+    color: rgba(255, 255, 255, 0.37);
+
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 1.8px;
+}
+
+.world-time-card strong {
+    position: relative;
+
+    color: #ffffff;
+
+    font-size: clamp(30px, 5vw, 48px);
+    font-weight: 700;
+    letter-spacing: 3px;
+
+    font-variant-numeric:
+        tabular-nums;
+
+    text-shadow:
+        0 0 25px
+        rgba(168, 85, 247, 0.25);
+}
+
+
+/* =========================================================
+   SAYAÇ GRID
+========================================================= */
+
+.world-counter-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 12px;
+}
+
+
+/* =========================================================
+   SAYAÇ KARTLARI
+========================================================= */
+
+.world-counter-card {
+    position: relative;
+
+    min-height: 185px;
+
+    overflow: hidden;
+
+    padding: 24px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    border: 1px solid rgba(255, 255, 255, 0.075);
+    border-radius: 17px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.04),
+            rgba(255, 255, 255, 0.014)
+        );
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        background 0.25s ease;
+}
+
+.world-counter-card::before {
+    content: "";
+
+    position: absolute;
+
+    width: 140px;
+    height: 140px;
+
+    right: -70px;
+    top: -70px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(168, 85, 247, 0.06);
+
+    filter: blur(30px);
+
+    pointer-events: none;
+}
+
+.world-counter-card:hover {
+    transform: translateY(-3px);
+
+    border-color:
+        rgba(168, 85, 247, 0.22);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(168, 85, 247, 0.055),
+            rgba(255, 255, 255, 0.016)
+        );
+}
+
+.world-counter-featured {
+    grid-column: span 2;
+
+    min-height: 200px;
+
+    border-color:
+        rgba(168, 85, 247, 0.17);
+
+    background:
+        radial-gradient(
+            circle at 90% 10%,
+            rgba(168, 85, 247, 0.11),
+            transparent 40%
+        ),
+        linear-gradient(
+            145deg,
+            rgba(168, 85, 247, 0.055),
+            rgba(255, 255, 255, 0.014)
+        );
+}
+
+.world-counter-icon {
+    position: absolute;
+
+    right: 21px;
+    top: 20px;
+
+    font-size: 29px;
+
+    opacity: 0.8;
+
+    filter:
+        drop-shadow(
+            0 0 12px
+            rgba(168, 85, 247, 0.16)
+        );
+}
+
+.world-counter-label {
+    position: relative;
+
+    margin-bottom: 8px;
+
+    color: rgba(255, 255, 255, 0.34);
+
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+}
+
+.world-counter-number {
+    position: relative;
+
+    overflow-wrap: anywhere;
+
+    color: #ffffff;
+
+    font-size: clamp(28px, 4vw, 43px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -1.5px;
+
+    font-variant-numeric:
+        tabular-nums;
+
+    text-shadow:
+        0 0 25px
+        rgba(168, 85, 247, 0.12);
+}
+
+.world-counter-featured
+.world-counter-number {
+    color: #c084fc;
+
+    font-size: clamp(38px, 6vw, 60px);
+
+    text-shadow:
+        0 0 30px
+        rgba(168, 85, 247, 0.22);
+}
+
+.world-counter-card small {
+    position: relative;
+
+    margin-top: 9px;
+
+    color: rgba(255, 255, 255, 0.25);
+
+    font-size: 9px;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   BİR DÜŞÜN KUTUSU
+========================================================= */
+
+.world-perspective {
+    position: relative;
+
+    overflow: hidden;
+
+    margin-top: 14px;
+    padding: 28px;
+
+    border: 1px solid rgba(168, 85, 247, 0.15);
+    border-radius: 17px;
+
+    background:
+        linear-gradient(
+            120deg,
+            rgba(168, 85, 247, 0.07),
+            rgba(255, 255, 255, 0.014)
+        );
+}
+
+.world-perspective::after {
+    content: "🌍";
+
+    position: absolute;
+
+    right: 25px;
+    top: 50%;
+
+    transform:
+        translateY(-50%);
+
+    font-size: 55px;
+
+    opacity: 0.08;
+
+    pointer-events: none;
+}
+
+.world-perspective-label {
+    display: block;
+
+    margin-bottom: 9px;
+
+    color: #a855f7;
+
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.world-perspective p {
+    position: relative;
+    z-index: 1;
+
+    max-width: 700px;
+
+    margin: 0;
+
+    color: rgba(255, 255, 255, 0.62);
+
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   KAYNAKLAR
+========================================================= */
+
+.world-source-area {
+    margin-top: 14px;
+    padding: 24px;
+
+    border: 1px solid rgba(255, 255, 255, 0.055);
+    border-radius: 15px;
+
+    background:
+        rgba(255, 255, 255, 0.018);
+}
+
+.world-source-area > span {
+    display: block;
+
+    margin-bottom: 9px;
+
+    color: rgba(255, 255, 255, 0.38);
+
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 1.6px;
+}
+
+.world-source-area > p {
+    max-width: 760px;
+
+    margin: 0;
+
+    color: rgba(255, 255, 255, 0.31);
+
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+.world-source-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+
+    margin-top: 18px;
+}
+
+.world-source-links a {
+    padding: 9px 11px;
+
+    border: 1px solid rgba(168, 85, 247, 0.13);
+    border-radius: 9px;
+
+    background:
+        rgba(168, 85, 247, 0.035);
+
+    color: rgba(192, 132, 252, 0.7);
+
+    font-size: 8px;
+    font-weight: 900;
+    letter-spacing: 1px;
+
+    text-decoration: none;
+
+    transition:
+        color 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.world-source-links a:hover {
+    color: #c084fc;
+
+    border-color:
+        rgba(168, 85, 247, 0.3);
+
+    background:
+        rgba(168, 85, 247, 0.08);
+}
+
+
+/* =========================================================
+   SAYFA AÇILIŞ ANİMASYONU
+========================================================= */
+
+.world-live-header,
+.world-time-card,
+.world-counter-card,
+.world-perspective,
+.world-source-area {
+    animation:
+        worldCardEnter
+        0.55s ease both;
+}
+
+.world-time-card {
+    animation-delay: 0.05s;
+}
+
+.world-counter-card:nth-child(1) {
+    animation-delay: 0.08s;
+}
+
+.world-counter-card:nth-child(2) {
+    animation-delay: 0.11s;
+}
+
+.world-counter-card:nth-child(3) {
+    animation-delay: 0.14s;
+}
+
+.world-counter-card:nth-child(4) {
+    animation-delay: 0.17s;
+}
+
+.world-counter-card:nth-child(5) {
+    animation-delay: 0.20s;
+}
+
+.world-counter-card:nth-child(6) {
+    animation-delay: 0.23s;
+}
+
+.world-perspective {
+    animation-delay: 0.26s;
+}
+
+.world-source-area {
+    animation-delay: 0.29s;
+}
+
+@keyframes worldCardEnter {
+
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 760px) {
+
+    .world-experience {
+        min-height: 580px;
+        padding:
+            35px 10px;
+    }
+
+    .world-main-visual {
+        width: 155px;
+        height: 155px;
+
+        margin-bottom: 27px;
+    }
+
+    .world-globe {
+        width: 80px;
+        height: 80px;
+
+        font-size: 53px;
+    }
+
+    .orbit-one {
+        width: 140px;
+        height: 140px;
+    }
+
+    .orbit-two {
+        width: 112px;
+        height: 112px;
+    }
+
+    .world-experience h2 {
+        font-size: 39px;
+    }
+
+    .world-live-header {
+        align-items: flex-start;
+    }
+
+    .world-time-card {
+        padding: 22px;
+    }
+
+    .world-counter-card {
+        min-height: 170px;
+        padding: 20px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBİL
+========================================================= */
+
+@media (max-width: 560px) {
+
+    .world-live {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .world-live-header {
+        flex-direction: column-reverse;
+        gap: 18px;
+    }
+
+    .world-live-back {
+        align-self: flex-start;
+    }
+
+    .world-live-header h2 {
+        font-size: 38px;
+    }
+
+    .world-time-card {
+        flex-direction: column;
+        align-items: flex-start;
+
+        gap: 10px;
+    }
+
+    .world-time-card strong {
+        font-size: 34px;
+        letter-spacing: 2px;
+    }
+
+    .world-counter-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .world-counter-featured {
+        grid-column: auto;
+    }
+
+    .world-counter-card,
+    .world-counter-featured {
+        min-height: 160px;
+    }
+
+    .world-counter-number,
+    .world-counter-featured
+    .world-counter-number {
+        font-size: 34px;
+    }
+
+    .world-perspective {
+        padding: 22px;
+    }
+
+    .world-source-area {
+        padding: 20px;
+    }
+
+    .world-source-links {
+        flex-direction: column;
+    }
+
+    .world-source-links a {
+        width: fit-content;
+    }
+
+}
+
+
+/* =========================================================
+   ÇOK KÜÇÜK EKRAN
+========================================================= */
+
+@media (max-width: 400px) {
+
+    .world-experience h2 {
+        font-size: 33px;
+    }
+
+    .world-start-button {
+        width: 100%;
+    }
+
+    .world-counter-number,
+    .world-counter-featured
+    .world-counter-number {
+        font-size: 29px;
+    }
+
+}
+
+/* =========================================
+   OVERLAY SCROLLBAR TAMAMEN GİZLE
+   Kaydırma çalışmaya devam eder
+========================================= */
+
+.experience-overlay,
+.experience-content,
+#experienceOverlay,
+#experienceContent {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+}
+
+.experience-overlay::-webkit-scrollbar,
+.experience-content::-webkit-scrollbar,
+#experienceOverlay::-webkit-scrollbar,
+#experienceContent::-webkit-scrollbar {
+    width: 0 !important;
+    height: 0 !important;
+    display: none !important;
+}
+
+html,
+body {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    display: none;
+    width: 0;
+}
+
+
+/* =========================================================
+   07 — ŞU ANDA DÜNYA
+========================================================= */
+
+.world-now-section {
+    position: relative;
+
+    margin-top: 65px;
+    padding-top: 55px;
+
+    border-top:
+        1px solid rgba(255, 255, 255, 0.07);
+}
+
+
+/* BAŞLIK */
+
+.world-now-heading {
+    max-width: 700px;
+    margin: 0 auto;
+
+    text-align: center;
+}
+
+.world-now-kicker {
+    display: block;
+
+    margin-bottom: 11px;
+
+    color: #a855f7;
+
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 2.6px;
+}
+
+.world-now-heading h2 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: clamp(38px, 6vw, 60px);
+    line-height: 1;
+    letter-spacing: -2.5px;
+}
+
+.world-now-heading p {
+    margin: 16px auto 0;
+
+    color: rgba(255,255,255,0.38);
+
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   ORTADAKİ DÜNYA
+========================================================= */
+
+.world-now-planet {
+    position: relative;
+
+    width: 230px;
+    height: 230px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 25px auto 35px;
+}
+
+.world-now-earth {
+    position: relative;
+    z-index: 5;
+
+    width: 115px;
+    height: 115px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border:
+        1px solid rgba(168,85,247,0.3);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(168,85,247,0.13),
+            rgba(0,0,0,0.15)
+        );
+
+    font-size: 78px;
+
+    box-shadow:
+        0 0 45px rgba(139,92,246,0.18),
+        0 0 100px rgba(139,92,246,0.08);
+
+    animation:
+        worldNowFloat
+        4s ease-in-out infinite;
+}
+
+@keyframes worldNowFloat {
+
+    0%,
+    100% {
+        transform:
+            translateY(0)
+            rotate(-3deg);
+    }
+
+    50% {
+        transform:
+            translateY(-8px)
+            rotate(3deg);
+    }
+
+}
+
+
+/* HALKALAR */
+
+.world-now-ring {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    border:
+        1px solid rgba(168,85,247,0.13);
+
+    border-radius: 50%;
+
+    pointer-events: none;
+}
+
+.world-now-ring::after {
+    content: "";
+
+    position: absolute;
+
+    width: 7px;
+    height: 7px;
+
+    left: 50%;
+    top: -4px;
+
+    border-radius: 50%;
+
+    background: #a855f7;
+
+    box-shadow:
+        0 0 14px #a855f7;
+}
+
+.ring-a {
+    width: 185px;
+    height: 185px;
+
+    animation:
+        worldNowOrbitA
+        10s linear infinite;
+}
+
+.ring-b {
+    width: 150px;
+    height: 150px;
+
+    opacity: 0.6;
+
+    animation:
+        worldNowOrbitB
+        7s linear infinite;
+}
+
+@keyframes worldNowOrbitA {
+
+    from {
+        transform:
+            translate(-50%, -50%)
+            rotateX(68deg)
+            rotateZ(0);
+    }
+
+    to {
+        transform:
+            translate(-50%, -50%)
+            rotateX(68deg)
+            rotateZ(360deg);
+    }
+
+}
+
+@keyframes worldNowOrbitB {
+
+    from {
+        transform:
+            translate(-50%, -50%)
+            rotateX(65deg)
+            rotateZ(360deg);
+    }
+
+    to {
+        transform:
+            translate(-50%, -50%)
+            rotateX(65deg)
+            rotateZ(0);
+    }
+
+}
+
+
+/* ALT YAZI */
+
+.world-now-planet > span {
+    position: absolute;
+
+    bottom: 2px;
+
+    color: rgba(255,255,255,0.22);
+
+    font-size: 8px;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+
+/* =========================================================
+   KARTLAR
+========================================================= */
+
+.world-now-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0,1fr));
+
+    gap: 12px;
+}
+
+.world-now-card {
+    position: relative;
+
+    min-height: 195px;
+
+    overflow: hidden;
+
+    padding: 25px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    border:
+        1px solid rgba(255,255,255,0.07);
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.04),
+            rgba(255,255,255,0.012)
+        );
+
+    transition:
+        transform .25s ease,
+        border-color .25s ease,
+        background .25s ease;
+}
+
+.world-now-card::before {
+    content: "";
+
+    position: absolute;
+
+    width: 160px;
+    height: 160px;
+
+    right: -80px;
+    top: -80px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(168,85,247,0.07);
+
+    filter: blur(35px);
+}
+
+.world-now-card:hover {
+    transform: translateY(-4px);
+
+    border-color:
+        rgba(168,85,247,0.25);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(168,85,247,0.055),
+            rgba(255,255,255,0.015)
+        );
+}
+
+
+/* BÜYÜK KART */
+
+.world-now-featured {
+    border-color:
+        rgba(168,85,247,0.15);
+
+    background:
+        radial-gradient(
+            circle at 90% 10%,
+            rgba(168,85,247,0.11),
+            transparent 45%
+        ),
+        rgba(255,255,255,0.018);
+}
+
+
+/* İKON */
+
+.world-now-icon {
+    position: absolute;
+
+    right: 22px;
+    top: 20px;
+
+    font-size: 30px;
+
+    opacity: .8;
+}
+
+
+/* ETİKET */
+
+.world-now-label {
+    position: relative;
+
+    margin-bottom: 8px;
+
+    color:
+        rgba(255,255,255,0.35);
+
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+}
+
+
+/* BÜYÜK SAYI */
+
+.world-now-card strong {
+    position: relative;
+
+    color: #ffffff;
+
+    font-size:
+        clamp(27px,4vw,42px);
+
+    line-height: 1.05;
+
+    letter-spacing: -1.5px;
+}
+
+.world-now-featured strong {
+    color: #c084fc;
+}
+
+
+/* AÇIKLAMA */
+
+.world-now-card p {
+    position: relative;
+
+    max-width: 430px;
+
+    margin: 11px 0 0;
+
+    color:
+        rgba(255,255,255,0.38);
+
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+
+/* KAYNAK */
+
+.world-now-card small {
+    position: relative;
+
+    margin-top: 17px;
+
+    color:
+        rgba(192,132,252,0.52);
+
+    font-size: 8px;
+    font-weight: 900;
+    letter-spacing: 1.2px;
+}
+
+
+/* =========================================================
+   BİLGİ KUTUSU
+========================================================= */
+
+.world-now-warning {
+    margin-top: 14px;
+
+    padding: 24px 26px;
+
+    border:
+        1px solid rgba(168,85,247,0.12);
+
+    border-radius: 15px;
+
+    background:
+        rgba(168,85,247,0.035);
+}
+
+.world-now-warning span {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #a855f7;
+
+    font-size: 8px;
+    font-weight: 900;
+    letter-spacing: 1.6px;
+}
+
+.world-now-warning p {
+    max-width: 760px;
+
+    margin: 0;
+
+    color:
+        rgba(255,255,255,0.34);
+
+    font-size: 10px;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   MOBİL
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .world-now-section {
+        margin-top: 45px;
+        padding-top: 40px;
+    }
+
+    .world-now-heading h2 {
+        font-size: 39px;
+    }
+
+    .world-now-planet {
+        width: 190px;
+        height: 190px;
+    }
+
+    .world-now-earth {
+        width: 95px;
+        height: 95px;
+
+        font-size: 64px;
+    }
+
+    .ring-a {
+        width: 160px;
+        height: 160px;
+    }
+
+    .ring-b {
+        width: 130px;
+        height: 130px;
+    }
+
+    .world-now-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .world-now-card {
+        min-height: 175px;
+
+        padding: 21px;
+    }
+
+    .world-now-card strong {
+        font-size: 31px;
+    }
+
+}
+
+/* X HER ZAMAN SOL ÜST */
+
+#closeExperience,
+.close-button {
+    position: fixed !important;
+
+    top: 22px !important;
+    left: 22px !important;
+    right: auto !important;
+
+    z-index: 10000 !important;
+}
+
+
+/* AYARLAR HER ZAMAN SAĞ ÜST */
+
+.settings-button,
+#settingsButton {
+    position: fixed !important;
+
+    top: 22px !important;
+    right: 22px !important;
+    left: auto !important;
+
+    z-index: 10000 !important;
+}
+
+
+/* BÖLÜMLERİN GERİ BUTONLARI
+   içeride normal konumunda kalsın */
+
+.world-live-back,
+.illusion-back-button,
+.predict-back-button,
+.real-back-button,
+.brain-back-button,
+.random-back-button {
+    position: relative !important;
+
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+}
+
+
+/* =========================================================
+   08 — RAHATSIZ EDİCİ BİLGİLER
+========================================================= */
+
+/* ---------------------------------------------------------
+   GİRİŞ EKRANI
+--------------------------------------------------------- */
+
+.disturbing-experience {
+    position: relative;
+    width: min(850px, 100%);
+    min-height: 650px;
+    margin: 0 auto;
+    padding: 80px 40px 60px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+}
+
+
+/* Arka plan kırmızı parıltı */
+
+.disturbing-experience::before {
+    content: "";
+    position: absolute;
+
+    width: 520px;
+    height: 520px;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(127, 29, 29, 0.16) 0%,
+            rgba(88, 28, 135, 0.06) 42%,
+            transparent 72%
+        );
+
+    filter: blur(20px);
+
+    pointer-events: none;
+}
+
+
+/* ---------------------------------------------------------
+   KURU KAFA
+--------------------------------------------------------- */
+
+.disturbing-warning-icon {
+    position: relative;
+
+    width: 105px;
+    height: 105px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 30px;
+
+    border: 1px solid rgba(239, 68, 68, 0.22);
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(127, 29, 29, 0.18),
+            rgba(20, 5, 10, 0.6)
+        );
+
+    font-size: 50px;
+
+    box-shadow:
+        0 0 35px rgba(239, 68, 68, 0.08),
+        0 0 100px rgba(127, 29, 29, 0.08);
+
+    animation: disturbingFloat 4s ease-in-out infinite;
+}
+
+
+.disturbing-warning-icon::before {
+    content: "";
+
+    position: absolute;
+
+    width: 135px;
+    height: 135px;
+
+    border: 1px solid rgba(239, 68, 68, 0.08);
+    border-radius: 50%;
+
+    animation: disturbingPulse 3s ease-in-out infinite;
+}
+
+
+@keyframes disturbingFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+
+@keyframes disturbingPulse {
+
+    0%,
+    100% {
+        transform: scale(0.95);
+        opacity: 0.35;
+    }
+
+    50% {
+        transform: scale(1.08);
+        opacity: 0.8;
+    }
+}
+
+
+/* ---------------------------------------------------------
+   GİRİŞ YAZILARI
+--------------------------------------------------------- */
+
+.disturbing-kicker {
+    position: relative;
+
+    display: block;
+
+    margin-bottom: 15px;
+
+    color: #ef4444;
+
+    font-size: 10px;
+    font-weight: 900;
+
+    letter-spacing: 3px;
+}
+
+
+.disturbing-experience h2,
+.disturbing-finish h2 {
+    position: relative;
+
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: clamp(42px, 6vw, 68px);
+    font-weight: 900;
+
+    line-height: 0.98;
+
+    letter-spacing: -3px;
+}
+
+
+.disturbing-intro {
+    position: relative;
+
+    max-width: 540px;
+
+    margin: 25px auto 0;
+
+    color: rgba(255, 255, 255, 0.42);
+
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+
+/* ---------------------------------------------------------
+   İÇERİK UYARISI
+--------------------------------------------------------- */
+
+.disturbing-content-warning {
+    position: relative;
+
+    width: min(500px, 100%);
+
+    margin: 35px auto 0;
+    padding: 18px 22px;
+
+    border: 1px solid rgba(239, 68, 68, 0.13);
+    border-radius: 14px;
+
+    background:
+        rgba(127, 29, 29, 0.055);
+}
+
+
+.disturbing-content-warning span {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: rgba(248, 113, 113, 0.75);
+
+    font-size: 8px;
+    font-weight: 900;
+
+    letter-spacing: 2px;
+}
+
+
+.disturbing-content-warning p {
+    margin: 0;
+
+    color: rgba(255, 255, 255, 0.32);
+
+    font-size: 10px;
+    line-height: 1.7;
+}
+
+
+/* ---------------------------------------------------------
+   BAŞLAT
+--------------------------------------------------------- */
+
+.disturbing-start-button {
+    position: relative;
+
+    min-width: 220px;
+
+    margin-top: 30px;
+    padding: 16px 25px;
+
+    border: 1px solid rgba(239, 68, 68, 0.35);
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(127, 29, 29, 0.55),
+            rgba(69, 10, 10, 0.35)
+        );
+
+    color: #ffffff;
+
+    font-size: 10px;
+    font-weight: 900;
+
+    letter-spacing: 1.8px;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.disturbing-start-button:hover {
+    transform: translateY(-3px);
+
+    border-color:
+        rgba(248, 113, 113, 0.65);
+
+    box-shadow:
+        0 10px 40px rgba(127, 29, 29, 0.18);
+}
+
+
+.disturbing-start-button span {
+    margin-left: 10px;
+}
+
+
+/* =========================================================
+   BİLGİ EKRANI
+========================================================= */
+
+.disturbing-reader {
+    position: relative;
+
+    width: min(900px, 100%);
+    min-height: 700px;
+
+    margin: 0 auto;
+    padding: 75px 35px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+/* ---------------------------------------------------------
+   ÜST KISIM
+--------------------------------------------------------- */
+
+.disturbing-reader-top {
+    width: min(700px, 100%);
+
+    margin: 0 auto 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.disturbing-back {
+    padding: 9px 13px;
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+
+    background: rgba(255, 255, 255, 0.025);
+
+    color: rgba(255, 255, 255, 0.45);
+
+    font-size: 8px;
+    font-weight: 900;
+
+    letter-spacing: 1.3px;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease;
+}
+
+
+.disturbing-back:hover {
+    color: #ffffff;
+
+    border-color:
+        rgba(239, 68, 68, 0.28);
+
+    background:
+        rgba(127, 29, 29, 0.08);
+}
+
+
+.disturbing-progress {
+    color: rgba(255, 255, 255, 0.22);
+
+    font-size: 9px;
+    font-weight: 900;
+
+    letter-spacing: 2px;
+}
+
+
+/* =========================================================
+   ANA KART
+========================================================= */
+
+.disturbing-card {
+    position: relative;
+
+    width: min(700px, 100%);
+    min-height: 480px;
+
+    margin: 0 auto;
+    padding: 60px 55px;
+
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    border:
+        1px solid rgba(239, 68, 68, 0.11);
+
+    border-radius: 22px;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(127, 29, 29, 0.11),
+            transparent 42%
+        ),
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.025),
+            rgba(255, 255, 255, 0.008)
+        );
+
+    box-shadow:
+        0 30px 100px rgba(0, 0, 0, 0.32);
+}
+
+
+.disturbing-card::before {
+    content: "";
+
+    position: absolute;
+
+    width: 350px;
+    height: 350px;
+
+    left: 50%;
+    top: -250px;
+
+    transform: translateX(-50%);
+
+    border-radius: 50%;
+
+    background:
+        rgba(239, 68, 68, 0.1);
+
+    filter: blur(80px);
+
+    pointer-events: none;
+}
+
+
+/* ---------------------------------------------------------
+   SEVİYE
+--------------------------------------------------------- */
+
+.disturbing-level {
+    position: relative;
+
+    display: inline-flex;
+
+    padding: 7px 11px;
+
+    margin-bottom: 25px;
+
+    border:
+        1px solid rgba(239, 68, 68, 0.16);
+
+    border-radius: 50px;
+
+    background:
+        rgba(127, 29, 29, 0.07);
+
+    color: rgba(248, 113, 113, 0.7);
+
+    font-size: 8px;
+    font-weight: 900;
+
+    letter-spacing: 1.8px;
+}
+
+
+/* ---------------------------------------------------------
+   İKON
+--------------------------------------------------------- */
+
+.disturbing-big-icon {
+    position: relative;
+
+    margin-bottom: 22px;
+
+    font-size: 45px;
+
+    filter:
+        drop-shadow(
+            0 0 18px
+            rgba(239, 68, 68, 0.14)
+        );
+}
+
+
+/* ---------------------------------------------------------
+   BAŞLIK
+--------------------------------------------------------- */
+
+.disturbing-card h2 {
+    position: relative;
+
+    max-width: 620px;
+
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size:
+        clamp(30px, 4.5vw, 48px);
+
+    font-weight: 900;
+
+    line-height: 1.08;
+
+    letter-spacing: -1.8px;
+}
+
+
+/* ---------------------------------------------------------
+   SORU
+--------------------------------------------------------- */
+
+.disturbing-question {
+    position: relative;
+
+    margin: 25px 0 0;
+
+    color: rgba(255, 255, 255, 0.28);
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 0.4px;
+}
+
+
+/* ---------------------------------------------------------
+   GERÇEĞİ GÖR
+--------------------------------------------------------- */
+
+.disturbing-reveal-button {
+    position: relative;
+
+    margin-top: 25px;
+    padding: 15px 27px;
+
+    border:
+        1px solid rgba(239, 68, 68, 0.32);
+
+    border-radius: 11px;
+
+    background:
+        rgba(127, 29, 29, 0.13);
+
+    color: #fca5a5;
+
+    font-size: 9px;
+    font-weight: 900;
+
+    letter-spacing: 1.7px;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.disturbing-reveal-button:hover {
+    transform: translateY(-2px);
+
+    color: #ffffff;
+
+    background:
+        rgba(127, 29, 29, 0.25);
+
+    border-color:
+        rgba(248, 113, 113, 0.55);
+
+    box-shadow:
+        0 10px 40px
+        rgba(127, 29, 29, 0.18);
+}
+
+
+/* =========================================================
+   AÇILAN GERÇEK
+========================================================= */
+
+.disturbing-card.revealed {
+    animation:
+        disturbingReveal
+        0.45s ease;
+}
+
+
+@keyframes disturbingReveal {
+
+    from {
+        opacity: 0.4;
+        transform: scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+.disturbing-answer {
+    position: relative;
+
+    width: 100%;
+    max-width: 590px;
+
+    margin-top: 27px;
+    padding-top: 25px;
+
+    border-top:
+        1px solid rgba(255, 255, 255, 0.06);
+}
+
+
+.disturbing-answer p {
+    margin: 0;
+
+    color: rgba(255, 255, 255, 0.56);
+
+    font-size: 13px;
+    line-height: 1.85;
+}
+
+
+/* ---------------------------------------------------------
+   KAYNAK
+--------------------------------------------------------- */
+
+.disturbing-source {
+    position: relative;
+
+    display: inline-flex;
+
+    margin-top: 25px;
+
+    color: rgba(248, 113, 113, 0.62);
+
+    font-size: 8px;
+    font-weight: 900;
+
+    letter-spacing: 1.5px;
+
+    text-decoration: none;
+
+    transition: color 0.2s ease;
+}
+
+
+.disturbing-source:hover {
+    color: #fca5a5;
+}
+
+
+/* ---------------------------------------------------------
+   SONRAKİ
+--------------------------------------------------------- */
+
+.disturbing-next-button {
+    position: relative;
+
+    min-width: 210px;
+
+    margin-top: 30px;
+    padding: 15px 22px;
+
+    border: 0;
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #991b1b,
+            #7f1d1d
+        );
+
+    color: #ffffff;
+
+    font-size: 9px;
+    font-weight: 900;
+
+    letter-spacing: 1.5px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 35px
+        rgba(127, 29, 29, 0.18);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.disturbing-next-button:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 14px 45px
+        rgba(127, 29, 29, 0.28);
+}
+
+
+.disturbing-next-button span {
+    margin-left: 8px;
+}
+
+
+/* =========================================================
+   BİTİŞ EKRANI
+========================================================= */
+
+.disturbing-finish {
+    position: relative;
+
+    width: min(750px, 100%);
+    min-height: 650px;
+
+    margin: 0 auto;
+    padding: 70px 35px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+}
+
+
+.disturbing-finish p {
+    max-width: 450px;
+
+    margin: 25px auto 0;
+
+    color: rgba(255, 255, 255, 0.38);
+
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+
+.disturbing-secondary-button {
+    margin-top: 12px;
+    padding: 13px 22px;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.08);
+
+    border-radius: 10px;
+
+    background: transparent;
+
+    color: rgba(255, 255, 255, 0.38);
+
+    font-size: 8px;
+    font-weight: 900;
+
+    letter-spacing: 1.5px;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+
+.disturbing-secondary-button:hover {
+    color: #ffffff;
+
+    border-color:
+        rgba(239, 68, 68, 0.3);
+}
+
+
+/* =========================================================
+   MOBİL
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .disturbing-experience {
+        min-height: 600px;
+        padding: 70px 20px 45px;
+    }
+
+    .disturbing-experience h2,
+    .disturbing-finish h2 {
+        font-size: 40px;
+        letter-spacing: -2px;
+    }
+
+    .disturbing-warning-icon {
+        width: 85px;
+        height: 85px;
+
+        font-size: 40px;
+    }
+
+    .disturbing-reader {
+        min-height: 620px;
+        padding: 70px 17px 45px;
+    }
+
+    .disturbing-reader-top {
+        margin-bottom: 15px;
+    }
+
+    .disturbing-card {
+        min-height: 430px;
+
+        padding:
+            45px 22px;
+    }
+
+    .disturbing-card h2 {
+        font-size: 31px;
+
+        letter-spacing: -1.2px;
+    }
+
+    .disturbing-answer p {
+        font-size: 12px;
+    }
+
+    .disturbing-content-warning {
+        padding: 16px;
+    }
+}
+
+/* =========================================================
+   09 — SAÇMA TESTLER
+========================================================= */
+
+.tests-experience {
+    width: min(1050px, 100%);
+    min-height: 700px;
+    margin: 0 auto;
+    padding: 80px 35px 60px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+}
+
+.tests-kicker {
+    margin-bottom: 14px;
+
+    color: #c084fc;
+
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 3px;
+}
+
+.tests-experience > h2 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: clamp(38px, 5vw, 62px);
+    font-weight: 900;
+
+    line-height: 1;
+    letter-spacing: -3px;
+}
+
+.tests-intro {
+    max-width: 520px;
+
+    margin: 22px auto 0;
+
+    color: rgba(255, 255, 255, 0.42);
+
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   TEST SEÇİM KARTLARI
+========================================================= */
+
+.tests-selection {
+    width: 100%;
+
+    margin-top: 45px;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.tests-select-card {
+    position: relative;
+
+    min-height: 310px;
+    padding: 32px 25px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    border: 1px solid rgba(168, 85, 247, 0.15);
+    border-radius: 20px;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(168, 85, 247, 0.13),
+            transparent 50%
+        ),
+        rgba(255, 255, 255, 0.018);
+
+    color: #ffffff;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        background 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.tests-select-card::before {
+    content: "";
+
+    position: absolute;
+
+    width: 170px;
+    height: 170px;
+
+    top: -120px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    border-radius: 50%;
+
+    background: rgba(217, 70, 239, 0.15);
+
+    filter: blur(55px);
+
+    pointer-events: none;
+}
+
+.tests-select-card:hover {
+    transform: translateY(-7px);
+
+    border-color: rgba(192, 132, 252, 0.42);
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(168, 85, 247, 0.2),
+            transparent 55%
+        ),
+        rgba(255, 255, 255, 0.03);
+
+    box-shadow:
+        0 22px 60px rgba(88, 28, 135, 0.16);
+}
+
+.tests-select-emoji {
+    position: relative;
+
+    margin-bottom: 22px;
+
+    font-size: 46px;
+
+    transition: transform 0.3s ease;
+}
+
+.tests-select-card:hover .tests-select-emoji {
+    transform:
+        translateY(-4px)
+        rotate(-4deg)
+        scale(1.08);
+}
+
+.tests-select-card strong {
+    position: relative;
+
+    display: block;
+
+    color: #ffffff;
+
+    font-size: 18px;
+    font-weight: 900;
+
+    line-height: 1.25;
+}
+
+.tests-select-card p {
+    position: relative;
+
+    min-height: 50px;
+
+    margin: 13px 0 0;
+
+    color: rgba(255, 255, 255, 0.38);
+
+    font-size: 10px;
+    line-height: 1.65;
+}
+
+.tests-select-action {
+    position: relative;
+
+    margin-top: 23px;
+
+    color: rgba(216, 180, 254, 0.72);
+
+    font-size: 8px;
+    font-weight: 900;
+
+    letter-spacing: 1.5px;
+}
+
+
+/* =========================================================
+   BAŞKA TESTLER
+========================================================= */
+
+.tests-shuffle {
+    margin-top: 25px;
+    padding: 12px 18px;
+
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 9px;
+
+    background: rgba(255, 255, 255, 0.02);
+
+    color: rgba(255, 255, 255, 0.38);
+
+    font-size: 8px;
+    font-weight: 900;
+
+    letter-spacing: 1.5px;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease;
+}
+
+.tests-shuffle:hover {
+    color: #ffffff;
+
+    border-color: rgba(168, 85, 247, 0.3);
+
+    background: rgba(168, 85, 247, 0.06);
+}
+
+
+/* =========================================================
+   TEST ÇÖZME EKRANI
+========================================================= */
+
+.silly-test-play {
+    width: min(850px, 100%);
+    min-height: 700px;
+
+    margin: 0 auto;
+    padding: 75px 30px 60px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.silly-test-header {
+    width: min(700px, 100%);
+
+    margin: 0 auto 15px;
+
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 15px;
+}
+
+.silly-test-back {
+    justify-self: start;
+
+    padding: 9px 13px;
+
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 8px;
+
+    background: rgba(255, 255, 255, 0.02);
+
+    color: rgba(255, 255, 255, 0.4);
+
+    font-size: 8px;
+    font-weight: 900;
+
+    letter-spacing: 1.2px;
+
+    cursor: pointer;
+}
+
+.silly-test-back:hover {
+    color: #ffffff;
+
+    border-color: rgba(168, 85, 247, 0.3);
+}
+
+.silly-test-name {
+    color: rgba(255, 255, 255, 0.55);
+
+    font-size: 9px;
+    font-weight: 800;
+
+    text-align: center;
+}
+
+.silly-test-name span {
+    margin-right: 5px;
+}
+
+.silly-test-counter {
+    justify-self: end;
+
+    color: rgba(255, 255, 255, 0.25);
+
+    font-size: 9px;
+    font-weight: 900;
+
+    letter-spacing: 1.5px;
+}
+
+
+/* =========================================================
+   İLERLEME ÇUBUĞU
+========================================================= */
+
+.silly-progress {
+    width: min(700px, 100%);
+    height: 3px;
+
+    margin: 0 auto 25px;
+
+    overflow: hidden;
+
+    border-radius: 50px;
+
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.silly-progress-bar {
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            #7c3aed,
+            #c026d3,
+            #ec4899
+        );
+
+    box-shadow:
+        0 0 15px rgba(192, 38, 211, 0.45);
+
+    transition: width 0.4s ease;
+}
+
+
+/* =========================================================
+   SORU KARTI
+========================================================= */
+
+.silly-question-card {
+    position: relative;
+
+    width: min(700px, 100%);
+    min-height: 470px;
+
+    margin: 0 auto;
+    padding: 50px 50px;
+
+    overflow: hidden;
+
+    border: 1px solid rgba(168, 85, 247, 0.13);
+    border-radius: 22px;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(126, 34, 206, 0.12),
+            transparent 42%
+        ),
+        rgba(255, 255, 255, 0.018);
+
+    box-shadow:
+        0 30px 90px rgba(0, 0, 0, 0.25);
+
+    text-align: center;
+}
+
+.silly-question-card::before {
+    content: "";
+
+    position: absolute;
+
+    width: 350px;
+    height: 220px;
+
+    left: 50%;
+    top: -180px;
+
+    transform: translateX(-50%);
+
+    border-radius: 50%;
+
+    background: rgba(217, 70, 239, 0.16);
+
+    filter: blur(80px);
+
+    pointer-events: none;
+}
+
+.silly-question-label {
+    position: relative;
+
+    color: #c084fc;
+
+    font-size: 8px;
+    font-weight: 900;
+
+    letter-spacing: 2px;
+}
+
+.silly-question-card h2 {
+    position: relative;
+
+    max-width: 600px;
+
+    margin: 17px auto 35px;
+
+    color: #ffffff;
+
+    font-size: clamp(27px, 4vw, 40px);
+    font-weight: 900;
+
+    line-height: 1.15;
+    letter-spacing: -1.5px;
+}
+
+
+/* =========================================================
+   CEVAPLAR
+========================================================= */
+
+.silly-answers {
+    position: relative;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 11px;
+}
+
+.silly-answer {
+    min-height: 65px;
+    padding: 13px 16px;
+
+    display: flex;
+    align-items: center;
+
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 11px;
+
+    background: rgba(255, 255, 255, 0.018);
+
+    color: rgba(255, 255, 255, 0.68);
+
+    font-size: 10px;
+    font-weight: 700;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.silly-answer > span {
+    flex: 0 0 auto;
+
+    width: 32px;
+    height: 32px;
+
+    margin-right: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(168, 85, 247, 0.17);
+    border-radius: 8px;
+
+    background: rgba(126, 34, 206, 0.08);
+
+    color: #c084fc;
+
+    font-size: 9px;
+    font-weight: 900;
+}
+
+.silly-answer:hover:not(.disabled) {
+    transform: translateY(-2px);
+
+    color: #ffffff;
+
+    border-color: rgba(192, 132, 252, 0.35);
+
+    background: rgba(126, 34, 206, 0.08);
+}
+
+.silly-answer.selected {
+    color: #ffffff;
+
+    border-color: rgba(217, 70, 239, 0.65);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(126, 34, 206, 0.22),
+            rgba(219, 39, 119, 0.12)
+        );
+
+    box-shadow:
+        0 0 25px rgba(192, 38, 211, 0.12);
+
+    transform: scale(0.985);
+}
+
+.silly-answer.selected > span {
+    color: #ffffff;
+
+    border-color: rgba(217, 70, 239, 0.5);
+
+    background: rgba(192, 38, 211, 0.3);
+}
+
+.silly-answer.disabled {
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   SONUÇ EKRANI
+========================================================= */
+
+.silly-result {
+    position: relative;
+
+    width: min(720px, 100%);
+    min-height: 700px;
+
+    margin: 0 auto;
+    padding: 80px 35px 60px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    text-align: center;
+}
+
+.silly-result::before {
+    content: "";
+
+    position: absolute;
+
+    width: 500px;
+    height: 500px;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(192, 38, 211, 0.13),
+            rgba(126, 34, 206, 0.05) 45%,
+            transparent 70%
+        );
+
+    filter: blur(15px);
+
+    pointer-events: none;
+}
+
+.silly-result-kicker {
+    position: relative;
+
+    color: #c084fc;
+
+    font-size: 9px;
+    font-weight: 900;
+
+    letter-spacing: 2.5px;
+}
+
+.silly-result-emoji {
+    position: relative;
+
+    margin-top: 25px;
+
+    font-size: 60px;
+
+    animation:
+        sillyResultFloat
+        3s ease-in-out infinite;
+}
+
+@keyframes sillyResultFloat {
+    0%,
+    100% {
+        transform: translateY(0) rotate(-2deg);
+    }
+
+    50% {
+        transform: translateY(-8px) rotate(3deg);
+    }
+}
+
+.silly-result-test {
+    position: relative;
+
+    margin-top: 15px;
+
+    color: rgba(255, 255, 255, 0.32);
+
+    font-size: 9px;
+    font-weight: 800;
+}
+
+.silly-result-percentage {
+    position: relative;
+
+    margin-top: 15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #c084fc,
+            #e879f9,
+            #f472b6
+        );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    color: transparent;
+
+    font-size: clamp(75px, 12vw, 120px);
+    font-weight: 950;
+
+    line-height: 1;
+
+    letter-spacing: -7px;
+
+    filter:
+        drop-shadow(
+            0 0 25px
+            rgba(192, 38, 211, 0.15)
+        );
+}
+
+.silly-result h2 {
+    position: relative;
+
+    margin: 15px 0 0;
+
+    color: #ffffff;
+
+    font-size: clamp(30px, 5vw, 48px);
+    font-weight: 900;
+
+    line-height: 1.05;
+    letter-spacing: -2px;
+}
+
+.silly-result > p {
+    position: relative;
+
+    max-width: 470px;
+
+    margin: 20px auto 0;
+
+    color: rgba(255, 255, 255, 0.48);
+
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   SONUÇ BUTONLARI
+========================================================= */
+
+.silly-result-actions {
+    position: relative;
+
+    margin-top: 30px;
+
+    display: flex;
+    gap: 10px;
+}
+
+.silly-result-main,
+.silly-result-secondary {
+    padding: 14px 22px;
+
+    border-radius: 10px;
+
+    font-size: 8px;
+    font-weight: 900;
+
+    letter-spacing: 1.4px;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease;
+}
+
+.silly-result-main {
+    border: 1px solid rgba(217, 70, 239, 0.45);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(126, 34, 206, 0.7),
+            rgba(192, 38, 211, 0.55)
+        );
+
+    color: #ffffff;
+}
+
+.silly-result-main:hover {
+    transform: translateY(-2px);
+}
+
+.silly-result-secondary {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    background: rgba(255, 255, 255, 0.02);
+
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.silly-result-secondary:hover {
+    transform: translateY(-2px);
+
+    color: #ffffff;
+
+    border-color: rgba(168, 85, 247, 0.3);
+}
+
+.silly-result small {
+    position: relative;
+
+    margin-top: 22px;
+
+    color: rgba(255, 255, 255, 0.18);
+
+    font-size: 8px;
+}
+
+
+/* =========================================================
+   MOBİL
+========================================================= */
+
+@media (max-width: 800px) {
+
+    .tests-selection {
+        grid-template-columns: 1fr;
+        max-width: 480px;
+    }
+
+    .tests-select-card {
+        min-height: 230px;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .tests-experience {
+        padding:
+            75px 17px
+            45px;
+    }
+
+    .tests-experience > h2 {
+        font-size: 40px;
+        letter-spacing: -2px;
+    }
+
+    .silly-test-play {
+        padding:
+            70px 15px
+            40px;
+    }
+
+    .silly-test-header {
+        grid-template-columns:
+            auto 1fr auto;
+    }
+
+    .silly-test-name {
+        overflow: hidden;
+
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .silly-question-card {
+        min-height: 500px;
+
+        padding:
+            40px 18px;
+    }
+
+    .silly-question-card h2 {
+        font-size: 28px;
+    }
+
+    .silly-answers {
+        grid-template-columns: 1fr;
+    }
+
+    .silly-answer {
+        min-height: 58px;
+    }
+
+    .silly-result {
+        padding:
+            75px 18px
+            45px;
+    }
+
+    .silly-result-percentage {
+        letter-spacing: -4px;
+    }
+
+    .silly-result-actions {
+        width: 100%;
+        max-width: 320px;
+
+        flex-direction: column;
+    }
+
+    .silly-result-main,
+    .silly-result-secondary {
+        width: 100%;
+    }
+}
+
+/* =========================================================
+   10 — BUGÜNKÜ KADERİN
+========================================================= */
+
+.fortune-experience {
+    position: relative;
+    width: min(900px, 100%);
+    min-height: 720px;
+    margin: 0 auto;
+    padding: 80px 35px 60px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+    text-align: center;
+}
+
+
+/* =========================================================
+   ARKA PLAN PARILTISI
+========================================================= */
+
+.fortune-experience::before {
+    content: "";
+    position: absolute;
+
+    width: 600px;
+    height: 600px;
+
+    left: 50%;
+    top: 48%;
+
+    transform: translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(147, 51, 234, 0.16) 0%,
+            rgba(88, 28, 135, 0.08) 35%,
+            transparent 70%
+        );
+
+    filter: blur(15px);
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   YILDIZLAR
+========================================================= */
+
+.fortune-stars {
+    position: absolute;
+    inset: 0;
+
+    pointer-events: none;
+}
+
+.fortune-stars span {
+    position: absolute;
+
+    color: rgba(216, 180, 254, 0.5);
+
+    font-size: 16px;
+
+    animation:
+        fortuneStarFloat
+        4s ease-in-out infinite;
+}
+
+.fortune-stars span:nth-child(1) {
+    top: 18%;
+    left: 16%;
+}
+
+.fortune-stars span:nth-child(2) {
+    top: 30%;
+    right: 18%;
+
+    font-size: 11px;
+    animation-delay: 0.8s;
+}
+
+.fortune-stars span:nth-child(3) {
+    bottom: 23%;
+    left: 21%;
+
+    font-size: 10px;
+    animation-delay: 1.5s;
+}
+
+.fortune-stars span:nth-child(4) {
+    bottom: 17%;
+    right: 20%;
+
+    animation-delay: 2s;
+}
+
+.fortune-stars span:nth-child(5) {
+    top: 13%;
+    right: 35%;
+
+    font-size: 8px;
+    animation-delay: 2.8s;
+}
+
+@keyframes fortuneStarFloat {
+
+    0%,
+    100% {
+        opacity: 0.25;
+        transform: translateY(0) scale(0.9);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translateY(-8px) scale(1.2);
+    }
+}
+
+
+/* =========================================================
+   10 — BAŞLIK
+========================================================= */
+
+.fortune-kicker {
+    position: relative;
+
+    margin-bottom: 22px;
+
+    color: #c084fc;
+
+    font-size: 9px;
+    font-weight: 900;
+
+    letter-spacing: 3px;
+}
+
+
+/* =========================================================
+   KRİSTAL KÜRE
+========================================================= */
+
+.fortune-orb {
+    position: relative;
+
+    width: 135px;
+    height: 135px;
+
+    margin-bottom: 28px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(192, 132, 252, 0.22);
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle at 35% 25%,
+            rgba(255, 255, 255, 0.12),
+            rgba(147, 51, 234, 0.12) 35%,
+            rgba(30, 10, 55, 0.55) 75%
+        );
+
+    font-size: 67px;
+
+    box-shadow:
+        0 0 35px rgba(168, 85, 247, 0.15),
+        0 0 90px rgba(126, 34, 206, 0.12),
+        inset 0 0 35px rgba(192, 132, 252, 0.08);
+
+    animation:
+        fortuneOrbFloat
+        4s ease-in-out infinite;
+}
+
+.fortune-orb::before {
+    content: "";
+
+    position: absolute;
+
+    width: 165px;
+    height: 165px;
+
+    border: 1px solid rgba(192, 132, 252, 0.07);
+    border-radius: 50%;
+
+    animation:
+        fortuneOrbRing
+        3s ease-in-out infinite;
+}
+
+.fortune-orb::after {
+    content: "";
+
+    position: absolute;
+
+    width: 85px;
+    height: 15px;
+
+    left: 50%;
+    bottom: -25px;
+
+    transform: translateX(-50%);
+
+    border-radius: 50%;
+
+    background: rgba(126, 34, 206, 0.22);
+
+    filter: blur(12px);
+}
+
+@keyframes fortuneOrbFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes fortuneOrbRing {
+
+    0%,
+    100% {
+        transform: scale(0.9);
+        opacity: 0.2;
+    }
+
+    50% {
+        transform: scale(1.08);
+        opacity: 0.7;
+    }
+}
+
+
+/* =========================================================
+   GİRİŞ BAŞLIĞI
+========================================================= */
+
+.fortune-experience > h2 {
+    position: relative;
+
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: clamp(42px, 6vw, 68px);
+    font-weight: 900;
+
+    line-height: 0.98;
+    letter-spacing: -3px;
+}
+
+.fortune-intro {
+    position: relative;
+
+    max-width: 500px;
+
+    margin: 23px auto 0;
+
+    color: rgba(255, 255, 255, 0.4);
+
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+.fortune-date {
+    position: relative;
+
+    margin-top: 22px;
+    padding: 8px 13px;
+
+    border: 1px solid rgba(192, 132, 252, 0.12);
+    border-radius: 50px;
+
+    background: rgba(126, 34, 206, 0.05);
+
+    color: rgba(216, 180, 254, 0.6);
+
+    font-size: 8px;
+    font-weight: 900;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   KADERİMİ GÖSTER
+========================================================= */
+
+.fortune-open-button {
+    position: relative;
+
+    min-width: 240px;
+
+    margin-top: 30px;
+    padding: 16px 25px;
+
+    overflow: hidden;
+
+    border: 1px solid rgba(192, 132, 252, 0.38);
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(88, 28, 135, 0.8),
+            rgba(126, 34, 206, 0.65),
+            rgba(192, 38, 211, 0.5)
+        );
+
+    color: #ffffff;
+
+    font-size: 9px;
+    font-weight: 900;
+
+    letter-spacing: 1.8px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 12px 40px rgba(126, 34, 206, 0.18);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.fortune-open-button::before {
+    content: "";
+
+    position: absolute;
+
+    width: 80px;
+    height: 200%;
+
+    left: -120px;
+    top: -50%;
+
+    transform: rotate(25deg);
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.15),
+            transparent
+        );
+
+    transition: left 0.6s ease;
+}
+
+.fortune-open-button:hover::before {
+    left: 120%;
+}
+
+.fortune-open-button:hover {
+    transform: translateY(-3px);
+
+    border-color: rgba(216, 180, 254, 0.65);
+
+    box-shadow:
+        0 16px 50px rgba(126, 34, 206, 0.28);
+}
+
+.fortune-open-button span {
+    margin-left: 10px;
+}
+
+.fortune-note {
+    position: relative;
+
+    margin-top: 16px;
+
+    color: rgba(255, 255, 255, 0.18);
+
+    font-size: 8px;
+}
+
+
+/* =========================================================
+   SONUÇ EKRANI
+========================================================= */
+
+.fortune-result {
+    position: relative;
+
+    width: min(820px, 100%);
+    min-height: 750px;
+
+    margin: 0 auto;
+    padding: 75px 35px 65px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   SONUÇ ÜST KISIM
+========================================================= */
+
+.fortune-result-top {
+    width: min(700px, 100%);
+
+    margin-bottom: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.fortune-result-top > span {
+    color: rgba(255, 255, 255, 0.22);
+
+    font-size: 8px;
+    font-weight: 900;
+
+    letter-spacing: 1.3px;
+
+    text-transform: uppercase;
+}
+
+.fortune-back {
+    padding: 9px 13px;
+
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 8px;
+
+    background: rgba(255, 255, 255, 0.02);
+
+    color: rgba(255, 255, 255, 0.4);
+
+    font-size: 8px;
+    font-weight: 900;
+
+    letter-spacing: 1.2px;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease;
+}
+
+.fortune-back:hover {
+    color: #ffffff;
+
+    border-color: rgba(192, 132, 252, 0.3);
+
+    background: rgba(126, 34, 206, 0.07);
+}
+
+
+/* =========================================================
+   SONUÇ KÜRESİ
+========================================================= */
+
+.fortune-result-orb {
+    position: relative;
+
+    width: 115px;
+    height: 115px;
+
+    margin-bottom: 28px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(192, 132, 252, 0.18);
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(126, 34, 206, 0.15),
+            rgba(30, 10, 50, 0.55)
+        );
+
+    box-shadow:
+        0 0 45px rgba(147, 51, 234, 0.15);
+
+    animation:
+        fortuneResultAppear
+        0.7s ease both;
+}
+
+.fortune-orb-glow {
+    position: absolute;
+
+    width: 170px;
+    height: 170px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(168, 85, 247, 0.17),
+            transparent 68%
+        );
+
+    animation:
+        fortuneGlowPulse
+        3s ease-in-out infinite;
+}
+
+.fortune-result-icon {
+    position: relative;
+
+    z-index: 2;
+
+    font-size: 48px;
+}
+
+@keyframes fortuneGlowPulse {
+
+    0%,
+    100% {
+        transform: scale(0.9);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: scale(1.12);
+        opacity: 1;
+    }
+}
+
+@keyframes fortuneResultAppear {
+
+    from {
+        opacity: 0;
+        transform: scale(0.6);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+/* =========================================================
+   KADER METNİ
+========================================================= */
+
+.fortune-result-kicker {
+    color: #c084fc;
+
+    font-size: 9px;
+    font-weight: 900;
+
+    letter-spacing: 2.7px;
+}
+
+.fortune-result > h2 {
+    max-width: 650px;
+
+    margin: 15px auto 0;
+
+    color: #ffffff;
+
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 900;
+
+    line-height: 1.05;
+    letter-spacing: -2px;
+}
+
+.fortune-result-text {
+    max-width: 570px;
+
+    margin: 20px auto 0;
+
+    color: rgba(255, 255, 255, 0.48);
+
+    font-size: 12px;
+    line-height: 1.85;
+}
+
+
+/* =========================================================
+   ŞANS / ENERJİ / SOSYALLİK
+========================================================= */
+
+.fortune-stats {
+    width: min(620px, 100%);
+
+    margin-top: 38px;
+
+    display: grid;
+    gap: 17px;
+}
+
+.fortune-stat {
+    width: 100%;
+}
+
+.fortune-stat-header {
+    margin-bottom: 8px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.fortune-stat-header span {
+    color: rgba(255, 255, 255, 0.35);
+
+    font-size: 8px;
+    font-weight: 900;
+
+    letter-spacing: 1.5px;
+}
+
+.fortune-stat-header strong {
+    color: #d8b4fe;
+
+    font-size: 10px;
+    font-weight: 900;
+}
+
+.fortune-stat-track {
+    width: 100%;
+    height: 5px;
+
+    overflow: hidden;
+
+    border-radius: 50px;
+
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.fortune-stat-fill {
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            #7c3aed,
+            #c026d3,
+            #ec4899
+        );
+
+    box-shadow:
+        0 0 15px rgba(192, 38, 211, 0.35);
+
+    animation:
+        fortuneBarGrow
+        1s ease both;
+}
+
+@keyframes fortuneBarGrow {
+
+    from {
+        max-width: 0;
+    }
+
+    to {
+        max-width: 100%;
+    }
+}
+
+
+/* =========================================================
+   ŞANSLI SAAT / SAYI
+========================================================= */
+
+.fortune-lucky-grid {
+    width: min(620px, 100%);
+
+    margin-top: 30px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.fortune-lucky-card {
+    min-height: 110px;
+
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(168, 85, 247, 0.12);
+    border-radius: 14px;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(126, 34, 206, 0.1),
+            transparent 65%
+        ),
+        rgba(255, 255, 255, 0.015);
+}
+
+.fortune-lucky-card span {
+    color: rgba(255, 255, 255, 0.28);
+
+    font-size: 8px;
+    font-weight: 900;
+
+    letter-spacing: 1.5px;
+}
+
+.fortune-lucky-card strong {
+    margin-top: 8px;
+
+    color: #ffffff;
+
+    font-size: 29px;
+    font-weight: 900;
+
+    letter-spacing: -1px;
+}
+
+
+/* =========================================================
+   BUGÜN YAP / YAPMA
+========================================================= */
+
+.fortune-advice {
+    width: min(620px, 100%);
+
+    margin-top: 12px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.fortune-advice-card {
+    min-height: 125px;
+
+    padding: 22px;
+
+    border-radius: 14px;
+
+    text-align: left;
+}
+
+.fortune-advice-card.do {
+    border: 1px solid rgba(52, 211, 153, 0.12);
+
+    background:
+        rgba(16, 185, 129, 0.035);
+}
+
+.fortune-advice-card.dont {
+    border: 1px solid rgba(248, 113, 113, 0.12);
+
+    background:
+        rgba(239, 68, 68, 0.035);
+}
+
+.fortune-advice-card span {
+    display: block;
+
+    margin-bottom: 10px;
+
+    font-size: 8px;
+    font-weight: 900;
+
+    letter-spacing: 1.5px;
+}
+
+.fortune-advice-card.do span {
+    color: rgba(110, 231, 183, 0.75);
+}
+
+.fortune-advice-card.dont span {
+    color: rgba(252, 165, 165, 0.75);
+}
+
+.fortune-advice-card p {
+    margin: 0;
+
+    color: rgba(255, 255, 255, 0.48);
+
+    font-size: 10px;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   YARIN MESAJI
+========================================================= */
+
+.fortune-tomorrow {
+    margin-top: 32px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    color: rgba(216, 180, 254, 0.35);
+
+    font-size: 8px;
+    font-weight: 900;
+
+    letter-spacing: 1.2px;
+}
+
+.fortune-tomorrow > span {
+    color: rgba(255, 255, 255, 0.28);
+}
+
+.fortune-entertainment {
+    margin-top: 14px;
+
+    color: rgba(255, 255, 255, 0.14);
+
+    font-size: 7px;
+}
+
+
+/* =========================================================
+   MOBİL
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .fortune-experience {
+        min-height: 650px;
+
+        padding:
+            75px 18px
+            45px;
+    }
+
+    .fortune-experience > h2 {
+        font-size: 43px;
+
+        letter-spacing: -2px;
+    }
+
+    .fortune-orb {
+        width: 110px;
+        height: 110px;
+
+        font-size: 55px;
+    }
+
+    .fortune-result {
+        padding:
+            75px 17px
+            50px;
+    }
+
+    .fortune-result > h2 {
+        font-size: 34px;
+
+        letter-spacing: -1.5px;
+    }
+
+    .fortune-result-text {
+        font-size: 11px;
+    }
+
+    .fortune-lucky-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .fortune-lucky-card {
+        min-height: 95px;
+    }
+
+    .fortune-lucky-card strong {
+        font-size: 25px;
+    }
+
+    .fortune-advice {
+        grid-template-columns: 1fr;
+    }
+
+    .fortune-advice-card {
+        min-height: auto;
+    }
+
+    .fortune-result-top {
+        gap: 15px;
+    }
+}
+
+/* =========================================================
+   11 — MİNİ OYUNLAR
+========================================================= */
+
+.games-experience,
+.mini-game-screen,
+.mini-game-result {
+    width: min(920px, 100%);
+    margin: 0 auto;
+    padding: 75px 30px 60px;
+    color: #fff;
+}
+
+.games-experience {
+    text-align: center;
+}
+
+.games-kicker {
+    display: block;
+    margin-bottom: 15px;
+    color: #a78bfa;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 3px;
+}
+
+.games-experience > h2 {
+    margin: 0;
+    font-size: clamp(42px, 6vw, 68px);
+    line-height: .95;
+    letter-spacing: -3px;
+}
+
+.games-intro {
+    max-width: 520px;
+    margin: 20px auto 35px;
+    color: rgba(255,255,255,.38);
+    font-size: 11px;
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   OYUN KARTLARI
+========================================================= */
+
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 13px;
+    text-align: left;
+}
+
+.game-card {
+    position: relative;
+    min-height: 190px;
+    padding: 25px;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 17px;
+
+    background:
+        radial-gradient(
+            circle at 100% 0%,
+            rgba(124,58,237,.10),
+            transparent 45%
+        ),
+        rgba(255,255,255,.018);
+
+    color: #fff;
+    text-align: left;
+    cursor: pointer;
+
+    transition:
+        transform .25s ease,
+        border-color .25s ease,
+        background .25s ease,
+        box-shadow .25s ease;
+}
+
+.game-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(124,58,237,.08),
+            transparent 60%
+        );
+
+    transition: opacity .25s ease;
+    pointer-events: none;
+}
+
+.game-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(167,139,250,.25);
+    box-shadow: 0 18px 45px rgba(0,0,0,.22);
+}
+
+.game-card:hover::after {
+    opacity: 1;
+}
+
+.game-card-icon {
+    position: relative;
+    z-index: 1;
+
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(167,139,250,.13);
+    border-radius: 13px;
+
+    background: rgba(124,58,237,.07);
+
+    font-size: 24px;
+}
+
+.game-card-content {
+    position: relative;
+    z-index: 1;
+    margin-top: 20px;
+}
+
+.game-card-content strong {
+    display: block;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: .5px;
+}
+
+.game-card-content p {
+    margin: 8px 0 0;
+    color: rgba(255,255,255,.32);
+    font-size: 9px;
+    line-height: 1.6;
+}
+
+.game-card-bottom {
+    position: relative;
+    z-index: 1;
+
+    margin-top: auto;
+    padding-top: 22px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.game-card-bottom span {
+    color: rgba(255,255,255,.22);
+    font-size: 7px;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+.game-card-bottom b {
+    color: #a78bfa;
+    font-size: 8px;
+    letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   OYUN ÜST BAR
+========================================================= */
+
+.mini-game-top {
+    width: 100%;
+    margin-bottom: 30px;
+
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+}
+
+.mini-game-top > button {
+    justify-self: start;
+    padding: 9px 13px;
+
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 8px;
+
+    background: rgba(255,255,255,.02);
+    color: rgba(255,255,255,.45);
+
+    font-size: 8px;
+    font-weight: 900;
+    letter-spacing: 1px;
+
+    cursor: pointer;
+}
+
+.mini-game-top > button:hover {
+    color: #fff;
+    border-color: rgba(167,139,250,.3);
+}
+
+.mini-game-top > span {
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.mini-game-top > small {
+    justify-self: end;
+    color: rgba(255,255,255,.35);
+    font-size: 8px;
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   ORTAK BUTONLAR
+========================================================= */
+
+.mini-primary-button,
+.mini-secondary-button {
+    padding: 14px 22px;
+    border-radius: 10px;
+
+    font-size: 8px;
+    font-weight: 900;
+    letter-spacing: 1.3px;
+
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.mini-primary-button {
+    border: 1px solid rgba(167,139,250,.35);
+    background: linear-gradient(135deg, #6d28d9, #7c3aed);
+    color: #fff;
+
+    box-shadow: 0 10px 30px rgba(124,58,237,.15);
+}
+
+.mini-primary-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 35px rgba(124,58,237,.25);
+}
+
+.mini-secondary-button {
+    border: 1px solid rgba(255,255,255,.08);
+    background: rgba(255,255,255,.025);
+    color: rgba(255,255,255,.45);
+}
+
+.mini-secondary-button:hover {
+    color: #fff;
+    border-color: rgba(255,255,255,.18);
+}
+
+
+/* =========================================================
+   REFLEKS TESTİ
+========================================================= */
+
+.reaction-area {
+    min-height: 500px;
+    padding: 30px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(255,255,255,.06);
+    border-radius: 22px;
+
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+
+    transition:
+        background .15s ease,
+        border-color .15s ease;
+}
+
+.reaction-area.waiting {
+    background:
+        radial-gradient(circle, rgba(124,58,237,.07), transparent 55%),
+        rgba(255,255,255,.015);
+}
+
+.reaction-area.go {
+    background:
+        radial-gradient(circle, rgba(34,197,94,.20), transparent 60%),
+        rgba(34,197,94,.05);
+
+    border-color: rgba(34,197,94,.28);
+}
+
+.reaction-area.early {
+    background:
+        radial-gradient(circle, rgba(239,68,68,.16), transparent 60%),
+        rgba(239,68,68,.04);
+
+    border-color: rgba(239,68,68,.25);
+}
+
+.reaction-area.result {
+    background:
+        radial-gradient(circle, rgba(124,58,237,.14), transparent 60%);
+}
+
+.reaction-icon {
+    color: #8b5cf6;
+    font-size: 60px;
+    line-height: 1;
+}
+
+.reaction-area.go .reaction-icon {
+    color: #22c55e;
+}
+
+.reaction-area.early .reaction-icon {
+    color: #ef4444;
+}
+
+.reaction-icon.pulse {
+    animation: reactionPulse 1s ease-in-out infinite;
+}
+
+@keyframes reactionPulse {
+    50% {
+        opacity: .25;
+        transform: scale(.7);
+    }
+}
+
+.reaction-area h2 {
+    margin: 20px 0 0;
+    font-size: clamp(38px, 7vw, 75px);
+    letter-spacing: -3px;
+}
+
+.reaction-area p {
+    margin: 12px 0 25px;
+    color: rgba(255,255,255,.35);
+    font-size: 10px;
+}
+
+.reaction-result-number {
+    font-size: clamp(65px, 10vw, 110px);
+    font-weight: 900;
+    letter-spacing: -6px;
+}
+
+.reaction-result-number small {
+    margin-left: 5px;
+    color: #a78bfa;
+    font-size: 18px;
+    letter-spacing: 0;
+}
+
+.mini-new-record {
+    margin: 0 0 22px;
+    padding: 7px 11px;
+
+    border: 1px solid rgba(250,204,21,.2);
+    border-radius: 50px;
+
+    background: rgba(250,204,21,.05);
+    color: #fde047;
+
+    font-size: 7px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+}
+
+
+/* =========================================================
+   HAFIZA MATRİSİ
+========================================================= */
+
+.memory-info {
+    margin-bottom: 20px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    color: rgba(255,255,255,.35);
+    font-size: 9px;
+}
+
+.memory-info strong {
+    color: #a78bfa;
+    letter-spacing: 1px;
+}
+
+.memory-grid {
+    width: min(530px, 100%);
+    margin: 0 auto;
+
+    display: grid;
+    gap: 9px;
+}
+
+.memory-cell {
+    aspect-ratio: 1;
+
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 13px;
+
+    background: rgba(255,255,255,.025);
+
+    cursor: pointer;
+
+    transition:
+        transform .15s ease,
+        background .2s ease,
+        border-color .2s ease,
+        box-shadow .2s ease;
+}
+
+.memory-cell:hover {
+    transform: scale(.97);
+    border-color: rgba(167,139,250,.25);
+}
+
+.memory-cell.show {
+    background: #7c3aed;
+    border-color: #a78bfa;
+
+    box-shadow:
+        0 0 25px rgba(124,58,237,.45);
+}
+
+.memory-cell.selected,
+.memory-cell.correct {
+    background: rgba(34,197,94,.35);
+    border-color: rgba(34,197,94,.65);
+}
+
+.memory-cell.wrong {
+    background: rgba(239,68,68,.4);
+    border-color: rgba(239,68,68,.75);
+}
+
+
+/* =========================================================
+   SAYIYI HATIRLA
+========================================================= */
+
+.digit-display,
+.digit-answer-area {
+    min-height: 480px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(255,255,255,.06);
+    border-radius: 22px;
+
+    background:
+        radial-gradient(circle, rgba(124,58,237,.08), transparent 60%);
+}
+
+.digit-display > span,
+.digit-answer-area > span {
+    margin-bottom: 22px;
+    color: rgba(255,255,255,.3);
+
+    font-size: 8px;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.digit-display > strong {
+    max-width: 100%;
+
+    color: #fff;
+
+    font-size: clamp(45px, 9vw, 95px);
+    font-weight: 900;
+    letter-spacing: 8px;
+
+    overflow-wrap: anywhere;
+}
+
+.digit-timer-line {
+    width: min(380px, 70%);
+    height: 3px;
+
+    margin-top: 40px;
+    overflow: hidden;
+
+    border-radius: 20px;
+    background: rgba(255,255,255,.05);
+}
+
+.digit-timer-fill {
+    width: 100%;
+    height: 100%;
+
+    background: linear-gradient(90deg, #7c3aed, #c026d3);
+
+    transform-origin: left;
+
+    animation-name: digitTimer;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+}
+
+@keyframes digitTimer {
+    to {
+        transform: scaleX(0);
+    }
+}
+
+.digit-input {
+    width: min(480px, 90%);
+    padding: 17px 20px;
+
+    border: 1px solid rgba(167,139,250,.18);
+    border-radius: 12px;
+    outline: none;
+
+    background: rgba(255,255,255,.025);
+    color: #fff;
+
+    font-size: 25px;
+    font-weight: 800;
+    letter-spacing: 5px;
+    text-align: center;
+}
+
+.digit-input:focus {
+    border-color: rgba(167,139,250,.55);
+    box-shadow: 0 0 25px rgba(124,58,237,.1);
+}
+
+.digit-answer-area .mini-primary-button {
+    margin-top: 18px;
+}
+
+
+/* =========================================================
+   HEDEF AVI
+========================================================= */
+
+.target-stats {
+    margin-bottom: 14px;
+
+    display: flex;
+    justify-content: center;
+    gap: 35px;
+}
+
+.target-stats span {
+    color: rgba(255,255,255,.25);
+    font-size: 7px;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+.target-stats b {
+    display: block;
+    margin-top: 4px;
+
+    color: #fff;
+    font-size: 15px;
+}
+
+.target-arena {
+    position: relative;
+
+    width: 100%;
+    height: 520px;
+
+    overflow: hidden;
+
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 20px;
+
+    background:
+        linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px),
+        radial-gradient(circle, rgba(124,58,237,.06), transparent 60%);
+
+    background-size:
+        35px 35px,
+        35px 35px,
+        auto;
+
+    cursor: crosshair;
+}
+
+.target-arena.danger {
+    animation: targetDanger .8s ease-in-out infinite alternate;
+}
+
+@keyframes targetDanger {
+    to {
+        border-color: rgba(239,68,68,.4);
+        box-shadow: inset 0 0 45px rgba(239,68,68,.05);
+    }
+}
+
+.target-dot {
+    position: absolute;
+
+    width: 64px;
+    height: 64px;
+
+    padding: 0;
+
+    border: 2px solid #fff;
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            #fff 0 8%,
+            #ef4444 9% 28%,
+            #fff 29% 48%,
+            #ef4444 49% 70%,
+            transparent 71%
+        );
+
+    cursor: crosshair;
+
+    filter:
+        drop-shadow(
+            0 0 12px
+            rgba(239,68,68,.3)
+        );
+
+    transition:
+        width .1s ease,
+        height .1s ease;
+}
+
+.target-dot:active {
+    transform: scale(.85);
+}
+
+
+/* =========================================================
+   RENK KARMAŞASI
+========================================================= */
+
+.stroop-hud {
+    margin-bottom: 20px;
+
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+}
+
+.stroop-hud span {
+    color: rgba(255,255,255,.25);
+    font-size: 8px;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+.stroop-hud b {
+    display: block;
+    margin-top: 5px;
+
+    color: #fff;
+    font-size: 17px;
+}
+
+#stroopLives {
+    color: #ef4444;
+    letter-spacing: 3px;
+}
+
+.stroop-stage {
+    min-height: 480px;
+    padding: 35px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(255,255,255,.06);
+    border-radius: 22px;
+
+    background:
+        radial-gradient(circle, rgba(124,58,237,.06), transparent 60%);
+}
+
+.stroop-instruction {
+    color: rgba(255,255,255,.28);
+    font-size: 8px;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.stroop-word {
+    margin: 35px 0 45px;
+
+    font-size: clamp(50px, 9vw, 95px);
+    font-weight: 1000;
+    line-height: 1;
+
+    letter-spacing: -4px;
+}
+
+.stroop-options {
+    width: min(500px, 100%);
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 9px;
+}
+
+.stroop-options button {
+    padding: 15px;
+
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 10px;
+
+    background: rgba(255,255,255,.025);
+    color: rgba(255,255,255,.7);
+
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 1px;
+
+    cursor: pointer;
+
+    transition: .15s ease;
+}
+
+.stroop-options button:hover {
+    transform: translateY(-2px);
+
+    border-color: rgba(167,139,250,.35);
+    background: rgba(124,58,237,.08);
+
+    color: #fff;
+}
+
+
+/* =========================================================
+   MAYIN ALANI
+========================================================= */
+
+.mines-game {
+    max-width: 700px;
+}
+
+.mines-hud {
+    width: min(530px, 100%);
+    margin: 0 auto 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 11px 15px;
+
+    border: 1px solid rgba(255,255,255,.06);
+    border-radius: 12px;
+
+    background: rgba(255,255,255,.02);
+}
+
+.mines-hud span {
+    color: rgba(255,255,255,.45);
+    font-size: 11px;
+}
+
+.mines-hud b {
+    margin-left: 4px;
+    color: #fff;
+}
+
+.mines-hud button {
+    width: 38px;
+    height: 38px;
+
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 9px;
+
+    background: rgba(255,255,255,.025);
+
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.mines-grid {
+    width: min(530px, 100%);
+    margin: 0 auto;
+
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+
+    user-select: none;
+}
+
+.mine-cell {
+    aspect-ratio: 1;
+
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 7px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.055),
+            rgba(255,255,255,.018)
+        );
+
+    color: #fff;
+
+    font-size: clamp(11px, 2vw, 18px);
+    font-weight: 900;
+
+    cursor: pointer;
+
+    transition:
+        transform .1s ease,
+        background .15s ease;
+}
+
+.mine-cell:hover:not(.open) {
+    transform: scale(.94);
+    background: rgba(124,58,237,.12);
+}
+
+.mine-cell.open {
+    border-color: rgba(255,255,255,.035);
+    background: rgba(255,255,255,.015);
+    cursor: default;
+}
+
+.mine-cell.mine {
+    background: rgba(239,68,68,.16);
+    border-color: rgba(239,68,68,.25);
+}
+
+.mine-cell.flag {
+    background: rgba(250,204,21,.07);
+}
+
+.mine-cell[data-number="1"] {
+    color: #60a5fa;
+}
+
+.mine-cell[data-number="2"] {
+    color: #4ade80;
+}
+
+.mine-cell[data-number="3"] {
+    color: #f87171;
+}
+
+.mine-cell[data-number="4"] {
+    color: #a78bfa;
+}
+
+.mine-cell[data-number="5"] {
+    color: #fb7185;
+}
+
+.mine-cell[data-number="6"] {
+    color: #22d3ee;
+}
+
+.mine-cell[data-number="7"],
+.mine-cell[data-number="8"] {
+    color: #f8fafc;
+}
+
+.mines-help {
+    margin-top: 15px;
+
+    color: rgba(255,255,255,.2);
+    font-size: 8px;
+    text-align: center;
+}
+
+
+/* =========================================================
+   OYUN SONUÇ EKRANI
+========================================================= */
+
+.mini-game-result {
+    min-height: 650px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+}
+
+.mini-game-result.compact {
+    min-height: 500px;
+}
+
+.mini-result-icon {
+    width: 90px;
+    height: 90px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 25px;
+
+    border: 1px solid rgba(167,139,250,.15);
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(124,58,237,.13),
+            transparent 70%
+        );
+
+    font-size: 42px;
+}
+
+.mini-result-label {
+    color: #a78bfa;
+
+    font-size: 8px;
+    font-weight: 900;
+    letter-spacing: 2.5px;
+}
+
+.mini-game-result h2 {
+    margin: 12px 0 0;
+
+    font-size: clamp(50px, 9vw, 90px);
+    line-height: 1;
+
+    letter-spacing: -4px;
+}
+
+.mini-game-result > p {
+    margin: 15px 0 0;
+
+    color: rgba(255,255,255,.35);
+    font-size: 10px;
+}
+
+.mini-game-result > p strong {
+    color: #fff;
+}
+
+.mini-result-stats {
+    margin-top: 30px;
+
+    display: flex;
+    gap: 10px;
+}
+
+.mini-result-stats span {
+    min-width: 110px;
+    padding: 15px;
+
+    border: 1px solid rgba(255,255,255,.06);
+    border-radius: 11px;
+
+    background: rgba(255,255,255,.018);
+
+    color: rgba(255,255,255,.3);
+
+    font-size: 7px;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+.mini-result-stats b {
+    display: block;
+    margin-bottom: 5px;
+
+    color: #fff;
+    font-size: 18px;
+}
+
+.mini-result-actions {
+    margin-top: 30px;
+
+    display: flex;
+    gap: 9px;
+}
+
+
+/* =========================================================
+   MOBİL
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .games-experience,
+    .mini-game-screen,
+    .mini-game-result {
+        padding:
+            75px 16px
+            45px;
+    }
+
+    .games-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .game-card {
+        min-height: 175px;
+    }
+
+    .mini-game-top {
+        grid-template-columns:
+            auto 1fr auto;
+
+        gap: 10px;
+    }
+
+    .mini-game-top > span {
+        font-size: 7px;
+        letter-spacing: 1px;
+        text-align: center;
+    }
+
+    .mini-game-top > small {
+        font-size: 7px;
+    }
+
+    .reaction-area,
+    .digit-display,
+    .digit-answer-area,
+    .stroop-stage {
+        min-height: 420px;
+    }
+
+    .target-arena {
+        height: 470px;
+    }
+
+    .target-stats {
+        gap: 20px;
+    }
+
+    .stroop-options {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .stroop-word {
+        letter-spacing: -2px;
+    }
+
+    .memory-grid {
+        gap: 6px;
+    }
+
+    .mine-cell {
+        border-radius: 5px;
+    }
+
+    .mini-result-stats {
+        width: 100%;
+        gap: 6px;
+    }
+
+    .mini-result-stats span {
+        min-width: 0;
+        flex: 1;
+        padding: 12px 5px;
+    }
+
+    .mini-result-actions {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .mini-result-actions button {
+        width: 100%;
+    }
+}
+
+
+/* =========================================================
+   12 — İNSAN BEYNİ ÇOK GARİP
+========================================================= */
+
+.brainlab,
+.brainlab-experiment {
+    position: relative;
+    width: min(920px, 100%);
+    margin: 0 auto;
+    padding: 80px 30px 65px;
+    color: #fff;
+}
+
+.brainlab {
+    text-align: center;
+}
+
+
+/* =========================================================
+   ANA BAŞLIK
+========================================================= */
+
+.brainlab-header {
+    position: relative;
+    max-width: 720px;
+    margin: 0 auto 42px;
+}
+
+.brainlab-header::before {
+    content: "";
+    position: absolute;
+
+    width: 480px;
+    height: 280px;
+
+    left: 50%;
+    top: 45%;
+
+    transform: translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(59, 130, 246, .10),
+            rgba(124, 58, 237, .06) 40%,
+            transparent 70%
+        );
+
+    filter: blur(30px);
+    pointer-events: none;
+}
+
+.brainlab-kicker {
+    position: relative;
+    display: block;
+
+    margin-bottom: 17px;
+
+    color: #818cf8;
+
+    font-size: 9px;
+    font-weight: 900;
+
+    letter-spacing: 3px;
+}
+
+.brainlab-header h2 {
+    position: relative;
+
+    margin: 0;
+
+    color: #fff;
+
+    font-size: clamp(43px, 6vw, 70px);
+    font-weight: 900;
+
+    line-height: .97;
+    letter-spacing: -3.5px;
+}
+
+.brainlab-header p {
+    position: relative;
+
+    max-width: 560px;
+    margin: 22px auto 0;
+
+    color: rgba(255, 255, 255, .38);
+
+    font-size: 11px;
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   DENEY KARTLARI
+========================================================= */
+
+.brainlab-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 13px;
+
+    text-align: left;
+}
+
+.brainlab-card {
+    position: relative;
+
+    min-height: 210px;
+    padding: 24px;
+
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+    border: 1px solid rgba(255, 255, 255, .07);
+    border-radius: 17px;
+
+    background:
+        radial-gradient(
+            circle at 100% 0%,
+            rgba(59, 130, 246, .09),
+            transparent 45%
+        ),
+        rgba(255, 255, 255, .018);
+
+    color: #fff;
+
+    text-align: left;
+    cursor: pointer;
+
+    transition:
+        transform .25s ease,
+        border-color .25s ease,
+        box-shadow .25s ease,
+        background .25s ease;
+}
+
+.brainlab-card:not(.locked):hover {
+    transform: translateY(-5px);
+
+    border-color: rgba(129, 140, 248, .30);
+
+    box-shadow:
+        0 18px 45px rgba(0, 0, 0, .22),
+        0 0 35px rgba(59, 130, 246, .05);
+}
+
+.brainlab-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brainlab-card-icon {
+    width: 50px;
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(129, 140, 248, .13);
+    border-radius: 13px;
+
+    background:
+        rgba(79, 70, 229, .07);
+
+    font-size: 24px;
+}
+
+.brainlab-duration {
+    padding: 6px 9px;
+
+    border: 1px solid rgba(255, 255, 255, .05);
+    border-radius: 50px;
+
+    color: rgba(255, 255, 255, .24);
+
+    font-size: 7px;
+    font-weight: 900;
+
+    letter-spacing: 1px;
+}
+
+.brainlab-card-content {
+    margin-top: 22px;
+}
+
+.brainlab-card-content h3 {
+    margin: 0;
+
+    color: #fff;
+
+    font-size: 14px;
+    font-weight: 900;
+
+    letter-spacing: .3px;
+}
+
+.brainlab-card-content p {
+    margin: 9px 0 0;
+
+    color: rgba(255, 255, 255, .32);
+
+    font-size: 9px;
+    line-height: 1.7;
+}
+
+.brainlab-card-action {
+    margin-top: auto;
+    padding-top: 24px;
+
+    color: #818cf8;
+
+    font-size: 8px;
+    font-weight: 900;
+
+    letter-spacing: 1.2px;
+}
+
+
+/* =========================================================
+   KİLİTLİ / YAKINDA
+========================================================= */
+
+.brainlab-card.locked {
+    opacity: .38;
+    cursor: default;
+}
+
+.brainlab-card.locked .brainlab-card-action {
+    color: rgba(255, 255, 255, .25);
+}
+
+.brainlab-disclaimer {
+    margin: 27px auto 0;
+
+    color: rgba(255, 255, 255, .15);
+
+    font-size: 7px;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   DENEY ÜST BAR
+========================================================= */
+
+.brainlab-experiment-top {
+    width: 100%;
+    margin-bottom: 40px;
+
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+}
+
+.brainlab-experiment-top button {
+    justify-self: start;
+
+    padding: 9px 13px;
+
+    border: 1px solid rgba(255, 255, 255, .07);
+    border-radius: 8px;
+
+    background:
+        rgba(255, 255, 255, .02);
+
+    color:
+        rgba(255, 255, 255, .4);
+
+    font-size: 8px;
+    font-weight: 900;
+
+    letter-spacing: 1px;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+.brainlab-experiment-top button:hover {
+    color: #fff;
+
+    border-color:
+        rgba(129, 140, 248, .3);
+
+    background:
+        rgba(79, 70, 229, .06);
+}
+
+.brainlab-experiment-top > span {
+    grid-column: 2;
+
+    color:
+        rgba(255, 255, 255, .35);
+
+    font-size: 8px;
+    font-weight: 900;
+
+    letter-spacing: 1.8px;
+}
+
+
+/* =========================================================
+   ORTAK DENEY ELEMANLARI
+========================================================= */
+
+.brainlab-big-icon,
+.brainlab-reveal-icon {
+    width: 100px;
+    height: 100px;
+
+    margin: 0 auto 25px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(129, 140, 248, .13);
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(79, 70, 229, .12),
+            transparent 70%
+        );
+
+    font-size: 45px;
+
+    box-shadow:
+        0 0 50px rgba(79, 70, 229, .07);
+}
+
+.brainlab-step {
+    display: block;
+
+    color: #818cf8;
+
+    font-size: 8px;
+    font-weight: 900;
+
+    letter-spacing: 2.2px;
+}
+
+.brainlab-primary,
+.brainlab-secondary {
+    padding: 14px 21px;
+
+    border-radius: 10px;
+
+    font-size: 8px;
+    font-weight: 900;
+
+    letter-spacing: 1.2px;
+
+    cursor: pointer;
+
+    transition:
+        transform .2s ease,
+        border-color .2s ease,
+        background .2s ease,
+        box-shadow .2s ease;
+}
+
+.brainlab-primary {
+    border:
+        1px solid rgba(129, 140, 248, .4);
+
+    background:
+        linear-gradient(
+            135deg,
+            #4338ca,
+            #6366f1
+        );
+
+    color: #fff;
+
+    box-shadow:
+        0 12px 35px
+        rgba(79, 70, 229, .16);
+}
+
+.brainlab-primary:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 15px 40px
+        rgba(79, 70, 229, .25);
+}
+
+.brainlab-secondary {
+    border:
+        1px solid rgba(255, 255, 255, .08);
+
+    background:
+        rgba(255, 255, 255, .025);
+
+    color:
+        rgba(255, 255, 255, .45);
+}
+
+.brainlab-secondary:hover {
+    color: #fff;
+
+    border-color:
+        rgba(255, 255, 255, .18);
+}
+
+
+/* =========================================================
+   KÖR NOKTA — GİRİŞ
+========================================================= */
+
+.blindspot-intro {
+    max-width: 700px;
+    margin: 20px auto 0;
+
+    text-align: center;
+}
+
+.blindspot-intro h2 {
+    margin: 14px 0 0;
+
+    color: #fff;
+
+    font-size:
+        clamp(38px, 6vw, 62px);
+
+    line-height: 1;
+    letter-spacing: -3px;
+}
+
+.blindspot-intro > p {
+    max-width: 480px;
+
+    margin: 17px auto 0;
+
+    color:
+        rgba(255, 255, 255, .37);
+
+    font-size: 11px;
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   KÖR NOKTA TALİMATLARI
+========================================================= */
+
+.blindspot-instructions {
+    margin: 35px auto 30px;
+
+    display: grid;
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 9px;
+
+    text-align: left;
+}
+
+.blindspot-instructions > div {
+    min-height: 90px;
+
+    padding: 17px;
+
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    border:
+        1px solid rgba(255, 255, 255, .06);
+
+    border-radius: 12px;
+
+    background:
+        rgba(255, 255, 255, .018);
+}
+
+.blindspot-instructions b {
+    flex: 0 0 auto;
+
+    color: #6366f1;
+
+    font-size: 19px;
+    font-weight: 900;
+}
+
+.blindspot-instructions span {
+    color:
+        rgba(255, 255, 255, .42);
+
+    font-size: 9px;
+    line-height: 1.6;
+}
+
+.blindspot-instructions strong {
+    color: #fff;
+}
+
+
+/* =========================================================
+   KÖR NOKTA TESTİ
+========================================================= */
+
+.blindspot-test {
+    text-align: center;
+}
+
+.blindspot-test h2 {
+    margin: 14px 0 0;
+
+    font-size:
+        clamp(35px, 5vw, 55px);
+
+    letter-spacing: -2.5px;
+}
+
+.blindspot-test > p {
+    margin: 12px 0 0;
+
+    color:
+        rgba(255, 255, 255, .32);
+
+    font-size: 10px;
+}
+
+.blindspot-field {
+    width: min(720px, 100%);
+    min-height: 260px;
+
+    margin: 35px auto 20px;
+    padding: 30px 80px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border:
+        1px solid rgba(255, 255, 255, .07);
+
+    border-radius: 20px;
+
+    background:
+        radial-gradient(
+            circle at 50% 50%,
+            rgba(59, 130, 246, .045),
+            transparent 60%
+        ),
+        rgba(255, 255, 255, .015);
+
+    user-select: none;
+}
+
+.blindspot-focus {
+    color: #fff;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 65px;
+    font-weight: 300;
+
+    line-height: 1;
+}
+
+.blindspot-target {
+    color: #818cf8;
+
+    font-size: 40px;
+
+    filter:
+        drop-shadow(
+            0 0 13px
+            rgba(99, 102, 241, .4)
+        );
+}
+
+.blindspot-tip {
+    max-width: 520px;
+
+    margin: 0 auto !important;
+
+    color:
+        rgba(255, 255, 255, .25)
+        !important;
+
+    font-size: 8px !important;
+    line-height: 1.7;
+}
+
+.blindspot-question {
+    margin-top: 30px;
+}
+
+.blindspot-question > span {
+    display: block;
+
+    margin-bottom: 14px;
+
+    color:
+        rgba(255, 255, 255, .48);
+
+    font-size: 9px;
+    font-weight: 800;
+}
+
+.blindspot-question > div {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+
+/* =========================================================
+   SONUÇ / AÇIKLAMA
+========================================================= */
+
+.brainlab-reveal {
+    max-width: 700px;
+
+    margin: 30px auto;
+
+    text-align: center;
+
+    animation:
+        brainlabReveal .55s ease both;
+}
+
+@keyframes brainlabReveal {
+
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.brainlab-reveal h2 {
+    margin: 15px 0 0;
+
+    font-size:
+        clamp(37px, 6vw, 60px);
+
+    line-height: 1;
+
+    letter-spacing: -3px;
+}
+
+.brainlab-reveal > p {
+    max-width: 570px;
+
+    margin: 20px auto 0;
+
+    color:
+        rgba(255, 255, 255, .4);
+
+    font-size: 10px;
+    line-height: 1.9;
+}
+
+.brainlab-wow {
+    margin: 35px auto 0;
+    padding: 25px;
+
+    border:
+        1px solid rgba(129, 140, 248, .12);
+
+    border-radius: 15px;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(79, 70, 229, .08),
+            transparent 65%
+        ),
+        rgba(255, 255, 255, .015);
+
+    text-align: left;
+}
+
+.brainlab-wow > span {
+    display: block;
+
+    margin-bottom: 9px;
+
+    color: #818cf8;
+
+    font-size: 7px;
+    font-weight: 900;
+
+    letter-spacing: 1.8px;
+}
+
+.brainlab-wow strong {
+    display: block;
+
+    color: #fff;
+
+    font-size: 16px;
+    font-weight: 900;
+}
+
+.brainlab-wow p {
+    margin: 12px 0 0;
+
+    color:
+        rgba(255, 255, 255, .38);
+
+    font-size: 9px;
+    line-height: 1.8;
+}
+
+.brainlab-result-actions {
+    margin-top: 28px;
+
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+
+/* =========================================================
+   EBBINGHAUS — BOYUT YANILSAMASI
+========================================================= */
+
+.ebbinghaus-test {
+    text-align: center;
+}
+
+.ebbinghaus-test h2 {
+    margin: 14px 0 0;
+
+    font-size:
+        clamp(37px, 6vw, 58px);
+
+    line-height: 1;
+
+    letter-spacing: -3px;
+}
+
+.ebbinghaus-test > p {
+    margin: 13px 0 0;
+
+    color:
+        rgba(255, 255, 255, .32);
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   İKİ YANILSAMA
+========================================================= */
+
+.ebbinghaus-stage {
+    width: min(750px, 100%);
+
+    margin: 45px auto 25px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.ebbinghaus-choice {
+    min-height: 310px;
+    padding: 25px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    border:
+        1px solid rgba(255, 255, 255, .06);
+
+    border-radius: 18px;
+
+    background:
+        rgba(255, 255, 255, .015);
+
+    color: #fff;
+
+    cursor: pointer;
+
+    transition:
+        transform .2s ease,
+        border-color .2s ease,
+        background .2s ease;
+}
+
+.ebbinghaus-choice:hover {
+    transform: translateY(-4px);
+
+    border-color:
+        rgba(129, 140, 248, .28);
+
+    background:
+        rgba(79, 70, 229, .035);
+}
+
+.ebbinghaus-choice > span {
+    margin-top: 28px;
+
+    color:
+        rgba(255, 255, 255, .28);
+
+    font-size: 8px;
+    font-weight: 900;
+
+    letter-spacing: 2px;
+}
+
+
+/* =========================================================
+   EBBINGHAUS ŞEKLİ
+========================================================= */
+
+.ebbinghaus-illusion {
+    position: relative;
+
+    width: 190px;
+    height: 190px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ebb-center {
+    position: absolute;
+    z-index: 5;
+
+    width: 48px;
+    height: 48px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            #fdba74,
+            #f97316
+        );
+
+    box-shadow:
+        0 0 18px
+        rgba(249, 115, 22, .18);
+}
+
+
+/* =========================================================
+   ÇEVRE DAİRELERİ
+========================================================= */
+
+.ebbinghaus-illusion i {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    border-radius: 50%;
+
+    background:
+        rgba(129, 140, 248, .25);
+
+    border:
+        1px solid rgba(129, 140, 248, .28);
+}
+
+
+/* SOL — BÜYÜK ÇEVRE DAİRELERİ */
+
+.ebbinghaus-illusion.large-around i {
+    width: 64px;
+    height: 64px;
+
+    transform:
+        translate(-50%, -50%)
+        rotate(var(--a))
+        translateY(-72px);
+}
+
+
+/* SAĞ — KÜÇÜK ÇEVRE DAİRELERİ */
+
+.ebbinghaus-illusion.small-around i {
+    width: 25px;
+    height: 25px;
+
+    transform:
+        translate(-50%, -50%)
+        rotate(var(--a))
+        translateY(-47px);
+
+    background:
+        rgba(129, 140, 248, .38);
+}
+
+
+/* =========================================================
+   İKİSİ DE AYNI BUTONU
+========================================================= */
+
+.ebbinghaus-same {
+    padding: 11px 18px;
+
+    border:
+        1px solid rgba(255, 255, 255, .07);
+
+    border-radius: 9px;
+
+    background:
+        rgba(255, 255, 255, .02);
+
+    color:
+        rgba(255, 255, 255, .35);
+
+    font-size: 8px;
+    font-weight: 900;
+
+    letter-spacing: 1px;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+.ebbinghaus-same:hover {
+    color: #fff;
+
+    border-color:
+        rgba(129, 140, 248, .3);
+}
+
+
+/* =========================================================
+   EBBINGHAUS KANIT
+========================================================= */
+
+.ebbinghaus-proof {
+    position: relative;
+
+    width: 150px;
+    height: 90px;
+
+    margin: 35px auto 10px;
+}
+
+.proof-circle {
+    position: absolute;
+
+    width: 58px;
+    height: 58px;
+
+    top: 15px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(249, 115, 22, .55);
+
+    border:
+        2px solid #fb923c;
+
+    transition:
+        transform 1s ease;
+}
+
+.proof-circle.one {
+    left: 15px;
+
+    animation:
+        proofCircleLeft
+        2.3s ease-in-out infinite;
+}
+
+.proof-circle.two {
+    right: 15px;
+
+    animation:
+        proofCircleRight
+        2.3s ease-in-out infinite;
+}
+
+@keyframes proofCircleLeft {
+
+    0%,
+    20% {
+        transform: translateX(0);
+    }
+
+    55%,
+    75% {
+        transform: translateX(30px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes proofCircleRight {
+
+    0%,
+    20% {
+        transform: translateX(0);
+    }
+
+    55%,
+    75% {
+        transform: translateX(-30px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+
+/* =========================================================
+   MOBİL
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .brainlab,
+    .brainlab-experiment {
+        padding:
+            75px 16px
+            50px;
+    }
+
+    .brainlab-header h2 {
+        font-size: 43px;
+        letter-spacing: -2px;
+    }
+
+    .brainlab-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .brainlab-card {
+        min-height: 190px;
+    }
+
+    .brainlab-experiment-top {
+        grid-template-columns:
+            auto 1fr;
+
+        gap: 10px;
+    }
+
+    .brainlab-experiment-top > span {
+        grid-column: auto;
+
+        text-align: right;
+
+        font-size: 7px;
+        letter-spacing: 1px;
+    }
+
+    .blindspot-instructions {
+        grid-template-columns: 1fr;
+    }
+
+    .blindspot-field {
+        min-height: 220px;
+
+        padding:
+            25px 35px;
+    }
+
+    .blindspot-focus {
+        font-size: 55px;
+    }
+
+    .blindspot-target {
+        font-size: 32px;
+    }
+
+    .blindspot-question > div {
+        flex-direction: column;
+    }
+
+    .blindspot-question button {
+        width: 100%;
+    }
+
+    .ebbinghaus-stage {
+        grid-template-columns: 1fr;
+    }
+
+    .ebbinghaus-choice {
+        min-height: 260px;
+    }
+
+    .brainlab-result-actions {
+        flex-direction: column;
+    }
+
+    .brainlab-result-actions button {
+        width: 100%;
+    }
+
+}
+
+
+/* =========================================================
+   HAREKET AZALTMA TERCİHİ
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .brainlab *,
+    .brainlab-experiment * {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+}
+
+/* =========================================
+   13 — DOĞUM HARİTAN
+========================================= */
+
+.birthchart-experience {
+    width: 100%;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 70px 24px 80px;
+    text-align: center;
+    position: relative;
+}
+
+.birthchart-kicker {
+    display: block;
+    margin-bottom: 22px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    color: #9d86ff;
+}
+
+.birthchart-symbol {
+    width: 88px;
+    height: 88px;
+    margin: 0 auto 25px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(151, 120, 255, .28);
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(111, 74, 255, .22),
+            rgba(12, 10, 25, .7)
+        );
+
+    box-shadow:
+        0 0 50px rgba(110, 70, 255, .15);
+
+    font-size: 38px;
+
+    animation:
+        birthChartFloat 4s ease-in-out infinite;
+}
+
+.birthchart-experience h2 {
+    margin: 0;
+
+    font-size: clamp(36px, 6vw, 64px);
+    line-height: .98;
+
+    letter-spacing: -2px;
+}
+
+.birthchart-description {
+    max-width: 540px;
+
+    margin:
+        25px auto 38px;
+
+    color: rgba(255,255,255,.55);
+
+    line-height: 1.7;
+}
+
+.birthchart-form {
+    max-width: 540px;
+
+    margin: auto;
+
+    padding: 28px;
+
+    text-align: left;
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    border-radius: 24px;
+
+    background:
+        rgba(12,12,19,.72);
+
+    box-shadow:
+        0 30px 90px rgba(0,0,0,.35);
+}
+
+.birthchart-field {
+    margin-bottom: 22px;
+}
+
+.birthchart-field label {
+    display: block;
+
+    margin-bottom: 9px;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    color:
+        rgba(255,255,255,.45);
+}
+
+.birthchart-field input,
+.birthchart-field select {
+    width: 100%;
+
+    padding:
+        15px 16px;
+
+    border:
+        1px solid rgba(255,255,255,.1);
+
+    border-radius: 12px;
+
+    outline: none;
+
+    background:
+        rgba(255,255,255,.035);
+
+    color: white;
+
+    font: inherit;
+
+    transition:
+        border-color .2s ease,
+        background .2s ease,
+        box-shadow .2s ease;
+}
+
+.birthchart-field select option {
+    background: #101018;
+    color: white;
+}
+
+.birthchart-field input:focus,
+.birthchart-field select:focus {
+    border-color:
+        rgba(146,112,255,.7);
+
+    background:
+        rgba(133,95,255,.06);
+
+    box-shadow:
+        0 0 0 4px
+        rgba(126,89,255,.07);
+}
+
+.birthchart-help {
+    display: block;
+
+    margin-top: 8px;
+
+    color:
+        rgba(255,255,255,.3);
+
+    font-size: 11px;
+
+    line-height: 1.5;
+}
+
+.birthchart-submit {
+    width: 100%;
+
+    margin-top: 7px;
+
+    padding: 17px;
+
+    border: 0;
+
+    border-radius: 13px;
+
+    cursor: pointer;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6d4aff,
+            #a45cff
+        );
+
+    color: white;
+
+    font-size: 12px;
+    font-weight: 900;
+
+    letter-spacing: 1.5px;
+
+    box-shadow:
+        0 14px 40px
+        rgba(111,73,255,.25);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+.birthchart-submit:hover {
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 18px 50px
+        rgba(111,73,255,.38);
+}
+
+.birthchart-error {
+    margin-top: 18px;
+
+    padding: 13px 15px;
+
+    border:
+        1px solid rgba(255,79,105,.25);
+
+    border-radius: 10px;
+
+    background:
+        rgba(255,50,80,.07);
+
+    color: #ff8295;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+}
+
+.birthchart-disclaimer {
+    max-width: 520px;
+
+    margin:
+        24px auto 0;
+
+    color:
+        rgba(255,255,255,.22);
+
+    font-size: 10px;
+
+    line-height: 1.6;
+}
+
+
+/* LOADING */
+
+.birthchart-loading,
+.birthchart-engine-notice {
+    min-height: 70vh;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 50px 24px;
+}
+
+.birthchart-loading h2,
+.birthchart-engine-notice h2 {
+    font-size:
+        clamp(35px, 6vw, 62px);
+
+    line-height: 1;
+
+    margin:
+        0 0 24px;
+}
+
+.birthchart-loading-orbit {
+    width: 120px;
+    height: 120px;
+
+    margin-bottom: 35px;
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border:
+        1px solid rgba(145,112,255,.25);
+
+    border-radius: 50%;
+
+    font-size: 30px;
+
+    animation:
+        birthChartRotate
+        7s linear infinite;
+}
+
+.birthchart-loading-planet {
+    position: absolute;
+
+    top: -13px;
+    left: 47px;
+
+    width: 26px;
+    height: 26px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #11101b;
+
+    font-size: 17px;
+}
+
+.birthchart-loading-data {
+    width: 100%;
+    max-width: 500px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap: 10px;
+
+    margin:
+        20px 0 25px;
+}
+
+.birthchart-loading-data div {
+    padding: 15px 10px;
+
+    border:
+        1px solid rgba(255,255,255,.07);
+
+    border-radius: 12px;
+
+    background:
+        rgba(255,255,255,.025);
+}
+
+.birthchart-loading-data span {
+    display: block;
+
+    margin-bottom: 7px;
+
+    font-size: 9px;
+
+    letter-spacing: 1.5px;
+
+    color:
+        rgba(255,255,255,.3);
+}
+
+.birthchart-loading-data strong {
+    font-size: 12px;
+}
+
+
+/* ENGINE NOTICE */
+
+.birthchart-engine-icon {
+    margin-bottom: 25px;
+
+    font-size: 55px;
+
+    color: #a88aff;
+
+    text-shadow:
+        0 0 35px
+        rgba(145,110,255,.6);
+}
+
+.birthchart-engine-notice > p {
+    max-width: 550px;
+
+    color:
+        rgba(255,255,255,.55);
+
+    line-height: 1.7;
+}
+
+.birthchart-engine-warning {
+    max-width: 520px;
+
+    margin: 25px 0;
+
+    padding: 18px;
+
+    display: flex;
+
+    gap: 14px;
+
+    text-align: left;
+
+    border:
+        1px solid rgba(161,126,255,.18);
+
+    border-radius: 14px;
+
+    background:
+        rgba(135,94,255,.06);
+}
+
+.birthchart-engine-warning > span {
+    flex: 0 0 28px;
+
+    width: 28px;
+    height: 28px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        rgba(143,105,255,.14);
+
+    color: #bca8ff;
+
+    font-weight: 900;
+}
+
+.birthchart-engine-warning p {
+    margin: 0;
+
+    color:
+        rgba(255,255,255,.55);
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+.birthchart-secondary-button {
+    padding:
+        13px 19px;
+
+    border:
+        1px solid rgba(255,255,255,.1);
+
+    border-radius: 10px;
+
+    background:
+        transparent;
+
+    color:
+        rgba(255,255,255,.6);
+
+    cursor: pointer;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+
+@keyframes birthChartFloat {
+
+    0%,
+    100% {
+        transform:
+            translateY(0);
+    }
+
+    50% {
+        transform:
+            translateY(-8px);
+    }
+}
+
+
+@keyframes birthChartRotate {
+
+    from {
+        transform:
+            rotate(0deg);
+    }
+
+    to {
+        transform:
+            rotate(360deg);
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .birthchart-experience {
+        padding:
+            55px 16px 70px;
+    }
+
+    .birthchart-form {
+        padding: 20px;
+    }
+
+    .birthchart-loading-data {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* =========================================
+   13 — DOĞUM HARİTASI / SONUÇ EKRANI
+========================================= */
+
+.birthchart-result {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 70px 24px 100px;
+}
+
+.birthchart-result-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.birthchart-result-header h2 {
+    margin: 0 0 18px;
+    font-size: clamp(40px, 7vw, 72px);
+    line-height: .95;
+    letter-spacing: -3px;
+}
+
+.birthchart-result-header p {
+    max-width: 600px;
+    margin: 0 auto;
+    color: rgba(255,255,255,.42);
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   HARİTA ÇARKI
+========================================= */
+
+.birth-wheel-wrap {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 45px 0 55px;
+}
+
+.birth-wheel {
+    position: relative;
+
+    width: 340px;
+    height: 340px;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(167,132,255,.35);
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(120,75,255,.13) 0%,
+            rgba(20,15,38,.92) 47%,
+            rgba(8,8,14,1) 73%
+        );
+
+    box-shadow:
+        0 0 0 12px rgba(139,96,255,.025),
+        0 0 80px rgba(119,73,255,.15),
+        inset 0 0 70px rgba(118,74,255,.08);
+}
+
+.birth-wheel::before {
+    content: "";
+
+    position: absolute;
+    inset: 31px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid rgba(255,255,255,.08);
+}
+
+.birth-wheel::after {
+    content: "";
+
+    position: absolute;
+    inset: 70px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid rgba(255,255,255,.055);
+}
+
+.birth-wheel-ring {
+    position: absolute;
+
+    inset: 14px;
+
+    border-radius: 50%;
+
+    border:
+        1px dashed rgba(173,144,255,.14);
+
+    animation:
+        birthWheelSlowSpin 90s linear infinite;
+}
+
+.birth-wheel-zodiac,
+.birth-wheel-planet {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 32px;
+    height: 32px;
+
+    margin:
+        -16px 0 0 -16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transform-origin:
+        16px 16px;
+
+    z-index: 4;
+}
+
+.birth-wheel-zodiac {
+    color: rgba(255,255,255,.72);
+    font-size: 19px;
+}
+
+.birth-wheel-planet {
+    width: 28px;
+    height: 28px;
+
+    margin:
+        -14px 0 0 -14px;
+
+    border:
+        1px solid rgba(169,136,255,.2);
+
+    border-radius: 50%;
+
+    background: #11101a;
+
+    color: #c5b3ff;
+
+    font-size: 14px;
+
+    box-shadow:
+        0 0 15px rgba(127,82,255,.15);
+
+    z-index: 7;
+}
+
+.birth-wheel-center {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 115px;
+    height: 115px;
+
+    transform:
+        translate(-50%,-50%);
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    border:
+        1px solid rgba(162,127,255,.2);
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(126,83,255,.14),
+            rgba(10,10,17,.96)
+        );
+
+    z-index: 10;
+
+    box-shadow:
+        0 0 40px rgba(119,75,255,.12);
+}
+
+.birth-wheel-center > span {
+    color: #ad91ff;
+    font-size: 22px;
+    margin-bottom: 4px;
+}
+
+.birth-wheel-center small {
+    color: rgba(255,255,255,.3);
+    font-size: 7px;
+    letter-spacing: 1.5px;
+}
+
+.birth-wheel-center strong {
+    margin-top: 5px;
+    font-size: 13px;
+}
+
+
+/* =========================================
+   GÜNEŞ / AY / YÜKSELEN
+========================================= */
+
+.birthchart-big-three {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 13px;
+
+    margin-bottom: 50px;
+}
+
+.birthchart-big-card {
+    min-height: 180px;
+
+    padding: 25px 18px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    border:
+        1px solid rgba(255,255,255,.075);
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.035),
+            rgba(124,78,255,.025)
+        );
+
+    transition:
+        transform .2s ease,
+        border-color .2s ease,
+        background .2s ease;
+}
+
+.birthchart-big-card:hover {
+    transform:
+        translateY(-3px);
+
+    border-color:
+        rgba(153,116,255,.3);
+
+    background:
+        rgba(129,84,255,.055);
+}
+
+.birthchart-big-icon {
+    margin-bottom: 13px;
+
+    color: #bba7ff;
+
+    font-size: 28px;
+}
+
+.birthchart-big-card small {
+    margin-bottom: 8px;
+
+    color:
+        rgba(255,255,255,.3);
+
+    font-size: 8px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+}
+
+.birthchart-big-card strong {
+    font-size: 19px;
+}
+
+.birthchart-big-card > span:last-child {
+    margin-top: 6px;
+
+    color:
+        rgba(255,255,255,.4);
+
+    font-size: 11px;
+}
+
+
+/* =========================================
+   BÖLÜMLER
+========================================= */
+
+.birthchart-section {
+    margin-top: 45px;
+}
+
+.birthchart-section-label {
+    display: block;
+
+    margin-bottom: 13px;
+
+    color:
+        rgba(255,255,255,.3);
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    letter-spacing: 2.5px;
+}
+
+.birthchart-planets,
+.birthchart-houses {
+    overflow: hidden;
+
+    border:
+        1px solid rgba(255,255,255,.07);
+
+    border-radius: 18px;
+
+    background:
+        rgba(255,255,255,.018);
+}
+
+
+/* =========================================
+   GEZEGEN SATIRLARI
+========================================= */
+
+.birthchart-planet-row {
+    min-height: 65px;
+
+    padding:
+        12px 20px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    border-bottom:
+        1px solid rgba(255,255,255,.045);
+}
+
+.birthchart-planet-row:last-child {
+    border-bottom: 0;
+}
+
+.birthchart-planet-name {
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+}
+
+.birthchart-planet-name > span {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        rgba(137,94,255,.08);
+
+    color: #bca9ff;
+
+    font-size: 17px;
+}
+
+.birthchart-planet-name strong {
+    font-size: 11px;
+
+    letter-spacing: .8px;
+}
+
+.birthchart-planet-position {
+    text-align: right;
+}
+
+.birthchart-planet-position strong {
+    display: block;
+
+    margin-bottom: 3px;
+
+    font-size: 12px;
+}
+
+.birthchart-planet-position span {
+    color:
+        rgba(255,255,255,.34);
+
+    font-size: 10px;
+}
+
+
+/* =========================================
+   EVLER
+========================================= */
+
+.birthchart-houses {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+}
+
+.birthchart-house-row {
+    min-height: 62px;
+
+    padding:
+        13px 18px;
+
+    display: grid;
+
+    grid-template-columns:
+        55px 1fr auto;
+
+    align-items: center;
+
+    gap: 12px;
+
+    border-bottom:
+        1px solid rgba(255,255,255,.045);
+}
+
+.birthchart-house-row:nth-child(odd) {
+    border-right:
+        1px solid rgba(255,255,255,.045);
+}
+
+.birthchart-house-row > span {
+    color:
+        rgba(255,255,255,.3);
+
+    font-size: 9px;
+
+    font-weight: 800;
+}
+
+.birthchart-house-row strong {
+    font-size: 11px;
+}
+
+.birthchart-house-row small {
+    color:
+        rgba(255,255,255,.3);
+
+    font-size: 9px;
+}
+
+
+/* =========================================
+   ASC / MC
+========================================= */
+
+.birthchart-angle-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 12px;
+
+    margin-top: 35px;
+}
+
+.birthchart-angle-grid > div {
+    padding: 23px;
+
+    display: flex;
+    flex-direction: column;
+
+    border:
+        1px solid rgba(151,115,255,.12);
+
+    border-radius: 16px;
+
+    background:
+        rgba(129,83,255,.035);
+}
+
+.birthchart-angle-grid span {
+    margin-bottom: 9px;
+
+    color:
+        rgba(255,255,255,.27);
+
+    font-size: 8px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+}
+
+.birthchart-angle-grid strong {
+    font-size: 16px;
+}
+
+.birthchart-angle-grid small {
+    margin-top: 5px;
+
+    color:
+        rgba(255,255,255,.35);
+}
+
+
+/* =========================================
+   HESAPLAMA BİLGİSİ
+========================================= */
+
+.birthchart-source-note {
+    margin:
+        35px 0 22px;
+
+    padding: 18px;
+
+    display: flex;
+
+    gap: 20px;
+
+    align-items: center;
+
+    border:
+        1px solid rgba(255,255,255,.055);
+
+    border-radius: 13px;
+
+    background:
+        rgba(255,255,255,.018);
+}
+
+.birthchart-source-note span {
+    color: #a88eff;
+
+    font-size: 8px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+}
+
+.birthchart-source-note p {
+    margin: 0;
+
+    color:
+        rgba(255,255,255,.35);
+
+    font-size: 10px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   ANİMASYON
+========================================= */
+
+@keyframes birthWheelSlowSpin {
+
+    from {
+        transform:
+            rotate(0deg);
+    }
+
+    to {
+        transform:
+            rotate(360deg);
+    }
+}
+
+
+/* =========================================
+   MOBİL
+========================================= */
+
+@media (max-width: 650px) {
+
+    .birthchart-result {
+        padding:
+            60px 15px 80px;
+    }
+
+    .birth-wheel {
+        width: 300px;
+        height: 300px;
+    }
+
+    .birth-wheel-zodiac {
+        transform:
+            none;
+    }
+
+    .birthchart-big-three {
+        grid-template-columns: 1fr;
+    }
+
+    .birthchart-houses {
+        grid-template-columns: 1fr;
+    }
+
+    .birthchart-house-row:nth-child(odd) {
+        border-right: 0;
+    }
+
+    .birthchart-angle-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .birthchart-source-note {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+    }
+}
