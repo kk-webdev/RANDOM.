@@ -19191,3 +19191,482 @@ body::-webkit-scrollbar {
         gap: 8px;
     }
 }
+
+/* =========================================
+   14 - ŞANSINI DENE
+========================================= */
+
+.luckytrap {
+    width: 100%;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 65px 24px 100px;
+    text-align: center;
+}
+
+.luckytrap-header {
+    margin-bottom: 30px;
+}
+
+.luckytrap-kicker {
+    display: block;
+    margin-bottom: 12px;
+    color: #9b6cff;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 5px;
+}
+
+.luckytrap-header h2 {
+    margin: 0 0 10px;
+    font-size: clamp(40px, 7vw, 70px);
+    line-height: .95;
+    letter-spacing: -3px;
+}
+
+.luckytrap-header p {
+    color: rgba(255,255,255,.45);
+    font-size: 14px;
+}
+
+.luckytrap-balance {
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto 22px;
+    padding: 17px 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 16px;
+
+    background: rgba(255,255,255,.035);
+}
+
+.luckytrap-balance span {
+    color: rgba(255,255,255,.42);
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.luckytrap-balance strong {
+    font-size: 24px;
+    font-weight: 900;
+}
+
+
+/* SLOT MAKİNESİ */
+
+.luckytrap-machine {
+    max-width: 520px;
+    margin: 0 auto 25px;
+    padding: 25px;
+
+    border: 1px solid rgba(151,92,255,.3);
+    border-radius: 25px;
+
+    background:
+        radial-gradient(
+            circle at top,
+            rgba(132,76,255,.14),
+            rgba(12,12,18,.95) 65%
+        );
+
+    box-shadow:
+        0 0 50px rgba(112,66,255,.08);
+}
+
+.luckytrap-reels {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.luckytrap-reel {
+    height: 125px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #f5f5f7;
+    color: #111;
+
+    border-radius: 15px;
+
+    font-size: 55px;
+    font-weight: 900;
+
+    box-shadow:
+        inset 0 0 25px rgba(0,0,0,.15);
+}
+
+
+/* BAHİS */
+
+.luckytrap-bet-area {
+    max-width: 420px;
+    margin: 0 auto 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+}
+
+.luckytrap-label {
+    color: rgba(255,255,255,.5);
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+#luckyTrapBet {
+    min-width: 145px;
+    padding: 12px 14px;
+
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 12px;
+
+    outline: none;
+
+    background: #121217;
+    color: white;
+
+    font-size: 14px;
+    font-weight: 800;
+}
+
+
+/* ÇEVİR */
+
+.luckytrap-spin {
+    width: 100%;
+    max-width: 420px;
+
+    padding: 17px 20px;
+
+    border: 0;
+    border-radius: 15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7147ff,
+            #a850ff
+        );
+
+    color: white;
+
+    font-size: 12px;
+    font-weight: 950;
+    letter-spacing: 3px;
+
+    cursor: pointer;
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+.luckytrap-spin:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 35px rgba(128,73,255,.25);
+}
+
+.luckytrap-message {
+    min-height: 24px;
+    margin-top: 17px;
+
+    color: rgba(255,255,255,.7);
+    font-size: 13px;
+}
+
+.luckytrap-demo-note {
+    margin-top: 28px;
+
+    color: rgba(255,255,255,.25);
+    font-size: 10px;
+    line-height: 1.6;
+}
+
+
+/* TELEFON */
+
+@media (max-width: 600px) {
+
+    .luckytrap {
+        padding:
+            45px
+            16px
+            80px;
+    }
+
+    .luckytrap-reel {
+        height: 95px;
+        font-size: 42px;
+    }
+
+    .luckytrap-machine {
+        padding: 16px;
+    }
+
+}
+
+/* 14 - 6x5 OYUN ALANI */
+
+.luckytrap-game-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+
+    margin-bottom: 22px;
+
+    color: #ffd86b;
+}
+
+.luckytrap-game-title > span {
+    font-size: 32px;
+
+    filter:
+        drop-shadow(
+            0 0 12px
+            rgba(255,213,76,.5)
+        );
+}
+
+.luckytrap-game-title div {
+    display: flex;
+    flex-direction: column;
+}
+
+.luckytrap-game-title strong {
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: 2px;
+}
+
+.luckytrap-game-title small {
+    margin-top: 4px;
+
+    color: #fff;
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 7px;
+}
+
+
+.luckytrap-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(6, 1fr);
+
+    gap: 8px;
+
+    padding: 15px;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(48,30,90,.95),
+            rgba(13,10,28,.98)
+        );
+
+    border:
+        1px solid
+        rgba(255,215,100,.2);
+
+    box-shadow:
+        inset 0 0 40px
+        rgba(116,69,255,.18);
+}
+
+
+.luckytrap-symbol {
+    aspect-ratio: 1 / 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background:
+        radial-gradient(
+            circle at 50% 35%,
+            rgba(255,255,255,.11),
+            rgba(255,255,255,.025)
+        );
+
+    border:
+        1px solid
+        rgba(255,255,255,.06);
+
+    font-size:
+        clamp(27px, 4vw, 45px);
+
+    user-select: none;
+
+    transition:
+        transform .2s ease,
+        opacity .2s ease;
+}
+
+
+.luckytrap-multiplier-preview {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    margin-top: 15px;
+}
+
+
+.luckytrap-multiplier-preview span {
+    padding: 7px 11px;
+
+    border-radius: 999px;
+
+    background:
+        rgba(255,202,69,.08);
+
+    border:
+        1px solid
+        rgba(255,208,72,.18);
+
+    color: #ffd96a;
+
+    font-size: 10px;
+    font-weight: 900;
+}
+
+
+@media (max-width: 600px) {
+
+    .luckytrap-grid {
+        gap: 4px;
+        padding: 8px;
+    }
+
+    .luckytrap-symbol {
+        border-radius: 7px;
+
+        font-size:
+            clamp(20px, 8vw, 31px);
+    }
+
+    .luckytrap-game-title strong {
+        font-size: 18px;
+    }
+
+}
+
+/* =========================================
+   14 - SLOT DÖNÜŞ ANİMASYONU
+========================================= */
+
+.luckytrap-symbol {
+    position: relative;
+    overflow: hidden;
+
+    transform: translateY(0) scale(1);
+
+    will-change:
+        transform,
+        filter,
+        opacity;
+}
+
+
+/* DÖNERKEN */
+
+.luckytrap-symbol.spinning {
+    animation:
+        luckySymbolSpin .18s
+        linear infinite;
+
+    filter:
+        blur(2px)
+        brightness(.8);
+
+    opacity: .65;
+}
+
+
+@keyframes luckySymbolSpin {
+
+    0% {
+        transform:
+            translateY(-18px)
+            scale(.94);
+
+        opacity: 0;
+    }
+
+    45% {
+        transform:
+            translateY(0)
+            scale(.98);
+
+        opacity: .75;
+    }
+
+    100% {
+        transform:
+            translateY(18px)
+            scale(.94);
+
+        opacity: 0;
+    }
+
+}
+
+
+/* SEMBOL YERİNE OTURUNCA */
+
+.luckytrap-symbol.landed {
+    animation:
+        luckySymbolLand .22s
+        cubic-bezier(.2,.8,.3,1.4);
+}
+
+
+@keyframes luckySymbolLand {
+
+    0% {
+        transform:
+            translateY(-20px)
+            scale(.88);
+
+        filter:
+            brightness(1.6);
+    }
+
+    65% {
+        transform:
+            translateY(4px)
+            scale(1.07);
+    }
+
+    100% {
+        transform:
+            translateY(0)
+            scale(1);
+
+        filter:
+            brightness(1);
+    }
+
+}
